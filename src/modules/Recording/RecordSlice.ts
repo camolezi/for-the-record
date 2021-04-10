@@ -4,7 +4,20 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const askForMicrophonePermission = createAsyncThunk(
   'record/askForMicrophonePermission',
   async () => {
-    return navigator.mediaDevices.getUserMedia({ audio: true });
+    await navigator.mediaDevices.getUserMedia({ audio: true });
+  }
+);
+
+export const startRecordingClicked = createAsyncThunk(
+  'record/startRecordingClicked',
+  async (_, { dispatch, getState }) => {
+    const {
+      record: { isMicrophoneAvailable },
+    } = getState() as { record: RecordState };
+
+    if (!isMicrophoneAvailable) {
+      dispatch(askForMicrophonePermission());
+    }
   }
 );
 
@@ -24,9 +37,13 @@ const RecordSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) =>
-    builder.addCase(askForMicrophonePermission.fulfilled, (state) => {
-      state.isMicrophoneAvailable = true;
-    }),
+    builder
+      .addCase(askForMicrophonePermission.fulfilled, (state) => {
+        state.isMicrophoneAvailable = true;
+      })
+      .addCase(askForMicrophonePermission.rejected, (state) => {
+        state.isMicrophoneAvailable = false;
+      }),
 });
 
 export default RecordSlice.reducer;
