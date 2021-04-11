@@ -1,15 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
 import WrapWithProviders from '../app/Providers';
 import { CreateStore } from '../app/store';
 import microphone from '../modules/Recording/Microphone';
-import {
-  InitialRecordState,
-  RecordState,
-} from '../modules/Recording/RecordSlice';
+import { InitialRecordState } from '../modules/Recording/state/RecordSlice';
+import { RecordState } from '../modules/Recording/state/RecordTypes';
 
 function renderRecordView(state?: Partial<RecordState>) {
   render(
@@ -47,26 +45,36 @@ test('RecordView should have a start record button', () => {
   expect(recordButton).toBeVisible();
 });
 
-test('Should ask for browser permission when record button is first clicked', () => {
+test('Should ask for browser permission when record button is first clicked', async () => {
   renderRecordView();
 
   const [navigatorMock, restore] = createNavigatorMock();
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
-  userEvent.click(recordButton);
 
-  expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1);
+  userEvent.click(recordButton);
+  await waitFor(() =>
+    expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1)
+  );
+
+  // userEvent.click(recordButton);
+  // await waitFor(() =>
+  //   expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1)
+  // );
 
   restore();
 });
 
-test('Should start recording after record button is clicked and have permission', () => {
-  renderRecordView({ isMicrophoneAvailable: true });
+test('If microphone is available, should start recording when record button is clicked and stop when clicked again', async () => {
+  renderRecordView({ isMicrophoneAvailable: 'available' });
 
   const startRecording = jest.spyOn(microphone, 'startRecording');
+  const stopRecording = jest.spyOn(microphone, 'stopRecording');
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
   userEvent.click(recordButton);
+  await waitFor(() => expect(startRecording).toHaveBeenCalledTimes(1));
 
-  expect(startRecording).toHaveBeenCalledTimes(1);
+  userEvent.click(recordButton);
+  await waitFor(() => expect(stopRecording).toHaveBeenCalledTimes(1));
 });
