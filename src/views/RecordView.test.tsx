@@ -4,9 +4,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
 import WrapWithProviders from '../app/Providers';
+import { CreateStore } from '../app/store';
 
 function renderRecordView() {
-  render(WrapWithProviders(<RecordView />));
+  render(WrapWithProviders(<RecordView />, CreateStore()));
 }
 
 function createNavigatorMock(): [Navigator, () => void] {
@@ -14,7 +15,7 @@ function createNavigatorMock(): [Navigator, () => void] {
     ...navigator,
     mediaDevices: {
       ...navigator.mediaDevices,
-      getUserMedia: jest.fn(),
+      getUserMedia: jest.fn().mockResolvedValue(true),
     },
   };
 
