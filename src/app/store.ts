@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import RecordSlice, { RecordState } from '../modules/Recording/RecordSlice';
+import RecordSlice from '../modules/Recording/state/RecordSlice';
+import { RecordState } from '../modules/Recording/state/RecordTypes';
 
 export function CreateStore(initialState?: { record: RecordState }) {
   return configureStore({
