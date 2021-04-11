@@ -13,4 +13,5 @@ export function CreateStore(initialState?: { record: RecordState }) {
 
 const store = CreateStore();
 
+export type AppState = ReturnType<typeof store.getState>;
 export default store;

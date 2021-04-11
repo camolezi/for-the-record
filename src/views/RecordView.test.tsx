@@ -39,7 +39,7 @@ function createNavigatorMock(): [Navigator, () => void] {
   return [navigatorMock, () => spy.mockRestore()];
 }
 
-test('RecordView should have a start record button', () => {
+test('View should have a start record button', () => {
   renderRecordView();
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
   expect(recordButton).toBeVisible();
@@ -47,7 +47,6 @@ test('RecordView should have a start record button', () => {
 
 test('Should ask for browser permission when record button is first clicked', async () => {
   renderRecordView();
-
   const [navigatorMock, restore] = createNavigatorMock();
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
@@ -57,12 +56,20 @@ test('Should ask for browser permission when record button is first clicked', as
     expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1)
   );
 
-  // userEvent.click(recordButton);
-  // await waitFor(() =>
-  //   expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1)
-  // );
-
   restore();
+});
+
+test('When recording should change button to stop recording button', async () => {
+  renderRecordView({ isMicrophoneAvailable: 'available' });
+
+  const recordButton = screen.getByRole('button', { name: /Start Record/i });
+  userEvent.click(recordButton);
+
+  const stopRecordButton = await screen.findByRole('button', {
+    name: /End Record/i,
+  });
+
+  expect(stopRecordButton).toBeVisible();
 });
 
 test('If microphone is available, should start recording when record button is clicked and stop when clicked again', async () => {
@@ -73,8 +80,12 @@ test('If microphone is available, should start recording when record button is c
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
   userEvent.click(recordButton);
+
   await waitFor(() => expect(startRecording).toHaveBeenCalledTimes(1));
 
-  userEvent.click(recordButton);
+  const stopRecordButton = await screen.findByRole('button', {
+    name: /End Record/i,
+  });
+  userEvent.click(stopRecordButton);
   await waitFor(() => expect(stopRecording).toHaveBeenCalledTimes(1));
 });
