@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
 import WrapWithProviders from '../app/Providers';
 import { CreateStore } from '../app/Store';
-import microphone from '../modules/Recording/Microphone';
+import microphone from '../modules/Recording/Microphone/Microphone';
 import { InitialRecordState } from '../modules/Recording/state/RecordSlice';
 import { RecordState } from '../modules/Recording/state/RecordTypes';
 
@@ -72,7 +72,7 @@ test('When recording should change button to stop recording button', async () =>
   expect(stopRecordButton).toBeVisible();
 });
 
-test('If microphone is available, should start recording when record button is clicked and stop when clicked again', async () => {
+test('If microphone is available, should start recording when record button is clicked and stop when end record button is pressed', async () => {
   renderRecordView({ isMicrophoneAvailable: 'available' });
 
   const startRecording = jest.spyOn(microphone, 'startRecording');

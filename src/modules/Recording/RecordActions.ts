@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import microphone from './Microphone';
+import microphone from './Microphone/Microphone';
 import { RecordState } from './state/RecordTypes';
 
 export const askForMicrophonePermission = createAsyncThunk(
@@ -20,6 +20,8 @@ export const recordButtonClicked = createAsyncThunk(
       dispatch(askForMicrophonePermission());
       return false;
     }
+
+    // TODO - move this logic to a pure reducer, create data type for representing microphone state
 
     if (isMicrophoneAvailable === 'available') {
       if (isRecording) {
