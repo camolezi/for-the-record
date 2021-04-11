@@ -5,9 +5,24 @@ import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
 import WrapWithProviders from '../app/Providers';
 import { CreateStore } from '../app/store';
+import microphone from '../modules/Recording/Microphone';
+import {
+  InitialRecordState,
+  RecordState,
+} from '../modules/Recording/RecordSlice';
 
-function renderRecordView() {
-  render(WrapWithProviders(<RecordView />, CreateStore()));
+function renderRecordView(state?: Partial<RecordState>) {
+  render(
+    WrapWithProviders(
+      <RecordView />,
+      CreateStore({
+        record: {
+          ...InitialRecordState,
+          ...state,
+        },
+      })
+    )
+  );
 }
 
 function createNavigatorMock(): [Navigator, () => void] {
@@ -32,7 +47,7 @@ test('RecordView should have a start record button', () => {
   expect(recordButton).toBeVisible();
 });
 
-test('Should ask for permission when record button is first clicked', () => {
+test('Should ask for browser permission when record button is first clicked', () => {
   renderRecordView();
 
   const [navigatorMock, restore] = createNavigatorMock();
@@ -43,4 +58,15 @@ test('Should ask for permission when record button is first clicked', () => {
   expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1);
 
   restore();
+});
+
+test('Should start recording after record button is clicked and have permission', () => {
+  renderRecordView({ isMicrophoneAvailable: true });
+
+  const startRecording = jest.spyOn(microphone, 'startRecording');
+
+  const recordButton = screen.getByRole('button', { name: /Start Record/i });
+  userEvent.click(recordButton);
+
+  expect(startRecording).toHaveBeenCalledTimes(1);
 });

@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import RecordSlice from '../modules/Recording/RecordSlice';
+import RecordSlice, { RecordState } from '../modules/Recording/RecordSlice';
 
-export function CreateStore() {
+export function CreateStore(initialState?: { record: RecordState }) {
   return configureStore({
     reducer: {
       record: RecordSlice,
     },
+    preloadedState: initialState,
   });
 }
 
