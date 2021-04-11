@@ -9,15 +9,20 @@ function renderRecordView() {
   render(WrapWithProviders(<RecordView />));
 }
 
-function createNavigatorMock() {
-  const navigatorMock = {
+function createNavigatorMock(): [Navigator, () => void] {
+  const navigatorMock: Navigator = {
+    ...navigator,
     mediaDevices: {
+      ...navigator.mediaDevices,
       getUserMedia: jest.fn(),
     },
   };
-  jest.spyOn(window, 'navigator', 'get').mockReturnValue(navigatorMock as any);
 
-  return navigatorMock;
+  const spy = jest
+    .spyOn(window, 'navigator', 'get')
+    .mockReturnValue(navigatorMock);
+
+  return [navigatorMock, () => spy.mockRestore()];
 }
 
 test('RecordView should have a start record button', () => {
@@ -29,10 +34,12 @@ test('RecordView should have a start record button', () => {
 test('Should ask for permission when record button is first clicked', () => {
   renderRecordView();
 
-  const navigatorMock = createNavigatorMock();
+  const [navigatorMock, restore] = createNavigatorMock();
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
   userEvent.click(recordButton);
 
   expect(navigatorMock.mediaDevices.getUserMedia).toBeCalledTimes(1);
+
+  restore();
 });
