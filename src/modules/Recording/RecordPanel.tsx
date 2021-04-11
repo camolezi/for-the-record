@@ -1,14 +1,12 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
 import { recordButtonClicked } from './RecordActions';
-import { AppState } from '../../app/store';
-
-const selectIsRecording = (state: AppState) => state.record.isRecording;
+import { useTypedDispatch, useTypedSelector } from '../../app/Store';
+import { selectIsRecording } from './state/RecordSelectors';
 
 function RecordPanel(): JSX.Element {
-  const dispatch = useDispatch();
-  const isRecording = useSelector(selectIsRecording);
+  const dispatch = useTypedDispatch();
+  const isRecording = useTypedSelector(selectIsRecording);
 
   return (
     <Button colorScheme="teal" onClick={() => dispatch(recordButtonClicked())}>

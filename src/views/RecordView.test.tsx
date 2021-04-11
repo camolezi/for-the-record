@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
 import WrapWithProviders from '../app/Providers';
-import { CreateStore } from '../app/store';
+import { CreateStore } from '../app/Store';
 import microphone from '../modules/Recording/Microphone';
 import { InitialRecordState } from '../modules/Recording/state/RecordSlice';
 import { RecordState } from '../modules/Recording/state/RecordTypes';
