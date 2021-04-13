@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { Provider } from 'react-redux';
+import AppTheme from '../theme/theme';
 import mainStore from './Store';
 
 export default function WrapWithProviders(
@@ -9,7 +10,7 @@ export default function WrapWithProviders(
 ): JSX.Element {
   return (
     <Provider store={store}>
-      <ChakraProvider>{children}</ChakraProvider>
+      <ChakraProvider theme={AppTheme}>{children}</ChakraProvider>
     </Provider>
   );
 }
