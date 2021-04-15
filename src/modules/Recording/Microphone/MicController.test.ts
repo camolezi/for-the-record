@@ -34,8 +34,10 @@ test('Should store all received blobs', () => {
   (mediaRecorder as any).ondataavailable(blob);
   (mediaRecorder as any).ondataavailable(blob);
 
-  micController.stop();
+  micController.stop().then((recordedData) => {
+    expect(recordedData).toEqual(new Blob([blob.data, blob.data]));
+  });
 
   const data = micController.getRecordedData();
-  expect(data).toEqual([blob.data, blob.data]);
+  expect(data).toEqual(new Blob([blob.data, blob.data]));
 });

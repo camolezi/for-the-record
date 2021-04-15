@@ -1,3 +1,5 @@
+// TODO - add error handling
+
 export default class MicrophoneController {
   private readonly mediaRecorder: MediaRecorder;
 
@@ -11,16 +13,8 @@ export default class MicrophoneController {
       this.dataChunks.push(event.data);
     };
 
-    // this.mediaRecorder.onstop = (_event: any) => {
-    //   console.log('onStop');
-    //   const audio = document.createElement('audio');
-    //   audio.controls = true;
-    //   const blob = new Blob(this.dataChunks, {
-    //     type: 'audio/ogg; codecs=opus',
-    //   });
-    //   const audioURL = window.URL.createObjectURL(blob);
-    //   audio.src = audioURL;
-    //   document.body.appendChild(audio);
+    // this.mediaRecorder.onstop = (event: Event) => {
+
     // };
   }
 
@@ -28,11 +22,22 @@ export default class MicrophoneController {
     this.mediaRecorder.start();
   }
 
-  stop(): void {
+  stop(): Promise<Blob> {
+    const stopPromise = new Promise<Blob>((resolve) => {
+      this.mediaRecorder.onstop = () => {
+        resolve(this.getRecordedData());
+      };
+    });
+
     this.mediaRecorder.stop();
+
+    return stopPromise;
   }
 
-  getRecordedData(): Blob[] {
-    return this.dataChunks;
+  getRecordedData(): Blob {
+    const blob = new Blob(this.dataChunks, {
+      type: 'audio/ogg; codecs=opus',
+    });
+    return blob;
   }
 }
