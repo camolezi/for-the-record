@@ -2,7 +2,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   askForMicrophonePermission,
-  recordButtonClicked,
   startRecording,
   stopRecording,
 } from '../RecordActions';
