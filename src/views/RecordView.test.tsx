@@ -7,7 +7,10 @@ import WrapWithProviders from '../app/Providers';
 import { CreateStore } from '../app/Store';
 import microphone from '../modules/Recording/Microphone/Microphone';
 import { InitialRecordState } from '../modules/Recording/state/RecordSlice';
-import { RecordState } from '../modules/Recording/state/RecordTypes';
+import {
+  MicAvailability,
+  RecordState,
+} from '../modules/Recording/state/RecordTypes';
 
 function renderRecordView(state?: Partial<RecordState>) {
   render(
@@ -60,7 +63,7 @@ test('Should ask for browser permission when record button is first clicked', as
 });
 
 test('When recording should change button to stop recording button', async () => {
-  renderRecordView({ isMicrophoneAvailable: 'available' });
+  renderRecordView({ isMicrophoneAvailable: MicAvailability.Available });
 
   const recordButton = screen.getByRole('button', { name: /Start Record/i });
   userEvent.click(recordButton);
@@ -73,7 +76,7 @@ test('When recording should change button to stop recording button', async () =>
 });
 
 test('If microphone is available, should start recording when record button is clicked and stop when end record button is pressed', async () => {
-  renderRecordView({ isMicrophoneAvailable: 'available' });
+  renderRecordView({ isMicrophoneAvailable: MicAvailability.Available });
 
   const startRecording = jest.spyOn(microphone, 'startRecording');
   const stopRecording = jest.spyOn(microphone, 'stopRecording');
@@ -89,3 +92,4 @@ test('If microphone is available, should start recording when record button is c
   userEvent.click(stopRecordButton);
   await waitFor(() => expect(stopRecording).toHaveBeenCalledTimes(1));
 });
+

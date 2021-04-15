@@ -1,5 +1,4 @@
 // TODO - add error handling
-
 export default class MicrophoneController {
   private readonly mediaRecorder: MediaRecorder;
 
@@ -12,10 +11,6 @@ export default class MicrophoneController {
     this.mediaRecorder.ondataavailable = (event: BlobEvent) => {
       this.dataChunks.push(event.data);
     };
-
-    // this.mediaRecorder.onstop = (event: Event) => {
-
-    // };
   }
 
   start(): void {

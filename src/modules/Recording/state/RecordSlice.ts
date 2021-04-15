@@ -3,12 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   askForMicrophonePermission,
   recordButtonClicked,
+  startRecording,
+  stopRecording,
 } from '../RecordActions';
-import { RecordState } from './RecordTypes';
+import { MicAvailability, RecordState } from './RecordTypes';
 
 export const InitialRecordState: RecordState = {
   isRecording: false,
-  isMicrophoneAvailable: 'not-available',
+  isMicrophoneAvailable: MicAvailability.NotAvailable,
 };
 
 const RecordSlice = createSlice({
@@ -19,16 +21,19 @@ const RecordSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(askForMicrophonePermission.fulfilled, (state) => {
-        state.isMicrophoneAvailable = 'available';
+        state.isMicrophoneAvailable = MicAvailability.Available;
       })
       .addCase(askForMicrophonePermission.rejected, (state) => {
-        state.isMicrophoneAvailable = 'not-available';
+        state.isMicrophoneAvailable = MicAvailability.NotAvailable;
       })
       .addCase(askForMicrophonePermission.pending, (state) => {
-        state.isMicrophoneAvailable = 'pending';
+        state.isMicrophoneAvailable = MicAvailability.Pending;
       })
-      .addCase(recordButtonClicked.fulfilled, (state, action) => {
-        state.isRecording = action.payload;
+      .addCase(startRecording.fulfilled, (state) => {
+        state.isRecording = true;
+      })
+      .addCase(stopRecording.fulfilled, (state) => {
+        state.isRecording = false;
       }),
 });
 
