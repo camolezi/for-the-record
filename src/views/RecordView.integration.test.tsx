@@ -42,12 +42,6 @@ function createNavigatorMock(): [Navigator, () => void] {
   return [navigatorMock, () => spy.mockRestore()];
 }
 
-test('View should have a start record button', () => {
-  renderRecordView();
-  const recordButton = screen.getByRole('button', { name: /Start Record/i });
-  expect(recordButton).toBeVisible();
-});
-
 test('Should ask for browser permission when record button is first clicked', async () => {
   renderRecordView();
   const [navigatorMock, restore] = createNavigatorMock();
@@ -60,19 +54,6 @@ test('Should ask for browser permission when record button is first clicked', as
   );
 
   restore();
-});
-
-test('When recording should change button to stop recording button', async () => {
-  renderRecordView({ isMicrophoneAvailable: MicAvailability.Available });
-
-  const recordButton = screen.getByRole('button', { name: /Start Record/i });
-  userEvent.click(recordButton);
-
-  const stopRecordButton = await screen.findByRole('button', {
-    name: /End Record/i,
-  });
-
-  expect(stopRecordButton).toBeVisible();
 });
 
 test('If microphone is available, should start recording when record button is clicked and stop when end record button is pressed', async () => {
@@ -92,4 +73,3 @@ test('If microphone is available, should start recording when record button is c
   userEvent.click(stopRecordButton);
   await waitFor(() => expect(stopRecording).toHaveBeenCalledTimes(1));
 });
-
