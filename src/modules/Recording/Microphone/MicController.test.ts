@@ -22,7 +22,7 @@ test('Should start and stop the browser microphone', () => {
   expect(mediaRecorder.stop).toHaveBeenCalledTimes(1);
 });
 
-test('Should store all received blobs', () => {
+test('Should store all received blobs', async () => {
   const mediaRecorder = createMediaRecorderMock();
   const blob = { data: new Blob(['a', 'b', 'c']) } as BlobEvent;
 
@@ -34,9 +34,8 @@ test('Should store all received blobs', () => {
   (mediaRecorder as any).ondataavailable(blob);
   (mediaRecorder as any).ondataavailable(blob);
 
-  micController.stop().then((recordedData) => {
-    expect(recordedData).toEqual(new Blob([blob.data, blob.data]));
-  });
+  const recordedData = await micController.stop();
+  expect(recordedData).toEqual(new Blob([blob.data, blob.data]));
 
   const data = micController.getRecordedData();
   expect(data).toEqual(new Blob([blob.data, blob.data]));
