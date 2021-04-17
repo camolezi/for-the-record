@@ -7,4 +7,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '_' }],
   },
+  parserOptions: {
+    project: 'tsconfig.eslint.json',
+  },
 };

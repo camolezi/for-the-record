@@ -42,7 +42,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -63,9 +64,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.6",
     "@types/react-redux": "^7.1.16",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
+    "cypress": "^7.1.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
