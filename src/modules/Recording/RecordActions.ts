@@ -1,4 +1,5 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
+import { createdAudioUrl } from '../Playback/state/PlaybackSlice';
 import microphone from './Microphone/Microphone';
 import { MicAvailability, RecordState } from './state/RecordTypes';
 
@@ -18,8 +19,13 @@ export const startRecording = createAsyncThunk(
 
 export const stopRecording = createAsyncThunk(
   'record/stopRecording',
-  async () => {
-    await microphone.stopRecording();
+  async (_, { dispatch }) => {
+    const audioData = await microphone.stopRecording();
+
+    if (audioData) {
+      const audioURL = window.URL.createObjectURL(audioData);
+      dispatch(createdAudioUrl(audioURL));
+    }
   }
 );
 

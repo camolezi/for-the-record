@@ -9,7 +9,6 @@ export class Microphone {
     });
 
     const media = new MediaRecorder(microphoneStream);
-
     this.microphoneController = new MicrophoneController(media);
   }
 
@@ -17,8 +16,9 @@ export class Microphone {
     if (this.microphoneController) this.microphoneController.start();
   }
 
-  stopRecording(): void {
-    if (this.microphoneController) this.microphoneController.stop();
+  async stopRecording(): Promise<Blob | null> {
+    if (!this.microphoneController) return null;
+    return this.microphoneController.stop();
   }
 }
 

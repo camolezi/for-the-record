@@ -39,4 +39,6 @@ test('Should store all received blobs', async () => {
 
   const data = micController.getRecordedData();
   expect(data).toEqual(new Blob([blob.data, blob.data]));
+
+  expect(data).toEqual(recordedData);
 });

@@ -2,7 +2,7 @@
 export default class MicrophoneController {
   private readonly mediaRecorder: MediaRecorder;
 
-  private readonly dataChunks: Blob[];
+  private dataChunks: Blob[];
 
   constructor(mediaRecorder: MediaRecorder) {
     this.mediaRecorder = mediaRecorder;
@@ -14,6 +14,7 @@ export default class MicrophoneController {
   }
 
   start(): void {
+    this.dataChunks = new Array<Blob>();
     this.mediaRecorder.start();
   }
 
