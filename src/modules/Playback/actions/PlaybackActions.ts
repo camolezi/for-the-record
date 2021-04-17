@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import audio from '../AudioController/AudioController';
+import { PlaybackState } from '../state/PlaybackTypes';
 
 export const createdAudioUrl = createAction<string>('playback/createdAudioUrl');
 
@@ -22,7 +23,7 @@ export const pausePlayButtonClicked = createAsyncThunk(
   (_, { dispatch, getState }) => {
     const {
       playback: { isPlaying },
-    } = getState() as any;
+    } = getState() as { playback: PlaybackState };
 
     if (isPlaying) dispatch(pausePlayingRecord());
     else dispatch(startPlayingRecord());

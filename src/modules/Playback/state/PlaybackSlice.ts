@@ -12,7 +12,7 @@ export const InitialPlaybackState: PlaybackState = {
   isPlaying: false,
 };
 
-const PlaybackReducer = createReducer(InitialPlaybackState, (builder) =>
+const PlaybackSlice = createReducer(InitialPlaybackState, (builder) =>
   builder
     .addCase(createdAudioUrl, (state, action) => {
       state.audioUrl = action.payload;
@@ -25,4 +25,4 @@ const PlaybackReducer = createReducer(InitialPlaybackState, (builder) =>
     })
 );
 
-export default PlaybackReducer;
+export default PlaybackSlice;
