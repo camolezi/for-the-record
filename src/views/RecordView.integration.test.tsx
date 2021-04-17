@@ -1,29 +1,21 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 import RecordView from './RecordView';
-import WrapWithProviders from '../app/Providers';
-import { CreateStore } from '../app/Store';
+
 import microphone from '../modules/Recording/Microphone/Microphone';
 import { InitialRecordState } from '../modules/Recording/state/RecordSlice';
 import {
   MicAvailability,
   RecordState,
 } from '../modules/Recording/state/RecordTypes';
+import RenderUsingState from '../utils/testing/RenderUsingState';
 
 function renderRecordView(state?: Partial<RecordState>) {
-  render(
-    WrapWithProviders(
-      <RecordView />,
-      CreateStore({
-        record: {
-          ...InitialRecordState,
-          ...state,
-        },
-      })
-    )
-  );
+  RenderUsingState(<RecordView />, {
+    record: { ...InitialRecordState, ...state },
+  });
 }
 
 function createNavigatorMock(): [Navigator, () => void] {
