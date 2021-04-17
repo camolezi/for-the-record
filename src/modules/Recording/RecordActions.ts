@@ -1,5 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
-import { createdAudioUrl } from '../Playback/state/PlaybackSlice';
+import { createdAudioUrl } from '../Playback/actions/PlaybackActions';
+
 import microphone from './Microphone/Microphone';
 import { MicAvailability, RecordState } from './state/RecordTypes';
 

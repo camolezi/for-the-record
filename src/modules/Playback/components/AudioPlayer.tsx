@@ -1,15 +1,18 @@
-/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 import { ButtonGroup, Icon, IconButton } from '@chakra-ui/react';
 
 import { MdForward10, MdReplay10, MdStop, MdPlayArrow } from 'react-icons/md';
+import { useTypedDispatch, useTypedSelector } from '../../../app/Store';
 
-interface Props {
-  audioSrc: string;
-}
+import { selectIsPlaying } from '../state/PlaybackSelectors';
+import { pausePlayButtonClicked } from '../actions/PlaybackActions';
 
-function AudioPlayer({ audioSrc }: Props): JSX.Element {
+function AudioPlayer(): JSX.Element {
+  const dispatch = useTypedDispatch();
+  const isPlaying = useTypedSelector(selectIsPlaying);
+
   return (
     <>
       <ButtonGroup variant="outline" spacing="3">
@@ -24,6 +27,9 @@ function AudioPlayer({ audioSrc }: Props): JSX.Element {
           aria-label="PlayPause"
           size="lg"
           icon={<Icon as={MdPlayArrow} />}
+          onClick={() => {
+            dispatch(pausePlayButtonClicked());
+          }}
         />
         <IconButton
           colorScheme="teal"
@@ -38,7 +44,6 @@ function AudioPlayer({ audioSrc }: Props): JSX.Element {
           icon={<Icon as={MdReplay10} />}
         />
       </ButtonGroup>
-      <audio controls src={audioSrc} />
     </>
   );
 }

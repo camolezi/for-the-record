@@ -1,39 +1,28 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
+  createdAudioUrl,
   pausePlayingRecord,
   startPlayingRecord,
 } from '../actions/PlaybackActions';
-
-interface PlaybackState {
-  audioUrl: string;
-  isPlaying: boolean;
-}
+import { PlaybackState } from './PlaybackTypes';
 
 export const InitialPlaybackState: PlaybackState = {
   audioUrl: '',
   isPlaying: false,
 };
 
-const PlaybackSlice = createSlice({
-  name: 'playback',
-  initialState: InitialPlaybackState,
-  reducers: {
-    createdAudioUrl(state, action: PayloadAction<string>) {
+const PlaybackReducer = createReducer(InitialPlaybackState, (builder) =>
+  builder
+    .addCase(createdAudioUrl, (state, action) => {
       state.audioUrl = action.payload;
-    },
-  },
+    })
+    .addCase(startPlayingRecord.fulfilled, (state) => {
+      state.isPlaying = true;
+    })
+    .addCase(pausePlayingRecord.fulfilled, (state) => {
+      state.isPlaying = false;
+    })
+);
 
-  extraReducers: (builder) =>
-    builder
-      .addCase(startPlayingRecord.fulfilled, (state) => {
-        state.isPlaying = true;
-      })
-      .addCase(pausePlayingRecord.fulfilled, (state) => {
-        state.isPlaying = false;
-      }),
-});
-
-export default PlaybackSlice.reducer;
-
-export const { createdAudioUrl } = PlaybackSlice.actions;
+export default PlaybackReducer;
