@@ -10,7 +10,9 @@ import {
   MicAvailability,
   RecordState,
 } from '../modules/Recording/state/RecordTypes';
-import RenderUsingState from '../utils/testing/RenderUsingState';
+import { RenderUsingState } from '../utils/testing/RenderUsingState';
+
+beforeAll(() => jest.restoreAllMocks());
 
 function renderRecordView(state?: Partial<RecordState>) {
   RenderUsingState(<RecordView />, {
@@ -65,3 +67,28 @@ test('If microphone is available, should start recording when record button is c
   userEvent.click(stopRecordButton);
   await waitFor(() => expect(stopRecording).toHaveBeenCalledTimes(1));
 });
+
+// test('When microphone stop should create a url', async () => {
+//   renderRecordView({
+//     isMicrophoneAvailable: MicAvailability.Available,
+//     isRecording: true,
+//   });
+
+//   const createUrlSpy = jest.fn();
+//   jest.spyOn(window, 'URL').mockImplementation(() => {
+//     return {
+//       createObjectURL: createUrlSpy,
+//     } as any;
+//   });
+
+//   microphone.stopRecording = jest.fn().mockResolvedValue(new Blob(['a']));
+
+//   const recordButton = screen.getByRole('button', { name: /End Record/i });
+//   userEvent.click(recordButton);
+
+//   await waitFor(() =>
+//     expect(microphone.stopRecording).toHaveBeenCalledTimes(1)
+//   );
+
+//   await waitFor(() => expect(createUrlSpy).toHaveBeenCalledTimes(1));
+// });

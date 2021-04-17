@@ -5,7 +5,7 @@ import { screen } from '@testing-library/react';
 import RecordPanel from './RecordPanel';
 import { InitialRecordState } from './state/RecordSlice';
 import { RecordState, MicAvailability } from './state/RecordTypes';
-import RenderUsingState from '../../utils/testing/RenderUsingState';
+import { RenderUsingState } from '../../utils/testing/RenderUsingState';
 
 function renderRecordPanel(state?: Partial<RecordState>) {
   RenderUsingState(<RecordPanel />, {
