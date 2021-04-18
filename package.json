@@ -44,7 +44,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run" : "cypress run"
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -79,6 +79,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^3.10.2",
     "prettier": "^2.2.1"
   }
 }

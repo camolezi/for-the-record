@@ -1,7 +1,5 @@
-export default {};
-
 describe('Should be able to record and playback audio', () => {
-  it('should start recording when clicked on the play button', () => {
+  it('#Should be able to record and playback audio', () => {
     const recordingTime = 2000;
 
     cy.visit('localhost:3000');
@@ -29,3 +27,5 @@ describe('Should be able to record and playback audio', () => {
     }).click();
   });
 });
+
+export default {};
