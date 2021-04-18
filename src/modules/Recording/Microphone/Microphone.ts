@@ -4,6 +4,8 @@ export class Microphone {
   private microphoneController: MicrophoneController | null = null;
 
   async askForUserPermission(): Promise<void> {
+    if (this.microphoneController) return;
+
     const microphoneStream = await navigator.mediaDevices.getUserMedia({
       audio: true,
     });
