@@ -18,3 +18,5 @@ import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+// eslint-disable-next-line import/no-extraneous-dependencies
+import '@testing-library/cypress/add-commands';
