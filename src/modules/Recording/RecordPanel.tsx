@@ -3,11 +3,15 @@ import { Button, Icon } from '@chakra-ui/react';
 import { MdMicOff } from 'react-icons/md';
 import { recordButtonClicked } from './RecordActions';
 import { useTypedDispatch, useTypedSelector } from '../../app/Store';
-import { selectIsRecording } from './state/RecordSelectors';
+import {
+  selectIsMicAvailable,
+  selectIsRecording,
+} from './state/RecordSelectors';
 
 function RecordPanel(): JSX.Element {
   const dispatch = useTypedDispatch();
   const isRecording = useTypedSelector(selectIsRecording);
+  const isMicAvailable = useTypedSelector(selectIsMicAvailable);
 
   return (
     <>
@@ -17,11 +21,14 @@ function RecordPanel(): JSX.Element {
       >
         {isRecording ? 'End Record' : 'Start Record'}
       </Button>
-      <Icon
-        title="Waiting microphone permission"
-        aria-label="Mic Permission"
-        as={MdMicOff}
-      />
+
+      {!isMicAvailable && (
+        <Icon
+          title="Waiting microphone permission"
+          aria-label="Mic Permission"
+          as={MdMicOff}
+        />
+      )}
     </>
   );
 }
