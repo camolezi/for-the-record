@@ -22,10 +22,11 @@ export const pausePlayButtonClicked = createAsyncThunk(
   'playback/pausePlayButtonClicked',
   (_, { dispatch, getState }) => {
     const {
-      playback: { isPlaying },
+      playback: { isPlaying, audioUrl },
     } = getState() as { playback: PlaybackState };
 
-    if (isPlaying) dispatch(pausePlayingRecord());
-    else dispatch(startPlayingRecord());
+    if (audioUrl)
+      if (isPlaying) dispatch(pausePlayingRecord());
+      else dispatch(startPlayingRecord());
   }
 );

@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-
 import { ButtonGroup, Icon, IconButton } from '@chakra-ui/react';
-
-import { MdForward10, MdReplay10, MdStop, MdPlayArrow } from 'react-icons/md';
+import {
+  MdForward10,
+  MdReplay10,
+  MdStop,
+  MdPlayArrow,
+  MdPause,
+} from 'react-icons/md';
 import { useTypedDispatch, useTypedSelector } from '../../../app/Store';
 
 import { selectIsPlaying } from '../state/PlaybackSelectors';
@@ -26,7 +29,7 @@ function AudioPlayer(): JSX.Element {
           colorScheme="teal"
           aria-label="PlayPause"
           size="lg"
-          icon={<Icon as={MdPlayArrow} />}
+          icon={isPlaying ? <Icon as={MdPause} /> : <Icon as={MdPlayArrow} />}
           onClick={() => {
             dispatch(pausePlayButtonClicked());
           }}
