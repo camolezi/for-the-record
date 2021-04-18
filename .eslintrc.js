@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['airbnb-typescript-prettier'],
-  plugins: ['testing-library'],
+  plugins: ['testing-library', 'cypress'],
   rules: {
     '@typescript-eslint/ban-types': ['warn'],
     'no-use-before-define': 'off',
@@ -12,6 +12,13 @@ module.exports = {
     {
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
       extends: ['plugin:testing-library/react'],
+    },
+    {
+      files: ['**/cypress/**/*.[jt]s?(x)'],
+      extends: ['plugin:testing-library/react', 'plugin:cypress/recommended'],
+      rules: {
+        'cypress/no-unnecessary-waiting': 'warn',
+      },
     },
   ],
   parserOptions: {

@@ -13,13 +13,3 @@ describe('Control buttons should be visable', () => {
     }
   );
 });
-
-// test('play button should call ', () => {
-//   RenderDefaultState(<AudioPlayer />);
-//   const playButton = screen.getByRole('button', {
-//     name: 'PlayPause',
-//     exact: false,
-//   });
-
-//   expect(playButton).tohave
-// });

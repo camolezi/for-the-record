@@ -1,4 +1,4 @@
-describe('Should be able to record and playback audio', () => {
+describe('Recording Page', () => {
   it('#Should be able to record and playback audio', () => {
     const recordingTime = 2000;
 
@@ -14,7 +14,7 @@ describe('Should be able to record and playback audio', () => {
       name: /Start Record/i,
     }).click();
 
-    // Stop recording
+    // Stop recording after recording time
     cy.findByRole('button', {
       name: /End Record/i,
     })
