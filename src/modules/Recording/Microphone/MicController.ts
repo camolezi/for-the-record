@@ -11,6 +11,8 @@ export default class MicrophoneController {
     this.mediaRecorder.ondataavailable = (event: BlobEvent) => {
       this.dataChunks.push(event.data);
     };
+
+    this.mediaRecorder.onerror = (event) => console.log(event);
   }
 
   start(): void {
@@ -32,7 +34,7 @@ export default class MicrophoneController {
 
   getRecordedData(): Blob {
     const blob = new Blob(this.dataChunks, {
-      type: 'audio/ogg; codecs=opus',
+      type: this.mediaRecorder.mimeType,
     });
     return blob;
   }
