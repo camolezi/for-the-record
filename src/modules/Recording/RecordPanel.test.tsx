@@ -13,21 +13,43 @@ function renderRecordPanel(state?: Partial<RecordState>) {
   });
 }
 
-test('View should have a start record button', () => {
-  renderRecordPanel();
-  const recordButton = screen.getByRole('button', { name: /Start Record/i });
-  expect(recordButton).toBeVisible();
+describe('Record Button', () => {
+  test('When recording should change button to stop recording button', async () => {
+    renderRecordPanel({ isMicrophoneAvailable: MicAvailability.Available });
+
+    const recordButton = screen.getByRole('button', { name: /Start Record/i });
+    userEvent.click(recordButton);
+
+    const stopRecordButton = await screen.findByRole('button', {
+      name: /End Record/i,
+    });
+
+    expect(stopRecordButton).toBeVisible();
+  });
 });
 
-test('When recording should change button to stop recording button', async () => {
-  renderRecordPanel({ isMicrophoneAvailable: MicAvailability.Available });
+describe('Mic Availability icon', () => {
+  test('When dont have mic permission should display waiting microphone permission icon', () => {
+    renderRecordPanel({ isMicrophoneAvailable: MicAvailability.NotAvailable });
 
-  const recordButton = screen.getByRole('button', { name: /Start Record/i });
-  userEvent.click(recordButton);
-
-  const stopRecordButton = await screen.findByRole('button', {
-    name: /End Record/i,
+    const notAvailableIcon = screen.getByTitle(
+      'Waiting microphone permission',
+      {
+        exact: false,
+      }
+    );
+    expect(notAvailableIcon).toBeInTheDocument();
   });
 
-  expect(stopRecordButton).toBeVisible();
+  test('When have mic permission should not display mic icon', () => {
+    renderRecordPanel({ isMicrophoneAvailable: MicAvailability.Available });
+
+    const notAvailableIcon = screen.queryByTitle(
+      'Waiting microphone permission',
+      {
+        exact: false,
+      }
+    );
+    expect(notAvailableIcon).toBeNull();
+  });
 });

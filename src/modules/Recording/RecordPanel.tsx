@@ -20,15 +20,15 @@ function RecordPanel(): JSX.Element {
         onClick={() => dispatch(recordButtonClicked())}
       >
         {isRecording ? 'End Record' : 'Start Record'}
-      </Button>
 
-      {!isMicAvailable && (
-        <Icon
-          title="Waiting microphone permission"
-          aria-label="Mic Permission"
-          as={MdMicOff}
-        />
-      )}
+        {!isMicAvailable && (
+          <Icon
+            title="Waiting microphone permission"
+            aria-label="Mic Permission"
+            as={MdMicOff}
+          />
+        )}
+      </Button>
     </>
   );
 }
