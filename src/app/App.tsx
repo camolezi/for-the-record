@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 import ColorModeButton from '../components/ColorModeButton';
 import RecordView from '../views/RecordView';
@@ -5,8 +6,13 @@ import RecordView from '../views/RecordView';
 function App(): JSX.Element {
   return (
     <>
-      <ColorModeButton />
-      <RecordView />
+      <Box height="15vh">
+        <ColorModeButton />
+      </Box>
+
+      <Box height="80vh">
+        <RecordView />
+      </Box>
     </>
   );
 }

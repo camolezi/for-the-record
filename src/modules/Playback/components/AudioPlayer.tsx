@@ -23,7 +23,6 @@ function AudioPlayer(): JSX.Element {
       alignItems="center"
       justifyContent="center"
       alignContent="center"
-      marginRight="5"
     >
       <GridItem colStart={2}>
         <IconButton

@@ -13,11 +13,7 @@ function RecordView(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <Container
-      maxW="container.xl"
-      centerContent
-      height={['90vh', '80vh', '60vh']}
-    >
+    <Container maxW="container.xl" centerContent height={['90%', '80%', '60%']}>
       <Flex height="100%" direction="column">
         <RecordPanel />
         <Spacer />
