@@ -23,11 +23,7 @@ function AudioPlayer(): JSX.Element {
       alignItems="center"
       justifyContent="center"
       alignContent="center"
-      width={{
-        base: '100%',
-        md: '60%',
-        xl: '50%',
-      }}
+      marginRight="5"
     >
       <GridItem colStart={2}>
         <IconButton
@@ -45,6 +41,7 @@ function AudioPlayer(): JSX.Element {
           colorScheme="green"
           aria-label="PlayPause"
           size="lg"
+          mx={['0.5', '1.5', '2.5', '3']}
           icon={
             isPlaying ? (
               <Icon boxSize={8} as={MdPause} />
@@ -69,7 +66,8 @@ function AudioPlayer(): JSX.Element {
       </GridItem>
       <GridItem>
         <IconButton
-          marginLeft="auto"
+          isRound
+          marginLeft={['4', '5', '12']}
           colorScheme="red"
           aria-label="Stop"
           size="sm"

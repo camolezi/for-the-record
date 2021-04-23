@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, useColorModeValue } from '@chakra-ui/react';
+import { Container, Flex, Spacer } from '@chakra-ui/react';
 import RecordPanel from '../modules/Recording/RecordPanel';
 import PlaybackPanel from '../modules/Playback/PlaybackPanel';
 import { useTypedDispatch } from '../app/Store';
 import { askForMicrophonePermission } from '../modules/Recording/RecordActions';
 
 function RecordView(): JSX.Element {
-  const bgColor = useColorModeValue('grey.400', 'grey.700');
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
@@ -14,9 +13,16 @@ function RecordView(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <Container maxW="container.xl" bg={bgColor} centerContent>
-      <RecordPanel />
-      <PlaybackPanel />
+    <Container
+      maxW="container.xl"
+      centerContent
+      height={['90vh', '80vh', '60vh']}
+    >
+      <Flex height="100%" direction="column">
+        <RecordPanel />
+        <Spacer />
+        <PlaybackPanel />
+      </Flex>
     </Container>
   );
 }
