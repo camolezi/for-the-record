@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonGroup, Icon, IconButton } from '@chakra-ui/react';
+import { Grid, GridItem, Icon, IconButton } from '@chakra-ui/react';
 import {
   MdForward10,
   MdReplay10,
@@ -17,37 +17,66 @@ function AudioPlayer(): JSX.Element {
   const isPlaying = useTypedSelector(selectIsPlaying);
 
   return (
-    <>
-      <ButtonGroup variant="outline" spacing="3">
+    <Grid
+      templateColumns="1fr repeat(3, auto) 1fr"
+      justifyItems="center"
+      alignItems="center"
+      justifyContent="center"
+      alignContent="center"
+      width={{
+        base: '100%',
+        md: '60%',
+        xl: '50%',
+      }}
+    >
+      <GridItem colStart={2}>
         <IconButton
-          colorScheme="teal"
+          isRound
+          colorScheme="green"
           aria-label="Forward"
-          size="lg"
-          icon={<Icon as={MdForward10} />}
+          size="md"
+          mx={2}
+          icon={<Icon boxSize={6} as={MdForward10} />}
         />
+      </GridItem>
+      <GridItem>
         <IconButton
-          colorScheme="teal"
+          isRound
+          colorScheme="green"
           aria-label="PlayPause"
           size="lg"
-          icon={isPlaying ? <Icon as={MdPause} /> : <Icon as={MdPlayArrow} />}
+          icon={
+            isPlaying ? (
+              <Icon boxSize={8} as={MdPause} />
+            ) : (
+              <Icon boxSize={8} as={MdPlayArrow} />
+            )
+          }
           onClick={() => {
             dispatch(pausePlayButtonClicked());
           }}
         />
+      </GridItem>
+      <GridItem>
         <IconButton
-          colorScheme="teal"
-          aria-label="Stop"
-          size="lg"
-          icon={<Icon as={MdStop} />}
-        />
-        <IconButton
-          colorScheme="teal"
+          isRound
+          colorScheme="green"
           aria-label="Rewind"
-          size="lg"
-          icon={<Icon as={MdReplay10} />}
+          size="md"
+          mx={2}
+          icon={<Icon boxSize={6} as={MdReplay10} />}
         />
-      </ButtonGroup>
-    </>
+      </GridItem>
+      <GridItem>
+        <IconButton
+          marginLeft="auto"
+          colorScheme="red"
+          aria-label="Stop"
+          size="sm"
+          icon={<Icon boxSize={4} as={MdStop} />}
+        />
+      </GridItem>
+    </Grid>
   );
 }
 
