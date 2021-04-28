@@ -13,14 +13,14 @@ export default {
 
 const Template: Story<TileProps> = (args) => <Tile {...args} />;
 
-export const HelloWorld = Template.bind({});
+export const DoubleDigitDay = Template.bind({});
 
-HelloWorld.args = {
+DoubleDigitDay.args = {
   text: '31',
 };
 
-export const GoodbyToAWorld = Template.bind({});
+export const SingleDigitday = Template.bind({});
 
-GoodbyToAWorld.args = {
+SingleDigitday.args = {
   text: '1',
 };
