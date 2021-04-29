@@ -13,6 +13,8 @@ export default {
   ],
 } as Meta;
 
+const mockMonth: number[] = Array.from(Array(31).keys(), (key) => key + 1);
+
 const Template: Story<CalendarMonthProps> = (args) => (
   <CalendarMonth {...args} />
 );
@@ -20,5 +22,5 @@ const Template: Story<CalendarMonthProps> = (args) => (
 export const MonthCalendar = Template.bind({});
 
 MonthCalendar.args = {
-  text: '',
+  days: mockMonth,
 };

@@ -1,22 +1,27 @@
 import React from 'react';
 import {} from 'date-fns';
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 import Tile from './Tile/Tile';
 
 export interface CalendarMonthProps {
-  text: string;
+  days: number[];
 }
 
-const Calendar: React.FC<CalendarMonthProps> = ({ text }) => {
-  const days = [0, 1, 2, 3, 4, 5, 6];
+const Calendar: React.FC<CalendarMonthProps> = ({ days }) => {
   const tiles = days.map((day) => <Tile text={String(day)} />);
+
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const weekDaysTitles = weekDays.map((day) => (
+    <Text bgColor="blue.600" textAlign="center">
+      {day}
+    </Text>
+  ));
 
   return (
     <>
-      <h1>{text}</h1>
       <SimpleGrid columns={7} spacingX={[2, 3, 5, 5]} spacingY={[1, 2, 3, 3]}>
-        {tiles}
-        {tiles}
+        {weekDaysTitles}
         {tiles}
       </SimpleGrid>
     </>
