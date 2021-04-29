@@ -40,6 +40,12 @@ describe('Recording Page', () => {
       );
     });
   });
+
+  it('#Should have link to calendar page', () => {
+    cy.findByRole('link', { name: /Calendar/i }).click();
+
+    cy.url().should('include', '/calendar');
+  });
 });
 
 export default {};

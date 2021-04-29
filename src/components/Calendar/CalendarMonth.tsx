@@ -24,7 +24,7 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({ days }) => {
         width="100%"
         columns={7}
         spacingX={[2, 3, 5, 5]}
-        spacingY={[1, 2, 3, 3]}
+        spacingY={[2, 2, 3, 3]}
       >
         {weekDaysTitles}
         {tiles}
