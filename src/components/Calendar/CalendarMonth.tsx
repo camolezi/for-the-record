@@ -7,7 +7,7 @@ export interface CalendarMonthProps {
   days: number[];
 }
 
-const Calendar: React.FC<CalendarMonthProps> = ({ days }) => {
+const CalendarMonth: React.FC<CalendarMonthProps> = ({ days }) => {
   const tiles = days.map((day) => <Tile text={String(day)} />);
 
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -20,7 +20,12 @@ const Calendar: React.FC<CalendarMonthProps> = ({ days }) => {
 
   return (
     <>
-      <SimpleGrid columns={7} spacingX={[2, 3, 5, 5]} spacingY={[1, 2, 3, 3]}>
+      <SimpleGrid
+        width="100%"
+        columns={7}
+        spacingX={[2, 3, 5, 5]}
+        spacingY={[1, 2, 3, 3]}
+      >
         {weekDaysTitles}
         {tiles}
       </SimpleGrid>
@@ -28,4 +33,4 @@ const Calendar: React.FC<CalendarMonthProps> = ({ days }) => {
   );
 };
 
-export default Calendar;
+export default CalendarMonth;

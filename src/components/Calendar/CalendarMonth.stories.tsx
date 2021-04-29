@@ -19,8 +19,8 @@ const Template: Story<CalendarMonthProps> = (args) => (
   <CalendarMonth {...args} />
 );
 
-export const MonthCalendar = Template.bind({});
+export const MonthCalendarMockMonth = Template.bind({});
 
-MonthCalendar.args = {
+MonthCalendarMockMonth.args = {
   days: mockMonth,
 };
