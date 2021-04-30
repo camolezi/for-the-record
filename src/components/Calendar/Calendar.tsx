@@ -1,14 +1,25 @@
 import React from 'react';
-import {} from 'date-fns';
+import {
+  getFirstWeekDayInMonth,
+  getNumberDaysInMonth,
+} from '../../utils/DateTime/WeekDays';
 import CalendarMonth from './MonthCalendar/CalendarMonth';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CalendarProps {}
+export interface CalendarProps {
+  date: Date;
+}
 
-const Calendar: React.FC<CalendarProps> = () => {
-  const mockMonth: number[] = Array.from(Array(31).keys(), (key) => key + 1);
+const Calendar: React.FC<CalendarProps> = ({ date }) => {
+  const daysInMonth = getNumberDaysInMonth(date);
 
-  return <CalendarMonth days={mockMonth} />;
+  const allDaysInMonth: number[] = Array.from(
+    Array(daysInMonth).keys(),
+    (key) => key + 1
+  );
+
+  const firstDayInMonth = getFirstWeekDayInMonth(date);
+
+  return <CalendarMonth days={allDaysInMonth} startAtDay={firstDayInMonth} />;
 };
 
 export default Calendar;
