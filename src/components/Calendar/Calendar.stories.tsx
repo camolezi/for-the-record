@@ -1,26 +1,19 @@
 import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
-import CalendarMonth, { CalendarMonthProps } from './CalendarMonth';
 import WrapWithProviders from '../../app/Providers';
 import { CreateStore } from '../../app/Store';
+import Calendar, { CalendarProps } from './Calendar';
 
 export default {
-  title: 'MonthCalendar',
-  component: CalendarMonth,
+  title: 'Calendar',
+  component: Calendar,
   decorators: [
     (CalendarStory) => WrapWithProviders(<CalendarStory />, CreateStore()),
   ],
 } as Meta;
 
-const mockMonth: number[] = Array.from(Array(31).keys(), (key) => key + 1);
-
-const Template: Story<CalendarMonthProps> = (args) => (
-  <CalendarMonth {...args} />
-);
+const Template: Story<CalendarProps> = (args) => <Calendar {...args} />;
 
 export const MonthCalendarMockMonth = Template.bind({});
-
-MonthCalendarMockMonth.args = {
-  days: mockMonth,
-};
+MonthCalendarMockMonth.args = {};

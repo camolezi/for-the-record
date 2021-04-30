@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@chakra-ui/react';
-import CalendarMonth from '../components/Calendar/CalendarMonth';
+import CalendarMonth from '../components/Calendar/MonthCalendar/CalendarMonth';
 
 function CelendarView(): JSX.Element {
   const mockMonth: number[] = Array.from(Array(31).keys(), (key) => key + 1);

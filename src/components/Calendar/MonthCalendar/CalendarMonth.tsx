@@ -1,7 +1,7 @@
 import React from 'react';
 import {} from 'date-fns';
 import { SimpleGrid, Text } from '@chakra-ui/react';
-import Tile from './Tile/Tile';
+import Tile from '../Tile/Tile';
 
 export interface CalendarMonthProps {
   days: number[];
