@@ -1,5 +1,7 @@
 import React from 'react';
+import { Heading } from '@chakra-ui/react';
 import {
+  formatToMonthYear,
   getFirstWeekDayInMonth,
   getNumberDaysInMonth,
 } from '../../utils/DateTime/WeekDays';
@@ -19,7 +21,16 @@ const Calendar: React.FC<CalendarProps> = ({ date }) => {
 
   const firstDayInMonth = getFirstWeekDayInMonth(date);
 
-  return <CalendarMonth days={allDaysInMonth} startAtDay={firstDayInMonth} />;
+  const monthTitle = formatToMonthYear(date);
+
+  return (
+    <>
+      <Heading marginBottom={4} textAlign="center">
+        {monthTitle}
+      </Heading>
+      <CalendarMonth days={allDaysInMonth} startAtDay={firstDayInMonth} />
+    </>
+  );
 };
 
 export default Calendar;

@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import {
+  formatToMonthYear,
   getFirstWeekDayInMonth,
   getNumberDaysInMonth,
   getWeekDayIndex,
@@ -27,6 +28,16 @@ describe('WeekDays utility library', () => {
     it('should return the index of the week day', () => {
       expect(getWeekDayIndex('Mon')).toBe(1);
       expect(getWeekDayIndex('Sat')).toBe(6);
+    });
+  });
+
+  describe('#formatToMonthYear', () => {
+    it('should return the month/year of the provided date', () => {
+      const feb_3_2021 = new Date(2021, 1, 3);
+      expect(formatToMonthYear(feb_3_2021)).toMatch(/February 2021/i);
+
+      const april_5_2021 = new Date(2021, 3, 5);
+      expect(formatToMonthYear(april_5_2021)).toMatch(/April 2021/i);
     });
   });
 });

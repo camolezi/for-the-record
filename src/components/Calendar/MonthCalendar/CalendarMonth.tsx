@@ -16,14 +16,12 @@ export interface CalendarMonthProps {
 const CalendarMonth: React.FC<CalendarMonthProps> = ({ days, startAtDay }) => {
   const tiles = days.map((day) => <Tile text={String(day)} />);
 
-  const weekDays = getWeekDays();
-
   const weekDayOffset = getWeekDayIndex(startAtDay);
-
   const tilesOffset = new Array(weekDayOffset)
     .fill(0)
     .map(() => <Tile text="" />);
 
+  const weekDays = getWeekDays();
   const weekDaysTitles = weekDays.map((day) => (
     <Text bgColor="blue.600" textAlign="center">
       {day}

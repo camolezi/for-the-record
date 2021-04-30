@@ -1,4 +1,4 @@
-import { getDaysInMonth, startOfMonth } from 'date-fns';
+import { format, getDaysInMonth, startOfMonth } from 'date-fns';
 
 export type WeekDay = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
 
@@ -17,4 +17,8 @@ export function getWeekDayIndex(day: WeekDay): number {
 export function getFirstWeekDayInMonth(date: Date): WeekDay {
   const startMonth = startOfMonth(date);
   return getWeekDays()[startMonth.getDay()];
+}
+
+export function formatToMonthYear(date: Date): string {
+  return format(date, 'MMMM YYYY');
 }
