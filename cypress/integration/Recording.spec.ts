@@ -5,11 +5,13 @@ const isPlaying = (audio: HTMLAudioElement) =>
   !audio.paused && !audio.muted && audio.duration > 0;
 
 describe('Recording Page', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
   it('#Should be able to record and playback audio', () => {
     const recordingTime = 2000;
     const recordingError = 110;
-
-    cy.visit('/');
 
     cy.findByTitle('Waiting microphone permission', { exact: false }).should(
       'not.exist'
@@ -34,7 +36,7 @@ describe('Recording Page', () => {
 
       expect(isPlaying(audio)).to.be.true;
       expect(audio.duration * 1000).to.be.within(
-        // Audio duration is infinity in firefox, need to investigate
+        // TODO FAILED IN FIREFOX - Audio duration is infinity in firefox, need to investigate
         recordingTime - recordingError,
         recordingTime + recordingError
       );
