@@ -9,12 +9,18 @@ import {
 } from '../../../utils/DateTime/WeekDays';
 
 export interface CalendarMonthProps {
-  days: number[];
+  numberOfDays: number;
   startAtDay: WeekDay;
 }
 
-const CalendarMonth: React.FC<CalendarMonthProps> = ({ days, startAtDay }) => {
-  const tiles = days.map((day) => <Tile text={String(day)} />);
+const CalendarMonth: React.FC<CalendarMonthProps> = ({
+  numberOfDays,
+  startAtDay,
+}) => {
+  const tiles = Array.from(
+    Array(numberOfDays).keys(),
+    (key) => key + 1
+  ).map((day) => <Tile text={String(day)} />);
 
   const weekDayOffset = getWeekDayIndex(startAtDay);
   const tilesOffset = new Array(weekDayOffset)

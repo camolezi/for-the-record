@@ -19,11 +19,6 @@ const Calendar: React.FC<CalendarProps> = ({ date }) => {
   const [currentDate, setCurrentDate] = useState(date);
 
   const daysInMonth = getNumberDaysInMonth(currentDate);
-  const allDaysInMonth: number[] = Array.from(
-    Array(daysInMonth).keys(),
-    (key) => key + 1
-  );
-
   const firstDayInMonth = getFirstWeekDayInMonth(currentDate);
   const monthTitle = formatToMonthYear(currentDate);
 
@@ -62,7 +57,7 @@ const Calendar: React.FC<CalendarProps> = ({ date }) => {
 
       <CalendarMonth
         key={`CalendarMonth_${monthTitle}`}
-        days={allDaysInMonth}
+        numberOfDays={daysInMonth}
         startAtDay={firstDayInMonth}
       />
     </>
