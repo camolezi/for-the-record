@@ -2,7 +2,9 @@
 import {
   formatToMonthYear,
   getFirstWeekDayInMonth,
+  getNextMonth,
   getNumberDaysInMonth,
+  getPreviousMonth,
   getWeekDayIndex,
 } from './WeekDays';
 
@@ -38,6 +40,26 @@ describe('WeekDays utility library', () => {
 
       const april_5_2021 = new Date(2021, 3, 5);
       expect(formatToMonthYear(april_5_2021)).toMatch(/April 2021/i);
+    });
+  });
+
+  describe('#getNextMonth', () => {
+    it('should return the next month of the provided date', () => {
+      const feb_3_2021 = new Date(2021, 1, 3);
+
+      expect(getNextMonth(feb_3_2021).getMonth()).toBe(
+        feb_3_2021.getMonth() + 1
+      );
+    });
+  });
+
+  describe('#getPreviousMonth', () => {
+    it('should return the previous month of the provided date', () => {
+      const feb_3_2021 = new Date(2021, 1, 3);
+
+      expect(getPreviousMonth(feb_3_2021).getMonth()).toBe(
+        feb_3_2021.getMonth() - 1
+      );
     });
   });
 });

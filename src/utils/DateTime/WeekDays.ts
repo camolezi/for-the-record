@@ -1,4 +1,4 @@
-import { format, getDaysInMonth, startOfMonth } from 'date-fns';
+import { format, getDaysInMonth, startOfMonth, addMonths } from 'date-fns';
 
 export type WeekDay = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
 
@@ -21,4 +21,12 @@ export function getFirstWeekDayInMonth(date: Date): WeekDay {
 
 export function formatToMonthYear(date: Date): string {
   return format(date, 'MMMM YYYY');
+}
+
+export function getNextMonth(date: Date): Date {
+  return addMonths(date, 1);
+}
+
+export function getPreviousMonth(date: Date): Date {
+  return addMonths(date, -1);
 }
