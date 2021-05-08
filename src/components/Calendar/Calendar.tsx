@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Center, Heading, HStack, Text } from '@chakra-ui/react';
 import {
   formatToMonthYear,
   getFirstWeekDayInMonth,
+  getNextMonth,
   getNumberDaysInMonth,
+  getPreviousMonth,
 } from '../../utils/DateTime/WeekDays';
 import CalendarMonth from './MonthCalendar/CalendarMonth';
 import MonthButton from './MonthCalendar/MonthButton';
@@ -14,36 +16,55 @@ export interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ date }) => {
-  const daysInMonth = getNumberDaysInMonth(date);
+  const [currentDate, setCurrentDate] = useState(date);
 
+  const daysInMonth = getNumberDaysInMonth(currentDate);
   const allDaysInMonth: number[] = Array.from(
     Array(daysInMonth).keys(),
     (key) => key + 1
   );
 
-  const firstDayInMonth = getFirstWeekDayInMonth(date);
-
-  const monthTitle = formatToMonthYear(date);
+  const firstDayInMonth = getFirstWeekDayInMonth(currentDate);
+  const monthTitle = formatToMonthYear(currentDate);
 
   return (
     <>
       <HStack justify="center" spacing={8} marginBottom={4}>
-        <MonthButton aria-label="PreviousMonth">
+        <MonthButton
+          aria-label="PreviousMonth"
+          onClick={async () => {
+            setCurrentDate(getPreviousMonth(currentDate));
+          }}
+        >
           <Text textAlign="center">{'<'}</Text>
         </MonthButton>
 
         <Center>
-          <MotionBox layout initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}>
+          <MotionBox
+            key={`CalendarTitle_${monthTitle}`}
+            layout
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+          >
             <Heading textAlign="center">{monthTitle}</Heading>
           </MotionBox>
         </Center>
 
-        <MonthButton aria-label="NextMonth">
+        <MonthButton
+          aria-label="NextMonth"
+          onClick={() => {
+            setCurrentDate(getNextMonth(currentDate));
+          }}
+        >
           <Text textAlign="center">{'>'}</Text>
         </MonthButton>
       </HStack>
 
-      <CalendarMonth days={allDaysInMonth} startAtDay={firstDayInMonth} />
+      <CalendarMonth
+        key={`CalendarMonth_${monthTitle}`}
+        days={allDaysInMonth}
+        startAtDay={firstDayInMonth}
+      />
     </>
   );
 };
