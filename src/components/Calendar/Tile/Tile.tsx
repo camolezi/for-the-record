@@ -1,15 +1,43 @@
 import React from 'react';
 
-import { AspectRatio, Box, Text } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { AspectRatio, Text } from '@chakra-ui/react';
+import MotionBox from '../../Motion/MotionBox';
+import MotionCenter from '../../Motion/MotionCenter';
 
 export interface TileProps {
   text: string;
+  recordsNumber?: number;
 }
 
-const MotionBox = motion(Box);
+const Tile: React.FC<TileProps> = ({ text, recordsNumber = 0 }) => {
+  const addTileRecordDecoration = (
+    numberOfRecords: number,
+    element: JSX.Element
+  ) => {
+    if (numberOfRecords > 0)
+      return (
+        <MotionCenter
+          bgColor="blue.800"
+          width="30%"
+          height="30%"
+          borderRadius="50%"
+          whileHover={{ scale: 1.2 }}
+        >
+          <MotionCenter
+            bgColor="blue.300"
+            width="60%"
+            height="60%"
+            borderRadius="50%"
+            whileHover={{ scale: 1.5 }}
+          >
+            {element}
+          </MotionCenter>
+        </MotionCenter>
+      );
 
-const Tile: React.FC<TileProps> = ({ text }) => {
+    return element;
+  };
+
   return (
     <AspectRatio ratio={1}>
       <MotionBox
@@ -20,7 +48,10 @@ const Tile: React.FC<TileProps> = ({ text }) => {
         layout
         whileHover={{ scale: 1.2 }}
       >
-        <Text textAlign="center">{text}</Text>
+        {addTileRecordDecoration(
+          recordsNumber,
+          <Text textAlign="center">{text}</Text>
+        )}
       </MotionBox>
     </AspectRatio>
   );

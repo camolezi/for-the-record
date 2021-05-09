@@ -11,7 +11,6 @@ export default function MotionBox({
 }: BoxProps & HTMLMotionProps<'div'>): JSX.Element {
   return (
     <>
-      <motion.div animate={{ x: 100 }} />
       <MotionBoxChakra {...props}>{children}</MotionBoxChakra>
     </>
   );
