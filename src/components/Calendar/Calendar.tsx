@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Center, Heading, HStack, Text } from '@chakra-ui/react';
 import {
   formatToMonthYear,
   getFirstWeekDayInMonth,
-  getNextMonth,
   getNumberDaysInMonth,
-  getPreviousMonth,
 } from '../../utils/DateTime/WeekDays';
 import CalendarMonth from './MonthCalendar/CalendarMonth';
 import MonthButton from './MonthCalendar/MonthButton';
@@ -13,23 +11,25 @@ import MotionBox from '../Motion/MotionBox';
 
 export interface CalendarProps {
   date: Date;
+  onNextMonth: () => void;
+  onPreviousMonth: () => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ date }) => {
-  const [currentDate, setCurrentDate] = useState(date);
-
-  const daysInMonth = getNumberDaysInMonth(currentDate);
-  const firstDayInMonth = getFirstWeekDayInMonth(currentDate);
-  const monthTitle = formatToMonthYear(currentDate);
+const Calendar: React.FC<CalendarProps> = ({
+  date,
+  onNextMonth,
+  onPreviousMonth,
+}) => {
+  const daysInMonth = getNumberDaysInMonth(date);
+  const firstDayInMonth = getFirstWeekDayInMonth(date);
+  const monthTitle = formatToMonthYear(date);
 
   return (
     <>
       <HStack justify="center" spacing={8} marginBottom={4}>
         <MonthButton
           aria-label="PreviousMonth"
-          onClick={async () => {
-            setCurrentDate(getPreviousMonth(currentDate));
-          }}
+          onClick={() => onPreviousMonth()}
         >
           <Text textAlign="center">{'<'}</Text>
         </MonthButton>
@@ -45,12 +45,7 @@ const Calendar: React.FC<CalendarProps> = ({ date }) => {
           </MotionBox>
         </Center>
 
-        <MonthButton
-          aria-label="NextMonth"
-          onClick={() => {
-            setCurrentDate(getNextMonth(currentDate));
-          }}
-        >
+        <MonthButton aria-label="NextMonth" onClick={() => onNextMonth()}>
           <Text textAlign="center">{'>'}</Text>
         </MonthButton>
       </HStack>
@@ -59,6 +54,7 @@ const Calendar: React.FC<CalendarProps> = ({ date }) => {
         key={`CalendarMonth_${monthTitle}`}
         numberOfDays={daysInMonth}
         startAtDay={firstDayInMonth}
+        recordsDays={{}}
       />
     </>
   );
