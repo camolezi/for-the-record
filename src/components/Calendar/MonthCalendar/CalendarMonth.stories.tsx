@@ -22,4 +22,9 @@ export const MonthCalendarMockMonth = Template.bind({});
 MonthCalendarMockMonth.args = {
   startAtDay: 'Wed',
   numberOfDays: 30,
+  recordsDays: {
+    1: 1,
+    7: 1,
+    16: 1,
+  },
 };

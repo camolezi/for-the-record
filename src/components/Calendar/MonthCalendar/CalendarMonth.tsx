@@ -8,19 +8,25 @@ import {
   WeekDay,
 } from '../../../utils/DateTime/WeekDays';
 
+type RecordInDays = {
+  [dayNumber: number]: number;
+};
+
 export interface CalendarMonthProps {
   numberOfDays: number;
   startAtDay: WeekDay;
+  recordsDays: RecordInDays;
 }
 
 const CalendarMonth: React.FC<CalendarMonthProps> = ({
   numberOfDays,
   startAtDay,
+  recordsDays,
 }) => {
   const tiles = Array.from(
     Array(numberOfDays).keys(),
     (key) => key + 1
-  ).map((day) => <Tile text={String(day)} />);
+  ).map((day) => <Tile text={String(day)} recordsNumber={recordsDays[day]} />);
 
   const weekDayOffset = getWeekDayIndex(startAtDay);
   const tilesOffset = new Array(weekDayOffset)
