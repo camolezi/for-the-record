@@ -1,13 +1,23 @@
 import _ from 'lodash';
+import { ArrayBufferToStr, isBuffersEql } from '../../utils/Buffer/BufferUtils';
 
 const testSalt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17];
 const testIV = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
-export function ValidatePassword(
-  _plainText: string,
-  _ciphertext: string
-): (key: string) => boolean {
-  return (_key) => true;
+export async function ValidatePassword(
+  plainText: ArrayBuffer,
+  ciphertext: ArrayBuffer,
+  secret: string
+): Promise<boolean> {
+  const descryptPlainText = await Decrypt(ciphertext, secret);
+
+  console.log(
+    'password',
+    ArrayBufferToStr(descryptPlainText),
+    ArrayBufferToStr(plainText)
+  );
+
+  return isBuffersEql(plainText, descryptPlainText);
 }
 
 export async function Decrypt(
@@ -15,6 +25,8 @@ export async function Decrypt(
   secret: string
 ): Promise<ArrayBuffer> {
   const key = await createKeyMaterial(secret).then(createKeyFromMaterial);
+
+  // Operation fail exception, should handle a return here, maybe create custom data type
   return window.crypto.subtle.decrypt(
     {
       name: 'AES-GCM',
@@ -36,7 +48,7 @@ export async function Encrypt(
     .then(encryptData(data));
 }
 
-export function encryptUsingKey(
+function encryptUsingKey(
   data: ArrayBuffer,
   key: CryptoKey
 ): Promise<ArrayBuffer> {
@@ -50,7 +62,7 @@ export function encryptUsingKey(
   );
 }
 
-export function createKeyMaterial(secret: string): Promise<CryptoKey> {
+function createKeyMaterial(secret: string): Promise<CryptoKey> {
   const encoder = new TextEncoder();
 
   return window.crypto.subtle.importKey(
@@ -62,7 +74,7 @@ export function createKeyMaterial(secret: string): Promise<CryptoKey> {
   );
 }
 
-export function createKeyFromMaterial(material: CryptoKey): Promise<CryptoKey> {
+function createKeyFromMaterial(material: CryptoKey): Promise<CryptoKey> {
   return window.crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
