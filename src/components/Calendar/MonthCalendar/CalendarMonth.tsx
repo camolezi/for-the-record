@@ -23,10 +23,9 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({
   startAtDay,
   recordsDays,
 }) => {
-  const tiles = Array.from(
-    Array(numberOfDays).keys(),
-    (key) => key + 1
-  ).map((day) => <Tile text={String(day)} recordsNumber={recordsDays[day]} />);
+  const tiles = Array.from(Array(numberOfDays).keys(), (key) => key + 1).map(
+    (day) => <Tile text={String(day)} recordsNumber={recordsDays[day]} />
+  );
 
   const weekDayOffset = getWeekDayIndex(startAtDay);
   const tilesOffset = new Array(weekDayOffset)

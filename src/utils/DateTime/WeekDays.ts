@@ -20,7 +20,7 @@ export function getFirstWeekDayInMonth(date: Date): WeekDay {
 }
 
 export function formatToMonthYear(date: Date): string {
-  return format(date, 'MMMM YYYY');
+  return format(date, 'MMMM yyyy');
 }
 
 export function getNextMonth(date: Date): Date {
