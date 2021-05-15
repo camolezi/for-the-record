@@ -1,8 +1,6 @@
-import {
-  Encrypt,
-  Decrypt,
-  ValidatePassword,
-} from '../../src/modules/Crypto/Authenticate';
+/* eslint-disable no-unused-expressions */
+import { Just } from 'purify-ts/Maybe';
+import { Encrypt, Decrypt } from '../../src/modules/Crypto/Authenticate';
 import {
   ArrayBufferToStr,
   StrToArrayBuffer,
@@ -12,34 +10,33 @@ describe('Crypto module', () => {
   before(() => {
     cy.visit('/');
   });
+
   describe('Encrypt/Decrypt', () => {
     it('Should Encrypt and Decrypt data using a secret', async () => {
       const plainTextFixture = 'letMyTestRunPlease';
+      const password = 'testpassword';
 
-      const EncryptedData = await Encrypt(
-        StrToArrayBuffer(plainTextFixture),
-        'password'
-      );
+      return Encrypt(StrToArrayBuffer(plainTextFixture), password)
+        .chain((encryptData) => Decrypt(encryptData, password))
+        .run()
+        .then((plainText) => {
+          const isEqual = plainText
+            .map(ArrayBufferToStr)
+            .equals(Just(plainTextFixture));
 
-      const plainTextBuffer = await Decrypt(EncryptedData, 'password');
-      expect(ArrayBufferToStr(plainTextBuffer)).equal(plainTextFixture);
+          expect(isEqual).to.be.true;
+        });
     });
-  });
 
-  describe('Validate Password', () => {
-    it('should return true if password is able to correctly decrypt the data', async () => {
-      const password = 'testPassword';
+    it('Should not Decrypt data using a different secret', async () => {
+      const plainTextFixture = 'letMyTestRunPlease';
 
-      const validationText = StrToArrayBuffer('letMyTestRunPlease');
-
-      const encrypted = await Encrypt(validationText, password);
-      const result = await ValidatePassword(
-        validationText,
-        encrypted,
-        password
-      );
-
-      expect(result).equal(true);
+      return Encrypt(StrToArrayBuffer(plainTextFixture), 'testPassword')
+        .chain((encryptData) => Decrypt(encryptData, 'differentPassword'))
+        .run()
+        .then((plainText) => {
+          expect(plainText.isNothing()).to.be.true;
+        });
     });
   });
 });
