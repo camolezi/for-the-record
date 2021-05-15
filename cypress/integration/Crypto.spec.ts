@@ -6,6 +6,11 @@ import {
   StrToArrayBuffer,
 } from '../../src/utils/Buffer/BufferUtils';
 
+/*
+  Crypto api is not current available in firefox cypress
+  https://github.com/cypress-io/cypress/issues/14600
+*/
+
 describe('Crypto module', () => {
   before(() => {
     cy.visit('/');
