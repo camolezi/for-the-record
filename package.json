@@ -45,6 +45,7 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -108,6 +109,7 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.10.2",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "source-map-explorer": "^2.5.2"
   }
 }
