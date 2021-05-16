@@ -1,40 +1,74 @@
 import { curry } from 'purify-ts/Function';
 import { MaybeAsync } from 'purify-ts/MaybeAsync';
 
-const testSalt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17];
-const testIV = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+export interface EncryptResult {
+  algorithm: string;
+  iv: Uint8Array;
+  encryptedData: ArrayBuffer;
+}
+
+export interface KeyParameters {
+  secret: string;
+  salt: Uint8Array;
+}
 
 export function Decrypt(
-  data: ArrayBuffer,
-  secret: string
+  crypto: EncryptResult,
+  keyParam: KeyParameters
 ): MaybeAsync<ArrayBuffer> {
   const decryptData = curry(decryptUsingKey);
+  const generateKeyFromSecret = curry(generateKeyFromMaterial);
 
-  return createKeyMaterial(secret)
-    .chain(createKeyFromMaterial)
-    .chain(decryptData(data));
+  return createKeyMaterial(keyParam.secret)
+    .chain(generateKeyFromSecret(keyParam.salt))
+    .chain(decryptData(crypto.encryptedData, crypto.iv));
 }
 
 export function Encrypt(
   data: ArrayBuffer,
-  secret: string
-): MaybeAsync<ArrayBuffer> {
+  keyParam: KeyParameters
+): MaybeAsync<EncryptResult> {
+  const iv = window.crypto.getRandomValues(new Uint8Array(12));
   const encryptData = curry(encryptUsingKey);
+  const generateKeyFromSecret = curry(generateKeyFromMaterial);
 
-  return createKeyMaterial(secret)
-    .chain(createKeyFromMaterial)
-    .chain(encryptData(data));
+  return createKeyMaterial(keyParam.secret)
+    .chain(generateKeyFromSecret(keyParam.salt))
+    .chain(encryptData(data, iv))
+    .map((encryptedData) => ({ algorithm: 'AES-GCM', iv, encryptedData }));
+}
+
+export function CreateRandomKey(): MaybeAsync<CryptoKey> {
+  return MaybeAsync(() =>
+    window.crypto.subtle.generateKey(
+      {
+        name: 'AES-GCM',
+        length: 256,
+      },
+      false,
+      ['encrypt', 'decrypt']
+    )
+  );
+}
+
+export function GenerateKeyParam(secret: string): KeyParameters {
+  const salt = window.crypto.getRandomValues(new Uint8Array(16));
+  return {
+    salt,
+    secret,
+  };
 }
 
 function encryptUsingKey(
   data: ArrayBuffer,
+  iv: Uint8Array,
   key: CryptoKey
 ): MaybeAsync<ArrayBuffer> {
   return MaybeAsync(() =>
     window.crypto.subtle.encrypt(
       {
         name: 'AES-GCM',
-        iv: new Uint8Array(testIV),
+        iv,
       },
       key,
       data
@@ -44,13 +78,14 @@ function encryptUsingKey(
 
 function decryptUsingKey(
   data: ArrayBuffer,
+  iv: Uint8Array,
   key: CryptoKey
 ): MaybeAsync<ArrayBuffer> {
   return MaybeAsync(() =>
     window.crypto.subtle.decrypt(
       {
         name: 'AES-GCM',
-        iv: new Uint8Array(testIV),
+        iv,
       },
       key,
       data
@@ -72,12 +107,15 @@ function createKeyMaterial(secret: string): MaybeAsync<CryptoKey> {
   });
 }
 
-function createKeyFromMaterial(material: CryptoKey): MaybeAsync<CryptoKey> {
+function generateKeyFromMaterial(
+  salt: Uint8Array,
+  material: CryptoKey
+): MaybeAsync<CryptoKey> {
   return MaybeAsync(() =>
     window.crypto.subtle.deriveKey(
       {
         name: 'PBKDF2',
-        salt: new Uint8Array(testSalt), // window.crypto.getRandomValues(new Uint8Array(16)),
+        salt,
         iterations: 100000,
         hash: 'SHA-256',
       },

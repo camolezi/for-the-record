@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-expressions */
 import { Just } from 'purify-ts/Maybe';
-import { Encrypt, Decrypt } from '../../src/modules/Crypto/Authenticate';
+import {
+  Encrypt,
+  Decrypt,
+  GenerateKeyParam,
+} from '../../src/modules/Crypto/Authenticate';
 import {
   ArrayBufferToStr,
   StrToArrayBuffer,
 } from '../../src/utils/Buffer/BufferUtils';
 
 /*
-  Crypto api is not current available in firefox cypress
+  Crypto api is not current available in firefox cypress 
   https://github.com/cypress-io/cypress/issues/14600
 */
 
@@ -19,7 +23,7 @@ describe('Crypto module', () => {
   describe('Encrypt/Decrypt', () => {
     it('Should Encrypt and Decrypt data using a secret', async () => {
       const plainTextFixture = 'letMyTestRunPlease';
-      const password = 'testpassword';
+      const password = GenerateKeyParam('testpassword');
 
       return Encrypt(StrToArrayBuffer(plainTextFixture), password)
         .chain((encryptData) => Decrypt(encryptData, password))
@@ -35,9 +39,13 @@ describe('Crypto module', () => {
 
     it('Should not Decrypt data using a different secret', async () => {
       const plainTextFixture = 'letMyTestRunPlease';
+      const password = GenerateKeyParam('testpassword');
 
-      return Encrypt(StrToArrayBuffer(plainTextFixture), 'testPassword')
-        .chain((encryptData) => Decrypt(encryptData, 'differentPassword'))
+      return Encrypt(StrToArrayBuffer(plainTextFixture), password)
+        .ifJust(() => {
+          password.secret = 'differentSecret';
+        })
+        .chain((encryptData) => Decrypt(encryptData, password))
         .run()
         .then((plainText) => {
           expect(plainText.isNothing()).to.be.true;
