@@ -7,8 +7,13 @@ export interface EncryptResult {
   encryptedData: ArrayBuffer;
 }
 
-export interface KeyParameters {
+export interface Secret {
   secret: string;
+  salt: Uint8Array;
+}
+
+export interface KeyParameters {
+  key: CryptoKey;
   salt: Uint8Array;
 }
 
@@ -16,26 +21,20 @@ export function Decrypt(
   crypto: EncryptResult,
   keyParam: KeyParameters
 ): MaybeAsync<ArrayBuffer> {
-  const decryptData = curry(decryptUsingKey);
-  const generateKeyFromSecret = curry(generateKeyFromMaterial);
-
-  return createKeyMaterial(keyParam.secret)
-    .chain(generateKeyFromSecret(keyParam.salt))
-    .chain(decryptData(crypto.encryptedData, crypto.iv));
+  return decryptUsingKey(crypto.encryptedData, crypto.iv, keyParam.key);
 }
 
 export function Encrypt(
   data: ArrayBuffer,
   keyParam: KeyParameters
 ): MaybeAsync<EncryptResult> {
-  const iv = window.crypto.getRandomValues(new Uint8Array(12));
-  const encryptData = curry(encryptUsingKey);
-  const generateKeyFromSecret = curry(generateKeyFromMaterial);
+  const iv = generateSalt(12);
 
-  return createKeyMaterial(keyParam.secret)
-    .chain(generateKeyFromSecret(keyParam.salt))
-    .chain(encryptData(data, iv))
-    .map((encryptedData) => ({ algorithm: 'AES-GCM', iv, encryptedData }));
+  return encryptUsingKey(data, iv, keyParam.key).map((encryptedData) => ({
+    algorithm: 'AES-GCM',
+    iv,
+    encryptedData,
+  }));
 }
 
 export function CreateRandomKey(): MaybeAsync<CryptoKey> {
@@ -45,14 +44,24 @@ export function CreateRandomKey(): MaybeAsync<CryptoKey> {
         name: 'AES-GCM',
         length: 256,
       },
-      false,
+      true,
       ['encrypt', 'decrypt']
     )
   );
 }
 
-export function GenerateKeyParam(secret: string): KeyParameters {
-  const salt = window.crypto.getRandomValues(new Uint8Array(16));
+export function GenerateKeyFromSecret(
+  secretParam: Secret
+): MaybeAsync<KeyParameters> {
+  const generateKeyFromSecret = curry(generateKeyFromMaterial);
+
+  return createKeyMaterial(secretParam.secret)
+    .chain(generateKeyFromSecret(secretParam.salt))
+    .map((key) => ({ key, salt: secretParam.salt }));
+}
+
+export function GenerateSaltForSecret(secret: string): Secret {
+  const salt = generateSalt(16);
   return {
     salt,
     secret,
@@ -125,4 +134,8 @@ function generateKeyFromMaterial(
       ['encrypt', 'decrypt']
     )
   );
+}
+
+function generateSalt(bytes: number): Uint8Array {
+  return window.crypto.getRandomValues(new Uint8Array(bytes));
 }
