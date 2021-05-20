@@ -1,12 +1,10 @@
-import AudioDatabase, { AudioEntry } from './AudioDatabase';
+import LocalDatabase, { AudioEntry } from './LocalDatabase';
 
-export class AudioEntries {
-  private readonly database: AudioDatabase;
+export default class AudioEntriesDb {
+  private readonly database: LocalDatabase;
 
-  constructor(database: AudioDatabase) {
+  constructor(database: LocalDatabase) {
     this.database = database;
-
-    this.database.open();
   }
 
   addEntry(entry: AudioEntry): Promise<Date> {
@@ -20,6 +18,3 @@ export class AudioEntries {
       .toArray();
   }
 }
-
-const audioEntries = new AudioEntries(new AudioDatabase());
-export default audioEntries;
