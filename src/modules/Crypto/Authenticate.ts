@@ -28,7 +28,7 @@ export function Encrypt(
   data: ArrayBuffer,
   keyParam: KeyParameters
 ): MaybeAsync<EncryptResult> {
-  const iv = generateSalt(12);
+  const iv = GenerateSalt(12);
 
   return encryptUsingKey(data, iv, keyParam.key).map((encryptedData) => ({
     algorithm: 'AES-GCM',
@@ -50,6 +50,10 @@ export function CreateRandomKey(): MaybeAsync<CryptoKey> {
   );
 }
 
+export function CryptoKeyToBuffer(key: CryptoKey): MaybeAsync<ArrayBuffer> {
+  return MaybeAsync(() => window.crypto.subtle.exportKey('raw', key));
+}
+
 export function GenerateKeyFromSecret(
   secretParam: Secret
 ): MaybeAsync<KeyParameters> {
@@ -61,7 +65,7 @@ export function GenerateKeyFromSecret(
 }
 
 export function GenerateSaltForSecret(secret: string): Secret {
-  const salt = generateSalt(16);
+  const salt = GenerateSalt(16);
   return {
     salt,
     secret,
@@ -130,12 +134,12 @@ function generateKeyFromMaterial(
       },
       material,
       { name: 'AES-GCM', length: 256 },
-      false,
+      true,
       ['encrypt', 'decrypt']
     )
   );
 }
 
-function generateSalt(bytes: number): Uint8Array {
+export function GenerateSalt(bytes: number): Uint8Array {
   return window.crypto.getRandomValues(new Uint8Array(bytes));
 }
