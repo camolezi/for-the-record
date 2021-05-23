@@ -1,16 +1,5 @@
 import Dexie from 'dexie';
-
-export interface AudioEntry {
-  date: Date;
-  description: string;
-  length: number;
-  audio: Blob;
-}
-
-export interface User {
-  name: string;
-  hashPassword: string;
-}
+import { AudioEntry, User } from './types';
 
 export default class LocalDatabase extends Dexie {
   readonly audioEntries: Dexie.Table<AudioEntry, Date>;

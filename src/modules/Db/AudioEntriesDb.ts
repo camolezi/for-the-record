@@ -1,4 +1,5 @@
-import LocalDatabase, { AudioEntry } from './LocalDatabase';
+import LocalDatabase from './LocalDatabase';
+import { AudioEntry } from './types';
 
 export default class AudioEntriesDb {
   private readonly database: LocalDatabase;
