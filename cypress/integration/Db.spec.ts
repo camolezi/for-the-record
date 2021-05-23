@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import { userdb } from '../../src/modules/Db/Databases';
+import { User } from '../../src/modules/Db/types';
 
 describe('Indexed db module', () => {
   before(() => {
@@ -21,9 +22,9 @@ describe('Indexed db module', () => {
     });
 
     it('should create a new user', () => {
-      const userFix = {
+      const userFix: User = {
         name: 'TestUser',
-        hashPassword: 'thisIsAPassword',
+        loginKey: { salt: 'testSalt', encodedKey: 'thisIsAKey' },
       };
 
       return userdb

@@ -11,7 +11,7 @@ module.exports = {
     'react/jsx-props-no-spreading': ['warn'],
     '@typescript-eslint/ban-types': ['warn'],
     'no-use-before-define': 'off',
-    'import/prefer-default-export': ['warn'],
+    'import/prefer-default-export': ['off'],
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '_' }],
   },

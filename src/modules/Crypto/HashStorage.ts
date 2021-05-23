@@ -18,17 +18,22 @@ export function HashKeyToStorage(
     .chain((keydata) => argon2Hash(keydata, salt));
 }
 
-export function VerifyHash(key: CryptoKey, hash: string): MaybeAsync<void> {
+export function VerifyHash(
+  key: CryptoKey | string,
+  encodedKey: string
+): MaybeAsync<void> {
+  if (typeof key === 'string') return argon2Verify(key, encodedKey);
+
   return CryptoKeyToBuffer(key)
     .map(ArrayBufferToStr)
-    .chain((keyStr) => argon2Verify(keyStr, hash));
+    .chain((keyStr) => argon2Verify(keyStr, encodedKey));
 }
 
-function argon2Verify(password: string, hash: string) {
+function argon2Verify(password: string, encodedKey: string) {
   return MaybeAsync(() =>
     argon2.verify({
       pass: password,
-      encoded: hash,
+      encoded: encodedKey,
       type: argon2.ArgonType.Argon2id,
     })
   );

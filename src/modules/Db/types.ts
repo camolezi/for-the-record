@@ -5,7 +5,12 @@ export interface AudioEntry {
   audio: Blob;
 }
 
+export interface LoginKey {
+  salt: string;
+  encodedKey: string;
+}
+
 export interface User {
   name: string;
-  hashPassword: string;
+  loginKey: LoginKey;
 }
