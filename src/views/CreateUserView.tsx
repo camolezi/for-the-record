@@ -1,54 +1,37 @@
 import React from 'react';
-import {
-  Button,
-  Container,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-} from '@chakra-ui/react';
-import useForm from '../modules/Forms/useForm';
+import { Container } from '@chakra-ui/react';
+
+import BasicForm from '../components/Form/BasicForm';
 
 function LoginView(): JSX.Element {
-  const [onChange, formState] = useForm({
-    name: (value) => {
-      if (value === 'error') return false;
-      return true;
-    },
-    password: () => true,
-    passwordConfirmation: () => true,
-  });
-
   return (
     <Container maxW="container.sm">
-      <form
-        onChange={onChange}
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(formState);
-        }}
-      >
-        <FormControl id="name">
-          <FormLabel>Your Name</FormLabel>
-          <Input type="text" />
-          <FormHelperText>What should we call you?</FormHelperText>
-        </FormControl>
-
-        <FormControl id="password">
-          <FormLabel>Password</FormLabel>
-          <Input type="password" />
-          <FormHelperText>
-            Your data is not stored in servers. If you lose your password your
-            data is lost forever!
-          </FormHelperText>
-        </FormControl>
-
-        <FormControl id="passwordConfirmation">
-          <FormLabel>Confirm Password</FormLabel>
-          <Input type="password" />
-          <Button type="submit">Create</Button>
-        </FormControl>
-      </form>
+      <BasicForm
+        onSubmit={(state) => console.log(state)}
+        definition={[
+          {
+            id: 'name',
+            label: 'Your Name',
+            helperText: 'What should we call you?',
+            validation: (value) => {
+              if (value === 'error') return false;
+              return true;
+            },
+          },
+          {
+            id: 'password',
+            label: 'Password',
+            type: 'password',
+            helperText:
+              'Your data is not stored in servers. If you lose your password your data is lost forever!',
+          },
+          {
+            id: 'passwordConfirmation',
+            label: 'Confirm Password',
+            type: 'password',
+          },
+        ]}
+      />
     </Container>
   );
 }
