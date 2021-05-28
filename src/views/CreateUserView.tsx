@@ -3,7 +3,7 @@ import { Container } from '@chakra-ui/react';
 
 import BasicForm from '../components/Form/BasicForm';
 
-function LoginView(): JSX.Element {
+function CreateUserView(): JSX.Element {
   return (
     <Container maxW="container.sm">
       <BasicForm
@@ -14,8 +14,8 @@ function LoginView(): JSX.Element {
             label: 'Your Name',
             helperText: 'What should we call you?',
             validation: (value) => {
-              if (value === 'error') return false;
-              return true;
+              if (value.length >= 5) return null;
+              return 'Your name is too short';
             },
           },
           {
@@ -36,4 +36,4 @@ function LoginView(): JSX.Element {
   );
 }
 
-export default LoginView;
+export default CreateUserView;

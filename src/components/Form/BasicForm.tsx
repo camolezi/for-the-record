@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Input,
@@ -17,7 +18,7 @@ export interface InputDeclation {
   label: string;
   type?: string;
   helperText?: string;
-  validation?: (newValue: string) => boolean;
+  validation?: (newValue: string) => string | null;
 }
 
 interface BasicFormProps {
@@ -32,8 +33,8 @@ function BasicForm({
   onSubmit = () => {},
 }: BasicFormProps): JSX.Element {
   function getFormValidation(): Validation {
-    return definition.reduce((validationObj, input) => {
-      const validationFunc = input.validation ?? (() => true);
+    return definition.reduce<Validation>((validationObj, input) => {
+      const validationFunc = input.validation ?? (() => null);
       return { ...validationObj, [input.id]: validationFunc };
     }, {});
   }
@@ -41,14 +42,18 @@ function BasicForm({
   const [onChange, formState] = useForm(getFormValidation());
 
   const inputs = definition.map((inputElement) => (
-    <FormControl key={inputElement.id} id={inputElement.id}>
+    <FormControl
+      key={inputElement.id}
+      id={inputElement.id}
+      isInvalid={formState[inputElement.id].error !== null}
+    >
       <FormLabel>{inputElement.label}</FormLabel>
-      <Input
-        isInvalid={!formState[inputElement.id].valid}
-        type={inputElement.type ?? 'text'}
-      />
+      <Input type={inputElement.type ?? 'text'} />
       {inputElement.helperText && (
         <FormHelperText>{inputElement.helperText}</FormHelperText>
+      )}
+      {inputElement.helperText && (
+        <FormErrorMessage>{formState[inputElement.id].error}</FormErrorMessage>
       )}
     </FormControl>
   ));

@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 
 export interface Validation {
-  readonly [id: string]: (newValue: string) => boolean;
+  readonly [id: string]: (newValue: string) => null | string;
 }
 export interface FormInputState {
-  readonly [id: string]: { readonly valid: boolean; readonly value: string };
+  readonly [id: string]: {
+    readonly error: string | null;
+    readonly value: string;
+  };
 }
 
 function useForm(
   validation: Validation
 ): readonly [(e: React.FormEvent<HTMLFormElement>) => void, FormInputState] {
   const [formState, changeState] = useState<FormInputState>(
-    _.mapValues(validation, () => ({ valid: true, value: '' }))
+    _.mapValues(validation, () => ({ error: null, value: '' }))
   );
 
   const onChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +25,7 @@ function useForm(
     const validationFunction = validation[id] ?? null;
     if (validationFunction) {
       const newValidationState = validationFunction(value);
-      changeState({ ...formState, [id]: { valid: newValidationState, value } });
+      changeState({ ...formState, [id]: { error: newValidationState, value } });
     }
   };
   return [onChange, formState] as const;

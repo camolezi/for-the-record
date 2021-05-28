@@ -10,8 +10,8 @@ describe('Basic form', () => {
       label: 'Your Name',
       helperText: 'What should we call you?',
       validation: (value) => {
-        if (value === 'notvalid') return false;
-        return true;
+        if (value === 'notvalid') return 'Error message';
+        return null;
       },
     },
     {
@@ -49,8 +49,7 @@ describe('Basic form', () => {
 
     basicFormFixture.forEach(({ label, type }) => {
       const input = screen.getByLabelText(label);
-      if (type) expect(input).toHaveProperty('type', type);
-      else expect(input).toHaveProperty('type', 'text');
+      expect(input).toHaveProperty('type', type ?? 'text');
     });
   });
 
@@ -61,6 +60,18 @@ describe('Basic form', () => {
 
     const button = screen.getByRole('button', { name: 'ButtonTextTest' });
     expect(button).toBeVisible();
+  });
+
+  it('Should display correct error message', () => {
+    render(<BasicForm definition={basicFormFixture} />);
+
+    const errorText = screen.queryByText('Error message');
+    expect(errorText).toBeNull();
+
+    userEvent.type(screen.getByLabelText('Your Name'), 'notvalid');
+
+    const errorTextAfterType = screen.getByText('Error message');
+    expect(errorTextAfterType).toBeVisible();
   });
 
   it('Should call submit callback when submit button is clicked, using correct form state', () => {
@@ -75,15 +86,15 @@ describe('Basic form', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({
       name: {
-        valid: false,
+        error: 'Error message',
         value: 'notvalid',
       },
       password: {
-        valid: true,
+        error: null,
         value: 'somepassword',
       },
       passwordConfirmation: {
-        valid: true,
+        error: null,
         value: '',
       },
     });
