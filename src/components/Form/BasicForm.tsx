@@ -22,11 +22,13 @@ export interface InputDeclation {
 
 interface BasicFormProps {
   definition: ReadonlyArray<InputDeclation>;
+  submitText?: string;
   onSubmit?: (state: FormInputState) => void;
 }
 
 function BasicForm({
   definition,
+  submitText = 'Submit',
   onSubmit = () => {},
 }: BasicFormProps): JSX.Element {
   function getFormValidation(): Validation {
@@ -41,7 +43,10 @@ function BasicForm({
   const inputs = definition.map((inputElement) => (
     <FormControl key={inputElement.id} id={inputElement.id}>
       <FormLabel>{inputElement.label}</FormLabel>
-      <Input type={inputElement.type ?? 'text'} />
+      <Input
+        isInvalid={!formState[inputElement.id].valid}
+        type={inputElement.type ?? 'text'}
+      />
       {inputElement.helperText && (
         <FormHelperText>{inputElement.helperText}</FormHelperText>
       )}
@@ -57,7 +62,7 @@ function BasicForm({
       }}
     >
       {inputs}
-      <Button type="submit">Create</Button>
+      <Button type="submit">{submitText}</Button>
     </form>
   );
 }

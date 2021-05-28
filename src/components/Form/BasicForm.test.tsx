@@ -54,6 +54,15 @@ describe('Basic form', () => {
     });
   });
 
+  it('Have correct submit button text', () => {
+    render(
+      <BasicForm definition={basicFormFixture} submitText="ButtonTextTest" />
+    );
+
+    const button = screen.getByRole('button', { name: 'ButtonTextTest' });
+    expect(button).toBeVisible();
+  });
+
   it('Should call submit callback when submit button is clicked, using correct form state', () => {
     const spy = jest.fn();
     render(<BasicForm definition={basicFormFixture} onSubmit={spy} />);
@@ -61,7 +70,7 @@ describe('Basic form', () => {
     userEvent.type(screen.getByLabelText('Your Name'), 'notvalid');
     userEvent.type(screen.getByLabelText('Password'), 'somepassword');
 
-    screen.getByRole('button', { name: 'Create' }).click();
+    screen.getByRole('button', { name: 'Submit', exact: false }).click();
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({
