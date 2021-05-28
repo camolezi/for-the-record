@@ -14,6 +14,8 @@ module.exports = {
     'import/prefer-default-export': ['off'],
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '_' }],
+    '@typescript-eslint/no-empty-function': ['off'],
+    'react/require-default-props': ['off'],
   },
   overrides: [
     {

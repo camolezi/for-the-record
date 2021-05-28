@@ -2,8 +2,8 @@ import { format, getDaysInMonth, startOfMonth, addMonths } from 'date-fns';
 
 export type WeekDay = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
 
-export function getWeekDays(): WeekDay[] {
-  return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export function getWeekDays(): ReadonlyArray<WeekDay> {
+  return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
 }
 
 export function getNumberDaysInMonth(date: Date): number {

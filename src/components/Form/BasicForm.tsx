@@ -12,7 +12,7 @@ import useForm, {
   Validation,
 } from '../../modules/Forms/useForm';
 
-interface InputDeclation {
+export interface InputDeclation {
   id: string;
   label: string;
   type?: string;
@@ -22,10 +22,13 @@ interface InputDeclation {
 
 interface BasicFormProps {
   definition: ReadonlyArray<InputDeclation>;
-  onSubmit: (state: FormInputState) => void;
+  onSubmit?: (state: FormInputState) => void;
 }
 
-function BasicForm({ definition, onSubmit }: BasicFormProps): JSX.Element {
+function BasicForm({
+  definition,
+  onSubmit = () => {},
+}: BasicFormProps): JSX.Element {
   function getFormValidation(): Validation {
     return definition.reduce((validationObj, input) => {
       const validationFunc = input.validation ?? (() => true);
