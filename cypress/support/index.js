@@ -17,3 +17,8 @@
 import './commands';
 
 import '@testing-library/cypress/add-commands';
+import { userdb } from '../../src/modules/Db/Databases';
+
+beforeEach(() => {
+  return userdb.clearUser().run();
+});
