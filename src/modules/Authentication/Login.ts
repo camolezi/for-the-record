@@ -14,20 +14,23 @@ import {
   HashKeyToStorage,
   VerifyHash,
 } from '../Crypto/HashStorage';
-
 import { LoginKey, User } from '../Db/types';
 
 export function AuthenticateUser(
-  { loginKey: { salt, encodedKey } }: User,
+  user: User,
   password: string
-): MaybeAsync<void> {
+): MaybeAsync<CryptoKey> {
+  const {
+    loginKey: { salt, encodedKey },
+  } = user;
+
   const secret: Secret = {
     salt: StrToUint8Array(salt),
     secret: password,
   };
 
   return GenerateKeyFromSecret(secret).chain((keyParam) =>
-    VerifyHash(keyParam.key, encodedKey)
+    VerifyHash(keyParam.key, encodedKey).map(() => keyParam.key)
   );
 }
 
