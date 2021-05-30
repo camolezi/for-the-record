@@ -8,23 +8,20 @@ import {
   Input,
 } from '@chakra-ui/react';
 
-import useForm, {
-  FormInputState,
-  Validation,
-} from '../../modules/Forms/useForm';
+import useForm, { FormState, Validation } from '../../modules/Forms/useForm';
 
 export interface InputDeclation {
   id: string;
   label: string;
   type?: string;
   helperText?: string;
-  validation?: (newValue: string) => string | null;
+  validation?: (newValue: string, formState: FormState) => string | null;
 }
 
 interface BasicFormProps {
   definition: ReadonlyArray<InputDeclation>;
   submitText?: string;
-  onSubmit?: (state: FormInputState) => void;
+  onSubmit?: (state: FormState) => void;
 }
 
 function BasicForm({
@@ -52,9 +49,7 @@ function BasicForm({
       {inputElement.helperText && (
         <FormHelperText>{inputElement.helperText}</FormHelperText>
       )}
-      {inputElement.helperText && (
-        <FormErrorMessage>{formState[inputElement.id].error}</FormErrorMessage>
-      )}
+      <FormErrorMessage>{formState[inputElement.id].error}</FormErrorMessage>
     </FormControl>
   ));
 

@@ -8,7 +8,6 @@ describe('Basic form', () => {
     {
       id: 'name',
       label: 'Your Name',
-      helperText: 'What should we call you?',
       validation: (value) => {
         if (value === 'notvalid') return 'Error message';
         return null;
@@ -25,6 +24,7 @@ describe('Basic form', () => {
       id: 'passwordConfirmation',
       label: 'Confirm Password',
       type: 'password',
+      helperText: 'What should we call you?',
     },
   ];
 
