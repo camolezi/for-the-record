@@ -16,6 +16,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '_' }],
     '@typescript-eslint/no-empty-function': ['off'],
     'react/require-default-props': ['off'],
+    'no-debugger': 'warn',
   },
   overrides: [
     {
