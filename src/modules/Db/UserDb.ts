@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { MaybeAsync } from 'purify-ts/MaybeAsync';
 import { getFirst } from '../../utils/FunctionalUtils';
 import LocalDatabase from './LocalDatabase';
@@ -19,8 +20,8 @@ export default class UserDb {
   }
 
   createUser(user: User): MaybeAsync<User> {
-    return MaybeAsync(() => this.database.user.add(user)).chain(() =>
-      this.getUser()
+    return this.clearUser().chain(() =>
+      MaybeAsync(() => this.database.user.add(user)).chain(() => this.getUser())
     );
   }
 }

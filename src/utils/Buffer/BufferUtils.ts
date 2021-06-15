@@ -19,3 +19,7 @@ export function StrToArrayBuffer(data: string): ArrayBuffer {
   const encoder = new TextEncoder();
   return encoder.encode(data);
 }
+
+export function StrToUint8Array(data: string): Uint8Array {
+  return new Uint8Array(StrToArrayBuffer(data));
+}

@@ -1,5 +1,6 @@
 import { curry } from 'purify-ts/Function';
 import { MaybeAsync } from 'purify-ts/MaybeAsync';
+import { ArrayBufferToStr } from '../../utils/Buffer/BufferUtils';
 
 export interface EncryptResult {
   algorithm: string;
@@ -52,6 +53,10 @@ export function CreateRandomKey(): MaybeAsync<CryptoKey> {
 
 export function CryptoKeyToBuffer(key: CryptoKey): MaybeAsync<ArrayBuffer> {
   return MaybeAsync(() => window.crypto.subtle.exportKey('raw', key));
+}
+
+export function CryptoKeyToStr(key: CryptoKey): MaybeAsync<string> {
+  return CryptoKeyToBuffer(key).map(ArrayBufferToStr);
 }
 
 export function GenerateKeyFromSecret(
