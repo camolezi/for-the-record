@@ -1,10 +1,21 @@
 import React from 'react';
+import { useTypedDispatch } from '../../../app/Store';
 import BasicForm from '../../../components/Form/BasicForm';
+import { createNewUser } from '../actions/UserActions';
 
 function UserCreationForm(): JSX.Element {
+  const dispatch = useTypedDispatch();
+  // const isUserCreated
   return (
     <BasicForm
-      onSubmit={(state) => console.log(state)}
+      onSubmit={(state) =>
+        dispatch(
+          createNewUser({
+            name: state.name.value,
+            password: state.password.value,
+          })
+        )
+      }
       definition={[
         {
           id: 'name',
