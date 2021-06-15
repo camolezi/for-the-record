@@ -1,5 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import UserSlice, {
+  InitialUserState,
+} from '../modules/Authentication/state/UserSlice';
 import PlaybackSlice, {
   InitialPlaybackState,
 } from '../modules/Playback/state/PlaybackSlice';
@@ -10,6 +13,7 @@ import RecordSlice, {
 const rootReducer = combineReducers({
   record: RecordSlice,
   playback: PlaybackSlice,
+  user: UserSlice,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -17,6 +21,7 @@ export type AppState = ReturnType<typeof rootReducer>;
 const AppInitialState: AppState = {
   record: InitialRecordState,
   playback: InitialPlaybackState,
+  user: InitialUserState,
 };
 
 export function CreateStore(partialState?: Partial<AppState>) {
