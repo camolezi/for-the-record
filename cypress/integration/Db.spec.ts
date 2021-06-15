@@ -29,6 +29,10 @@ describe('Indexed db module', () => {
         .run()
         .then((user) => {
           expect(user.extract()).to.deep.equal(userFix);
+        })
+        .then(async () => {
+          const user = await userdb.getUser().run();
+          expect(user.extract()).to.deep.equal(userFix);
         });
     });
   });
