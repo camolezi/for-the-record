@@ -4,7 +4,6 @@ import { userdb } from '../../src/modules/Db/Databases';
 
 describe('Create User Module', () => {
   describe('Create user page', () => {
-    // eslint-disable-next-line cypress/no-async-tests
     it('Should have correct inputs', () => {
       cy.visit('/create');
 
@@ -21,8 +20,9 @@ describe('Create User Module', () => {
         .type('SomePassword')
         .type('{enter}');
 
-      // temporary wait - remove when page is done
-      cy.wait(4000).then(() => {
+      cy.findByText('Pending', { exact: false }).should('be.visible');
+
+      cy.findByText('Successfully Created', { exact: false }).then(() => {
         userdb
           .getUser()
           .run()

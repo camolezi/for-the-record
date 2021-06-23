@@ -5,7 +5,6 @@ import { createNewUser } from '../actions/UserActions';
 
 function UserCreationForm(): JSX.Element {
   const dispatch = useTypedDispatch();
-  // const isUserCreated
   return (
     <BasicForm
       onSubmit={(state) =>
