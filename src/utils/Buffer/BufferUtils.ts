@@ -20,6 +20,13 @@ export function StrToArrayBuffer(data: string): ArrayBuffer {
   return encoder.encode(data);
 }
 
+const splitSeparator = ',';
+
 export function StrToUint8Array(data: string): Uint8Array {
-  return new Uint8Array(StrToArrayBuffer(data));
+  const dataArray = data.split(splitSeparator).map((value) => Number(value));
+  return Uint8Array.from(dataArray);
+}
+
+export function Uint8ArrayToStr(data: Uint8Array): string {
+  return data.join(splitSeparator);
 }
