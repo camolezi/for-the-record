@@ -9,6 +9,7 @@ import PlaybackSlice, {
 import RecordSlice, {
   InitialRecordState,
 } from '../modules/Recording/state/RecordSlice';
+import { AddToCypressWindow } from '../utils/testing/CypressUtils';
 
 const rootReducer = combineReducers({
   record: RecordSlice,
@@ -43,3 +44,6 @@ export type AppDispatch = typeof store.dispatch;
 export const useTypedDispatch = () => useDispatch<AppDispatch>();
 
 export const useTypedSelector: TypedUseSelectorHook<AppState> = useSelector;
+
+// Dispatch actions from cypress
+AddToCypressWindow('store', store);

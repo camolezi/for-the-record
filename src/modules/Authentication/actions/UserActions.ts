@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AddToCypressWindow } from '../../../utils/testing/CypressUtils';
 import authSession from '../AuthSession';
 
 export const createNewUser = createAsyncThunk<
@@ -10,6 +11,8 @@ export const createNewUser = createAsyncThunk<
   return false;
 });
 
+AddToCypressWindow('createNewUser', createNewUser);
+
 export const loginUser = createAsyncThunk<boolean, string>(
   'user/loginUser',
   async (password) => {
@@ -17,3 +20,5 @@ export const loginUser = createAsyncThunk<boolean, string>(
     return result;
   }
 );
+
+AddToCypressWindow('loginUser', loginUser);
