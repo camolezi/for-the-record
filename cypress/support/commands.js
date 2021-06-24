@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add(
+  'createUser',
+  (
+    userInfo = {
+      name: 'TestUser',
+      password: 'TestPassword',
+    }
+  ) => {
+    cy.window().then(async (win) => {
+      await win.store.dispatch(win.createNewUser(userInfo));
+    });
+  }
+);

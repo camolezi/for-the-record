@@ -4,7 +4,7 @@ import { userdb } from '../../src/modules/Db/Databases';
 
 describe('Create User Module', () => {
   describe('Create user page', () => {
-    it('Should have correct inputs', () => {
+    it('Should be able to create a user successfully', () => {
       cy.visit('/create');
 
       const userName = 'TestUser';
