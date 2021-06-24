@@ -1,8 +1,9 @@
 import { MaybeAsync } from 'purify-ts/MaybeAsync';
 import {
-  ArrayBufferToStr,
   StrToUint8Array,
+  Uint8ArrayToStr,
 } from '../../utils/Buffer/BufferUtils';
+
 import {
   GenerateKeyFromSecret,
   GenerateSaltForSecret,
@@ -50,7 +51,7 @@ function createUser(name: string, loginKey: LoginKey): User {
 }
 
 function hashKey(keyParam: KeyParameters): MaybeAsync<LoginKey> {
-  const salt = ArrayBufferToStr(keyParam.salt);
+  const salt = Uint8ArrayToStr(keyParam.salt);
   const hashedKey = HashKeyToStorage(keyParam.key);
 
   return buildLoginKey(salt, hashedKey);
