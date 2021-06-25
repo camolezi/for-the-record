@@ -5,21 +5,17 @@ import {
   AsyncActionStatus,
 } from '../../../utils/ReduxUtils/AsyncActionHelpers';
 
-import { loginUser } from '../actions/UserActions';
-
 import { UserState } from './UserTypes';
 
 export const InitialUserState: UserState = {
-  isLoggedIn: false,
+  isLoggedIn: AsyncActionStatus.NotStarted,
   isUserCreated: AsyncActionStatus.NotStarted,
   name: '',
 };
 
 const UserSlice = createReducer(InitialUserState, (builder) => {
-  builder.addCase(loginUser.fulfilled, (state, action) => {
-    state.isLoggedIn = action.payload;
-  });
-  addDefaultAsyncMatcher(builder, 'isUserCreated');
+  addDefaultAsyncMatcher(builder, 'isLoggedIn', 'loginUser');
+  addDefaultAsyncMatcher(builder, 'isUserCreated', 'createNewUser');
 });
 
 export default UserSlice;

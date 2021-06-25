@@ -1,7 +1,7 @@
 import { AsyncActionStatus } from '../../../utils/ReduxUtils/AsyncActionHelpers';
 
 export interface UserState {
-  isLoggedIn: boolean;
+  isLoggedIn: AsyncActionStatus;
   name: string;
   isUserCreated: AsyncActionStatus;
 }
