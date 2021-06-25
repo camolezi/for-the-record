@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -24,6 +25,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+declare namespace Cypress {
+  interface Chainable {
+    createUser(userCredentials: { name: string; password: string }): void;
+  }
+}
+
 Cypress.Commands.add(
   'createUser',
   (
@@ -33,7 +40,12 @@ Cypress.Commands.add(
     }
   ) => {
     cy.window().then(async (win) => {
-      await win.store.dispatch(win.createNewUser(userInfo));
+      const winUntyped = win as any;
+      await winUntyped.store.dispatch(winUntyped.createNewUser(userInfo));
     });
   }
 );
+
+// cy.window().then(async (win: any) => {
+//   await win.store.dispatch(win.loginUser(password));
+// });

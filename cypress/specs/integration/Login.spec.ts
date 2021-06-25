@@ -9,6 +9,8 @@ describe('Login Module', () => {
       cy.findByLabelText('password', { exact: false }).type(password);
       cy.findByRole('button', { name: 'Submit', exact: false }).click();
 
+      cy.findByText('Pending', { exact: false }).should('be.visible');
+
       // TODO - This is brittle better rethink, should not need to know property name
       cy.findByText('Successfully', { exact: false }).then(() => {
         cy.window().then((win) =>

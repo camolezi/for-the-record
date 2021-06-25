@@ -3,7 +3,7 @@ import {
   getNextMonth,
   getNumberDaysInMonth,
   getPreviousMonth,
-} from '../../src/utils/DateTime/WeekDays';
+} from '../../../src/utils/DateTime/WeekDays';
 
 describe('Calendar Page', () => {
   beforeEach(() => {

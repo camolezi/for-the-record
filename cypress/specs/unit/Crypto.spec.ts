@@ -6,11 +6,11 @@ import {
   Decrypt,
   GenerateKeyFromSecret,
   GenerateSaltForSecret,
-} from '../../src/modules/Crypto/Authenticate';
+} from '../../../src/modules/Crypto/Authenticate';
 import {
   ArrayBufferToStr,
   StrToArrayBuffer,
-} from '../../src/utils/Buffer/BufferUtils';
+} from '../../../src/utils/Buffer/BufferUtils';
 
 /*
   Crypto api is not current available in firefox cypress 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
-import { userdb } from '../../src/modules/Db/Databases';
-import { User } from '../../src/modules/Db/types';
+import { userdb } from '../../../src/modules/Db/Databases';
+import { User } from '../../../src/modules/Db/types';
 
 describe('Indexed db module', () => {
   before(() => {
