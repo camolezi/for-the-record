@@ -32,12 +32,16 @@ export function isFulfilledAction(
 }
 
 export function addPendingMatcher(
-  fieldInSlice: string
-): [(action: AnyAction) => action is PendingAction, (state: any) => void] {
+  fieldInSlice: string,
+  actionName: string
+): [
+  (action: AnyAction) => action is PendingAction,
+  (state: any, action: PendingAction) => void
+] {
   return [
     isPendingAction,
-    (state) => {
-      if (state && state[fieldInSlice]) {
+    (state, action) => {
+      if (action.type.includes(actionName) && state && state[fieldInSlice]) {
         state[fieldInSlice] = AsyncActionStatus.Pending;
       }
     },
@@ -45,12 +49,16 @@ export function addPendingMatcher(
 }
 
 export function addRejectedMatcher(
-  fieldInSlice: string
-): [(action: AnyAction) => action is RejectedAction, (state: any) => void] {
+  fieldInSlice: string,
+  actionName: string
+): [
+  (action: AnyAction) => action is RejectedAction,
+  (state: any, action: RejectedAction) => void
+] {
   return [
     isRejectedAction,
-    (state) => {
-      if (state && state[fieldInSlice]) {
+    (state, action) => {
+      if (action.type.includes(actionName) && state && state[fieldInSlice]) {
         state[fieldInSlice] = AsyncActionStatus.Rejected;
       }
     },
@@ -58,7 +66,8 @@ export function addRejectedMatcher(
 }
 
 export function addFulfilledMatcher(
-  fieldInSlice: string
+  fieldInSlice: string,
+  actionName: string
 ): [
   (action: AnyAction) => action is FulfilledAction,
   (state: any, action: FulfilledAction) => void
@@ -66,7 +75,7 @@ export function addFulfilledMatcher(
   return [
     isFulfilledAction,
     (state, action) => {
-      if (state && state[fieldInSlice]) {
+      if (action.type.includes(actionName) && state && state[fieldInSlice]) {
         state[fieldInSlice] = AsyncActionStatus.Completed;
         if (typeof action.payload === 'boolean')
           if (action.payload === false)
@@ -78,10 +87,11 @@ export function addFulfilledMatcher(
 
 export function addDefaultAsyncMatcher(
   builder: ActionReducerMapBuilder<unknown>,
-  fieldInSlice: string
+  fieldInSlice: string,
+  actionName: string
 ): void {
   builder
-    .addMatcher(...addPendingMatcher(fieldInSlice))
-    .addMatcher(...addFulfilledMatcher(fieldInSlice))
-    .addMatcher(...addRejectedMatcher(fieldInSlice));
+    .addMatcher(...addPendingMatcher(fieldInSlice, actionName))
+    .addMatcher(...addFulfilledMatcher(fieldInSlice, actionName))
+    .addMatcher(...addRejectedMatcher(fieldInSlice, actionName));
 }
