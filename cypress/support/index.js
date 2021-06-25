@@ -22,3 +22,9 @@ import { userdb } from '../../src/modules/Db/Databases';
 beforeEach(() => {
   return userdb.clearUser().run();
 });
+
+beforeEach(() => {
+  cy.window().then((win) => {
+    win.sessionStorage.clear();
+  });
+});
