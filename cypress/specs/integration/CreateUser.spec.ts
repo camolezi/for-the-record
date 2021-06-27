@@ -39,7 +39,7 @@ describe('Create User Module', () => {
     });
   });
 
-  describe('Create user page', () => {
+  describe('Create new user logic', () => {
     it('Should be able to create a user successfully', () => {
       const userName = 'TestUser';
 
@@ -64,6 +64,12 @@ describe('Create User Module', () => {
             expect(user.extract()).to.have.property('name', userName);
           });
       });
+    });
+
+    it('should not be able to create a new user if a user is already created', () => {
+      cy.createUser();
+
+      cy.findByText('Created', { exact: false });
     });
   });
 });

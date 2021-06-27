@@ -27,7 +27,7 @@
 
 declare namespace Cypress {
   interface Chainable {
-    createUser(userCredentials: { name: string; password: string }): void;
+    createUser(userCredentials?: { name: string; password: string }): void;
   }
 }
 
