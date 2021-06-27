@@ -25,12 +25,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-declare namespace Cypress {
-  interface Chainable {
-    createUser(userCredentials?: { name: string; password: string }): void;
-  }
-}
-
 Cypress.Commands.add(
   'createUser',
   (
@@ -46,6 +40,63 @@ Cypress.Commands.add(
   }
 );
 
-// cy.window().then(async (win: any) => {
-//   await win.store.dispatch(win.loginUser(password));
-// });
+Cypress.Commands.add('login', (password: string) => {
+  cy.window().then(async (win: any) => {
+    await win.store.dispatch(win.loginUser(password));
+  });
+});
+
+Cypress.Commands.add(
+  'createUserAndLogin',
+  (
+    userInfo = {
+      name: 'TestUser',
+      password: 'TestPassword',
+    }
+  ) => {
+    cy.createUser(userInfo);
+    cy.login(userInfo.password);
+  }
+);
+
+Cypress.Commands.add(
+  'createUserInDb',
+  (
+    userInfo = {
+      name: 'TestUser',
+      password: 'TestPassword',
+    }
+  ) => {
+    cy.window().then(async (win: any) => {
+      await win.authSession.createNewUser(userInfo.name, userInfo.password);
+    });
+  }
+);
+
+Cypress.Commands.add(
+  'createUserInSessionStorage',
+  (
+    userInfo = {
+      name: 'TestUser',
+      password: 'TestPassword',
+    }
+  ) => {
+    cy.window().then(async (win: any) => {
+      await win.authSession.createNewUser(userInfo.name, userInfo.password);
+      await win.authSession.authenticate(userInfo.password);
+    });
+  }
+);
+
+Cypress.Commands.add('loadInitialState', () => {
+  cy.window().then(async (win: any) => {
+    await win.store.dispatch(win.loadInitialUserState());
+  });
+});
+
+Cypress.Commands.add('getReduxState', (func: (state: any) => void) => {
+  cy.window().then(async (win: any) => {
+    const state = win.store.getState();
+    func(state);
+  });
+});

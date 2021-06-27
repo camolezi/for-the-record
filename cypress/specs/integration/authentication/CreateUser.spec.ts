@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import { userdb } from '../../../src/modules/Db/Databases';
+import { userdb } from '../../../../src/modules/Db/Databases';
 
 describe('Create User Module', () => {
   beforeEach(() => {
