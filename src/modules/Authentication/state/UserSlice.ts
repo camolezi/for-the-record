@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createReducer } from '@reduxjs/toolkit';
+import { loadInitialUserState } from '../../../app/LoadInitialState/LoadInitialStateActions';
 import {
   addDefaultAsyncMatcher,
   AsyncActionStatus,
@@ -14,6 +15,14 @@ export const InitialUserState: UserState = {
 };
 
 const UserSlice = createReducer(InitialUserState, (builder) => {
+  builder.addCase(
+    loadInitialUserState.fulfilled,
+    (state, action): UserState => {
+      const initialState = action.payload;
+      if (initialState) return initialState;
+      return state;
+    }
+  );
   addDefaultAsyncMatcher(builder, 'isLoggedIn', 'loginUser');
   addDefaultAsyncMatcher(builder, 'isUserCreated', 'createNewUser');
 });

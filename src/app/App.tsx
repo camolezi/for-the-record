@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Link as UILink } from '@chakra-ui/react';
 import React from 'react';
 
 import { Routes, Route, Link } from 'react-router-dom';
@@ -7,8 +7,11 @@ import CalendarView from '../views/CalendarView';
 import CreateUserView from '../views/CreateUserView';
 import LoginView from '../views/LoginView';
 import RecordView from '../views/RecordView';
+import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
 
 function App(): JSX.Element {
+  LoadInitialState();
+
   const recordView = (
     <Box height="80vh">
       <RecordView />
@@ -37,7 +40,9 @@ function App(): JSX.Element {
     <>
       <Box height="7vh">
         <ColorModeButton />
-        <Link to="calendar">calendar</Link>
+        <Link to="calendar">
+          <UILink>Calendar</UILink>
+        </Link>
       </Box>
 
       <Routes>

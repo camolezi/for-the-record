@@ -1,3 +1,4 @@
+import { AddToCypressWindow } from '../../utils/testing/CypressUtils';
 import { CryptoKeyToStr } from '../Crypto/Authenticate';
 import { userdb } from '../Db/Databases';
 import { User } from '../Db/types';
@@ -52,4 +53,6 @@ export class AuthSession {
 }
 
 const authSession = new AuthSession(window.sessionStorage, userdb);
+AddToCypressWindow('authSession', authSession);
+
 export default authSession;
