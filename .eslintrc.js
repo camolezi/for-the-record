@@ -28,6 +28,8 @@ module.exports = {
       extends: ['plugin:testing-library/react', 'plugin:cypress/recommended'],
       rules: {
         'cypress/no-unnecessary-waiting': 'warn',
+        'testing-library/prefer-screen-queries': 'off',
+        'testing-library/await-async-query': 'off',
       },
     },
   ],

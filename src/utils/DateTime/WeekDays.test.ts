@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import {
   formatToMonthYear,
+  getFirstMonthDay,
   getFirstWeekDayInMonth,
   getNextMonth,
   getNumberDaysInMonth,
@@ -60,6 +61,15 @@ describe('WeekDays utility library', () => {
       expect(getPreviousMonth(feb_3_2021).getMonth()).toBe(
         feb_3_2021.getMonth() - 1
       );
+    });
+  });
+
+  describe('#getFirstMonthDay', () => {
+    it('should return the first day of the month', () => {
+      const feb_3_2021 = new Date(2021, 1, 3);
+      const firstDay = new Date(2021, 1);
+
+      expect(getFirstMonthDay(feb_3_2021)).toStrictEqual(firstDay);
     });
   });
 });

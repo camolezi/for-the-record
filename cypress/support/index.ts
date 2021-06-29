@@ -17,10 +17,14 @@
 import './commands';
 
 import '@testing-library/cypress/add-commands';
-import { userdb } from '../../src/modules/Db/Databases';
+import { audiodb, userdb } from '../../src/modules/Db/Databases';
 
 beforeEach(() => {
   return userdb.clearUser().run();
+});
+
+beforeEach(() => {
+  return audiodb.clearAllEntries();
 });
 
 beforeEach(() => {

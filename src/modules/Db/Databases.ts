@@ -5,8 +5,8 @@ import UserDb from './UserDb';
 const localdb = new LocalDatabase();
 localdb.open().catch((e) => console.log(e));
 
-const audioEntries = new AudioEntriesDb(localdb);
-export { audioEntries };
+const audiodb = new AudioEntriesDb(localdb);
+export { audiodb };
 
 const userdb = new UserDb(localdb);
 export { userdb };
