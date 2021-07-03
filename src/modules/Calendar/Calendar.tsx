@@ -7,7 +7,7 @@ import {
 } from '../../utils/DateTime/WeekDays';
 import CalendarMonth, { RecordInDays } from './MonthCalendar/CalendarMonth';
 import MonthButton from './MonthCalendar/MonthButton';
-import MotionBox from '../Motion/MotionBox';
+import MotionBox from '../../components/Motion/MotionBox';
 
 export interface CalendarProps {
   date: Date;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@chakra-ui/react';
-import CelendarWidget from '../components/Calendar/CalendarWIdget';
+import CelendarWidget from '../modules/Calendar/CalendarWIdget';
 
 function CelendarView(): JSX.Element {
   return (

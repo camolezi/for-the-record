@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { AspectRatio, Text } from '@chakra-ui/react';
-import MotionBox from '../../Motion/MotionBox';
-import MotionCenter from '../../Motion/MotionCenter';
+import MotionBox from '../../../components/Motion/MotionBox';
+import MotionCenter from '../../../components/Motion/MotionCenter';
 import { useTypedDispatch } from '../../../app/Store';
 import { selectedDay } from '../actions/CalendarActions';
 

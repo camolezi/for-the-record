@@ -1,5 +1,5 @@
 import React from 'react';
-import { AudioEntryHeader } from '../../../modules/Db/types';
+import { AudioEntryHeader } from '../../Db/types';
 import RecordingItemDisplay from './RecordingItemDisplay';
 
 interface DayRecordingsDisplayProps {

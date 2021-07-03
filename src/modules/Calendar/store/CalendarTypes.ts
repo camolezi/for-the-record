@@ -1,4 +1,4 @@
-import { AudioEntryHeader } from '../../../modules/Db/types';
+import { AudioEntryHeader } from '../../Db/types';
 
 export interface CalendarState {
   selectedDay: number | null;

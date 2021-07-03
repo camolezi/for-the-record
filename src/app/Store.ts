@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import CalendarSlice, {
   InitialCalendarState,
-} from '../components/Calendar/store/CalendarSlice';
+} from '../modules/Calendar/store/CalendarSlice';
 import UserSlice, {
   InitialUserState,
 } from '../modules/Authentication/state/UserSlice';

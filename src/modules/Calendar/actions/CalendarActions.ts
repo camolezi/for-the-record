@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { audiodb } from '../../../modules/Db/Databases';
-import { AudioEntryHeader } from '../../../modules/Db/types';
+import { audiodb } from '../../Db/Databases';
+import { AudioEntryHeader } from '../../Db/types';
 
 export const loadMonthRecordigns = createAsyncThunk<AudioEntryHeader[], Date>(
   'db/loadMonthRecordigns',
