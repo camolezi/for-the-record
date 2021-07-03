@@ -5,7 +5,7 @@ import {
   getFirstWeekDayInMonth,
   getNumberDaysInMonth,
 } from '../../utils/DateTime/WeekDays';
-import CalendarMonth from './MonthCalendar/CalendarMonth';
+import CalendarMonth, { RecordInDays } from './MonthCalendar/CalendarMonth';
 import MonthButton from './MonthCalendar/MonthButton';
 import MotionBox from '../Motion/MotionBox';
 
@@ -13,12 +13,14 @@ export interface CalendarProps {
   date: Date;
   onNextMonth: () => void;
   onPreviousMonth: () => void;
+  recordingDays: RecordInDays;
 }
 
 const Calendar: React.FC<CalendarProps> = ({
   date,
   onNextMonth,
   onPreviousMonth,
+  recordingDays = {},
 }) => {
   const daysInMonth = getNumberDaysInMonth(date);
   const firstDayInMonth = getFirstWeekDayInMonth(date);
@@ -54,7 +56,7 @@ const Calendar: React.FC<CalendarProps> = ({
         key={`CalendarMonth_${monthTitle}`}
         numberOfDays={daysInMonth}
         startAtDay={firstDayInMonth}
-        recordsDays={{}}
+        recordsDays={recordingDays}
       />
     </>
   );

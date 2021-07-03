@@ -17,11 +17,11 @@ export const WithDecoration = Template.bind({});
 
 WithDecoration.args = {
   recordsNumber: 1,
-  text: '31',
+  dayNumber: 31,
 };
 
 export const WithoutDecoration = Template.bind({});
 
 WithoutDecoration.args = {
-  text: '1',
+  dayNumber: 1,
 };

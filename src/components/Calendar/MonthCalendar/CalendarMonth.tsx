@@ -1,5 +1,4 @@
 import React from 'react';
-import {} from 'date-fns';
 import { SimpleGrid, Text } from '@chakra-ui/react';
 import Tile from '../Tile/Tile';
 import {
@@ -8,7 +7,7 @@ import {
   WeekDay,
 } from '../../../utils/DateTime/WeekDays';
 
-type RecordInDays = {
+export type RecordInDays = {
   [dayNumber: number]: number;
 };
 
@@ -24,13 +23,11 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({
   recordsDays,
 }) => {
   const tiles = Array.from(Array(numberOfDays).keys(), (key) => key + 1).map(
-    (day) => <Tile text={String(day)} recordsNumber={recordsDays[day]} />
+    (day) => <Tile dayNumber={day} recordsNumber={recordsDays[day]} />
   );
 
   const weekDayOffset = getWeekDayIndex(startAtDay);
-  const tilesOffset = new Array(weekDayOffset)
-    .fill(0)
-    .map(() => <Tile text="" />);
+  const tilesOffset = new Array(weekDayOffset).fill(0).map(() => <Tile />);
 
   const weekDays = getWeekDays();
   const weekDaysTitles = weekDays.map((day) => (

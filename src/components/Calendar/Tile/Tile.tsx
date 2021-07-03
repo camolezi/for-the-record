@@ -3,13 +3,17 @@ import React from 'react';
 import { AspectRatio, Text } from '@chakra-ui/react';
 import MotionBox from '../../Motion/MotionBox';
 import MotionCenter from '../../Motion/MotionCenter';
+import { useTypedDispatch } from '../../../app/Store';
+import { selectedDay } from '../actions/CalendarActions';
 
 export interface TileProps {
-  text: string;
+  dayNumber?: number;
   recordsNumber?: number;
 }
 
-const Tile: React.FC<TileProps> = ({ text, recordsNumber = 0 }) => {
+const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
+  const dispatch = useTypedDispatch();
+
   const addTileRecordDecoration = (
     numberOfRecords: number,
     element: JSX.Element
@@ -47,10 +51,13 @@ const Tile: React.FC<TileProps> = ({ text, recordsNumber = 0 }) => {
         bgColor="gray.700"
         layout
         whileHover={{ scale: 1.2 }}
+        onClick={() => {
+          if (dayNumber) dispatch(selectedDay(dayNumber));
+        }}
       >
         {addTileRecordDecoration(
           recordsNumber,
-          <Text textAlign="center">{text}</Text>
+          <Text textAlign="center">{dayNumber}</Text>
         )}
       </MotionBox>
     </AspectRatio>
