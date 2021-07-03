@@ -4,6 +4,8 @@ import {
   startOfMonth,
   addMonths,
   endOfMonth,
+  startOfDay,
+  endOfDay,
 } from 'date-fns';
 
 export type WeekDay = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
@@ -43,4 +45,17 @@ export function getFirstMonthDay(date: Date): Date {
 
 export function getEndMonthDay(date: Date): Date {
   return endOfMonth(date);
+}
+
+export function getStartOfDay(date: Date): Date {
+  return startOfDay(date);
+}
+
+export function getEndOfDay(date: Date): Date {
+  return endOfDay(date);
+}
+
+export function isDateOnDay(date: Date, dayOfMonth: number): boolean {
+  const day = date.getDate();
+  return day === dayOfMonth;
 }
