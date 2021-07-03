@@ -1,9 +1,11 @@
 import {
   getEndMonthDay,
+  getEndOfDay,
   getFirstMonthDay,
+  getStartOfDay,
 } from '../../utils/DateTime/WeekDays';
 import LocalDatabase from './LocalDatabase';
-import { AudioEntry } from './types';
+import { AudioEntry, AudioEntryHeader } from './types';
 
 export default class AudioEntriesDb {
   private readonly database: LocalDatabase;
@@ -12,33 +14,55 @@ export default class AudioEntriesDb {
     this.database = database;
   }
 
-  clearAllEntries(): Promise<void> {
-    return this.database.audioEntries.clear();
+  async clearAllEntries(): Promise<void> {
+    return this.database.audioEntries
+      .clear()
+      .then(() => this.database.audioData.clear());
   }
 
-  addEntry(entry: AudioEntry): Promise<Date> {
-    return this.database.audioEntries.add(entry, entry.date);
+  addEntry(header: AudioEntry): Promise<Date> {
+    return this.database.audioEntries
+      .add({
+        date: header.date,
+        description: header.description,
+        length: header.length,
+      })
+      .then(() =>
+        this.database.audioData.add({ date: header.date, audio: header.audio })
+      );
   }
 
-  getEntryByDescription(description: string): Promise<AudioEntry[]> {
+  getEntryHeaderByDescription(
+    description: string
+  ): Promise<AudioEntryHeader[]> {
     return this.database.audioEntries
       .where('description')
       .equalsIgnoreCase(description)
       .toArray();
   }
 
-  getEntry(date: Date): Promise<AudioEntry | undefined> {
-    return this.database.audioEntries.get(date);
+  async getEntry(date: Date): Promise<AudioEntry | undefined> {
+    const header = await this.database.audioEntries.get(date);
+    const data = await this.database.audioData.get(date);
+    if (header && data) return { ...header, ...data };
+    return undefined;
   }
 
   getAllEntriesDates(): Promise<Date[]> {
     return this.database.audioEntries.toCollection().primaryKeys();
   }
 
-  getMonthEntries(monthDate: Date): Promise<Date[]> {
+  getMonthEntriesHeader(monthDate: Date): Promise<AudioEntryHeader[]> {
     return this.database.audioEntries
       .where('date')
       .between(getFirstMonthDay(monthDate), getEndMonthDay(monthDate))
-      .primaryKeys();
+      .toArray();
+  }
+
+  getDayEntriesHeader(day: Date): Promise<AudioEntryHeader[]> {
+    return this.database.audioEntries
+      .where('date')
+      .between(getStartOfDay(day), getEndOfDay(day))
+      .toArray();
   }
 }

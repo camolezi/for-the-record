@@ -27,6 +27,7 @@ module.exports = {
       files: ['**/cypress/**/*.[jt]s?(x)'],
       extends: ['plugin:testing-library/react', 'plugin:cypress/recommended'],
       rules: {
+        'testing-library/await-async-utils': 'off',
         'cypress/no-unnecessary-waiting': 'warn',
         'testing-library/prefer-screen-queries': 'off',
         'testing-library/await-async-query': 'off',

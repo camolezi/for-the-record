@@ -1,8 +1,10 @@
 import Dexie from 'dexie';
-import { AudioEntry, User } from './types';
+import { AudioData, AudioEntryHeader, User } from './types';
 
 export default class LocalDatabase extends Dexie {
-  readonly audioEntries: Dexie.Table<AudioEntry, Date>;
+  readonly audioEntries: Dexie.Table<AudioEntryHeader, Date>;
+
+  readonly audioData: Dexie.Table<AudioData, Date>;
 
   readonly user: Dexie.Table<User, string>;
 
@@ -12,9 +14,11 @@ export default class LocalDatabase extends Dexie {
     this.version(1).stores({
       audioEntries: 'date,description',
       user: 'name',
+      audioData: 'date',
     });
 
     this.user = this.table('user');
     this.audioEntries = this.table('audioEntries');
+    this.audioData = this.table('audioData');
   }
 }
