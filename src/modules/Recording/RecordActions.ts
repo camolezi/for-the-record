@@ -1,4 +1,5 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
+import { saveRecordInDb } from '../Db/actions/AudioDbActions';
 import { createdAudioUrl } from '../Playback/actions/PlaybackActions';
 
 import microphone from './Microphone/Microphone';
@@ -26,6 +27,7 @@ export const stopRecording = createAsyncThunk(
     if (audioData) {
       const audioURL = window.URL.createObjectURL(audioData);
       dispatch(createdAudioUrl(audioURL));
+      dispatch(saveRecordInDb(audioData));
     }
   }
 );
