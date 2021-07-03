@@ -1,5 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import CalendarSlice, {
+  InitialCalendarState,
+} from '../components/Calendar/store/CalendarSlice';
 import UserSlice, {
   InitialUserState,
 } from '../modules/Authentication/state/UserSlice';
@@ -15,11 +18,13 @@ const rootReducer = combineReducers({
   record: RecordSlice,
   playback: PlaybackSlice,
   user: UserSlice,
+  calendar: CalendarSlice,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 
 const AppInitialState: AppState = {
+  calendar: InitialCalendarState,
   record: InitialRecordState,
   playback: InitialPlaybackState,
   user: InitialUserState,
