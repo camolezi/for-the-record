@@ -28,6 +28,10 @@ beforeEach(() => {
 });
 
 beforeEach(() => {
+  cy.viewport(1280, 720);
+});
+
+beforeEach(() => {
   cy.window().then((win) => {
     win.sessionStorage.clear();
   });

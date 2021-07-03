@@ -33,16 +33,16 @@ Cypress.Commands.add(
       password: 'TestPassword',
     }
   ) => {
-    cy.window().then(async (win) => {
+    cy.window().then((win) => {
       const winUntyped = win as any;
-      await winUntyped.store.dispatch(winUntyped.createNewUser(userInfo));
+      return winUntyped.store.dispatch(winUntyped.createNewUser(userInfo));
     });
   }
 );
 
 Cypress.Commands.add('login', (password: string) => {
-  cy.window().then(async (win: any) => {
-    await win.store.dispatch(win.loginUser(password));
+  cy.window().then((win: any) => {
+    return win.store.dispatch(win.loginUser(password));
   });
 });
 
@@ -67,8 +67,8 @@ Cypress.Commands.add(
       password: 'TestPassword',
     }
   ) => {
-    cy.window().then(async (win: any) => {
-      await win.authSession.createNewUser(userInfo.name, userInfo.password);
+    cy.window().then((win: any) => {
+      return win.authSession.createNewUser(userInfo.name, userInfo.password);
     });
   }
 );
@@ -81,21 +81,22 @@ Cypress.Commands.add(
       password: 'TestPassword',
     }
   ) => {
-    cy.window().then(async (win: any) => {
-      await win.authSession.createNewUser(userInfo.name, userInfo.password);
-      await win.authSession.authenticate(userInfo.password);
+    cy.window().then((win: any) => {
+      return win.authSession
+        .createNewUser(userInfo.name, userInfo.password)
+        .then(() => win.authSession.authenticate(userInfo.password));
     });
   }
 );
 
 Cypress.Commands.add('loadInitialState', () => {
-  cy.window().then(async (win: any) => {
-    await win.store.dispatch(win.loadInitialUserState());
+  cy.window().then((win: any) => {
+    return win.store.dispatch(win.loadInitialUserState());
   });
 });
 
 Cypress.Commands.add('getReduxState', (func: (state: any) => void) => {
-  cy.window().then(async (win: any) => {
+  cy.window().then((win: any) => {
     const state = win.store.getState();
     func(state);
   });

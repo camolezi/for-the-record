@@ -16,7 +16,7 @@ const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
 
   const addTileRecordDecoration = (
     numberOfRecords: number,
-    element: JSX.Element
+    element: JSX.Element | null
   ) => {
     if (numberOfRecords > 0)
       return (
@@ -55,10 +55,8 @@ const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
           if (dayNumber) dispatch(selectedDay(dayNumber));
         }}
       >
-        {addTileRecordDecoration(
-          recordsNumber,
-          <Text textAlign="center">{dayNumber}</Text>
-        )}
+        {addTileRecordDecoration(recordsNumber, null)}
+        <Text textAlign="center">{dayNumber}</Text>
       </MotionBox>
     </AspectRatio>
   );

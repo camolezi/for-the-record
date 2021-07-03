@@ -2,21 +2,11 @@
 /* eslint-disable no-unused-expressions */
 
 import { audiodb } from '../../../src/modules/Db/Databases';
-import { AudioEntry } from '../../../src/modules/Db/types';
-
-function buildAudioEntry({
-  date = new Date(2021, 1, 3),
-  description = 'Test Description',
-  length = 300,
-  audio = ['a', 'b', 'c', 'd'],
-}): AudioEntry {
-  return {
-    date,
-    description,
-    length,
-    audio: new Blob(audio),
-  };
-}
+import { buildAudioEntry } from '../../support/fixtureFactories/buildAudioEntry';
+import {
+  ShouldIncludeObjWithProps,
+  ShouldNotIncludeObjWithProps,
+} from '../../support/utils/ArrayShouldInclude';
 
 describe('Audio database module', () => {
   before(() => {
@@ -111,26 +101,6 @@ describe('Audio database module', () => {
     ShouldIncludeObjWithProps(audios, mockAudio_Feb_3, 'date');
     ShouldNotIncludeObjWithProps(audios, mockAudio_Feb_6, 'date');
   });
-
-  function ShouldIncludeObjWithProps<
-    T extends Record<string, unknown>,
-    O extends Record<string, unknown>
-  >(objArray: T[], shouldInclude: O, ...props: string[]) {
-    props.forEach((property) => {
-      const arrayOfPropery = objArray.map((obj) => obj[property]);
-      expect(arrayOfPropery).to.deep.include(shouldInclude[property]);
-    });
-  }
-
-  function ShouldNotIncludeObjWithProps<
-    T extends Record<string, unknown>,
-    O extends Record<string, unknown>
-  >(objArray: T[], shouldInclude: O, ...props: string[]) {
-    props.forEach((property) => {
-      const arrayOfPropery = objArray.map((obj) => obj[property]);
-      expect(arrayOfPropery).to.not.deep.include(shouldInclude[property]);
-    });
-  }
 });
 
 export {};

@@ -4,6 +4,7 @@ import {
   getNumberDaysInMonth,
   getPreviousMonth,
 } from '../../../src/utils/DateTime/WeekDays';
+import { addAudioRecording } from '../../support/fixtureFactories/buildAudioEntry';
 
 describe('Calendar Page', () => {
   beforeEach(() => {
@@ -61,4 +62,23 @@ describe('Calendar Page', () => {
   });
 });
 
-export default {};
+describe('Calendar should display audio recordings', () => {
+  it('should diplay correct audio recordings', () => {
+    const currentDate = new Date();
+    const description = 'This is a good description';
+
+    cy.visit('/').then(() => {
+      return addAudioRecording({
+        date: currentDate,
+        description,
+      });
+    });
+
+    cy.visit('/calendar');
+    cy.findByText(String(currentDate.getDate()), { exact: true }).click({
+      force: true,
+    });
+
+    cy.findByText(description, { exact: false }).should('be.visible');
+  });
+});
