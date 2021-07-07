@@ -14,7 +14,7 @@ export const InitialPlaybackState: PlaybackState = {
 
 const PlaybackSlice = createReducer(InitialPlaybackState, (builder) =>
   builder
-    .addCase(createdAudioUrl, (state, action) => {
+    .addCase(createdAudioUrl.fulfilled, (state, action) => {
       state.audioUrl = action.payload;
     })
     .addCase(startPlayingRecord.fulfilled, (state) => {

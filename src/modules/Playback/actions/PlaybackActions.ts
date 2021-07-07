@@ -1,8 +1,14 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import audio from '../AudioController/AudioController';
 import { PlaybackState } from '../state/PlaybackTypes';
 
-export const createdAudioUrl = createAction<string>('playback/createdAudioUrl');
+export const createdAudioUrl = createAsyncThunk(
+  'playback/createdAudioUrl',
+  (audioData: Blob) => {
+    const audioURL = window.URL.createObjectURL(audioData);
+    return audioURL;
+  }
+);
 
 export const startPlayingRecord = createAsyncThunk(
   'playback/startPlayingRecord',

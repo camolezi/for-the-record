@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Container, Flex, Spacer } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import RecordPanel from '../modules/Recording/RecordPanel';
-import PlaybackPanel from '../modules/Playback/PlaybackPanel';
 import { useTypedDispatch, useTypedSelector } from '../app/Store';
 import { askForMicrophonePermission } from '../modules/Recording/RecordActions';
 import { selectIsUserLoggedIn } from '../modules/Authentication/state/UserSelectors';
@@ -23,7 +22,6 @@ function RecordView(): JSX.Element {
         <Flex height="100%" direction="column">
           <RecordPanel />
           <Spacer />
-          <PlaybackPanel />
         </Flex>
       ) : (
         <h1>

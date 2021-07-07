@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Routes, Route, Link } from 'react-router-dom';
 import ColorModeButton from '../components/ColorModeButton';
+import PlaybackPanel from '../modules/Playback/PlaybackPanel';
 import CalendarView from '../views/CalendarView';
 import CreateUserView from '../views/CreateUserView';
 import LoginView from '../views/LoginView';
@@ -12,15 +13,19 @@ import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
 function App(): JSX.Element {
   LoadInitialState();
 
+  const playBack = <PlaybackPanel />;
+
   const recordView = (
     <Box height="80vh">
       <RecordView />
+      {playBack}
     </Box>
   );
 
   const calendarView = (
     <Box height="80vh">
       <CalendarView />
+      {playBack}
     </Box>
   );
 

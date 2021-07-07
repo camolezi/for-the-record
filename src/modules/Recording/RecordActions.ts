@@ -25,8 +25,7 @@ export const stopRecording = createAsyncThunk(
     const audioData = await microphone.stopRecording();
 
     if (audioData) {
-      const audioURL = window.URL.createObjectURL(audioData);
-      dispatch(createdAudioUrl(audioURL));
+      dispatch(createdAudioUrl(audioData));
       dispatch(saveRecordInDb(audioData));
     }
   }
