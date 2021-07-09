@@ -18,6 +18,8 @@ function AudioPlayer(): JSX.Element {
 
   return (
     <Grid
+      bg="gray.500"
+      p={[3, 3, 4, 5]}
       templateColumns="1fr repeat(3, auto) 1fr"
       justifyItems="center"
       alignItems="center"

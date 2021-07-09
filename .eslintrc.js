@@ -13,7 +13,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'import/prefer-default-export': ['off'],
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '_' }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '_' }],
     '@typescript-eslint/no-empty-function': ['off'],
     'react/require-default-props': ['off'],
     'no-debugger': 'warn',

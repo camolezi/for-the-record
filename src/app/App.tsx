@@ -1,4 +1,4 @@
-import { Box, Link as UILink } from '@chakra-ui/react';
+import { Box, Flex, Link as UILink, Spacer } from '@chakra-ui/react';
 import React from 'react';
 
 import { Routes, Route, Link } from 'react-router-dom';
@@ -13,37 +13,35 @@ import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
 function App(): JSX.Element {
   LoadInitialState();
 
-  const playBack = <PlaybackPanel />;
-
-  const recordView = (
-    <Box height="80vh">
-      <RecordView />
-      {playBack}
-    </Box>
+  const withPlaybackLayout = (page: React.ReactNode) => (
+    <Flex height="93vh" direction="column">
+      <Box overflow="scroll">{page}</Box>
+      <Spacer />
+      <Box>
+        <PlaybackPanel />
+      </Box>
+    </Flex>
   );
 
-  const calendarView = (
-    <Box height="80vh">
-      <CalendarView />
-      {playBack}
-    </Box>
-  );
+  const recordView = withPlaybackLayout(<RecordView />);
+
+  const calendarView = withPlaybackLayout(<CalendarView />);
 
   const loginView = (
-    <Box height="80vh">
+    <Box height="93vh">
       <LoginView />
     </Box>
   );
 
   const createUserView = (
-    <Box height="80vh">
+    <Box height="93vh">
       <CreateUserView />
     </Box>
   );
 
   return (
     <>
-      <Box height="7vh">
+      <Box bg="red.400" height="7vh">
         <ColorModeButton />
         <Link to="calendar">
           <UILink>Calendar</UILink>

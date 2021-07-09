@@ -1,5 +1,5 @@
 import React from 'react';
-import { Center, Heading, HStack, Text } from '@chakra-ui/react';
+import { Box, Center, Heading, HStack, Text } from '@chakra-ui/react';
 import {
   formatToMonthYear,
   getFirstWeekDayInMonth,
@@ -27,7 +27,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const monthTitle = formatToMonthYear(date);
 
   return (
-    <>
+    <Box boxSize="100%">
       <HStack justify="center" spacing={8} marginBottom={4}>
         <MonthButton
           aria-label="PreviousMonth"
@@ -58,7 +58,7 @@ const Calendar: React.FC<CalendarProps> = ({
         startAtDay={firstDayInMonth}
         recordsDays={recordingDays}
       />
-    </>
+    </Box>
   );
 };
 
