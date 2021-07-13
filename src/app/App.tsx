@@ -1,8 +1,9 @@
-import { Box, Flex, Link as UILink, Spacer } from '@chakra-ui/react';
+import { Box, Flex, Spacer } from '@chakra-ui/react';
 import React from 'react';
 
-import { Routes, Route, Link } from 'react-router-dom';
-import ColorModeButton from '../components/ColorModeButton';
+import { Routes, Route } from 'react-router-dom';
+import AppHeader from '../components/Header/AppHeader';
+import { OnlyLoggedIn } from '../modules/Authentication/OnlyLoggedIn';
 import PlaybackPanel from '../modules/Playback/PlaybackPanel';
 import CalendarView from '../views/CalendarView';
 import CreateUserView from '../views/CreateUserView';
@@ -13,9 +14,9 @@ import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
 function App(): JSX.Element {
   LoadInitialState();
 
-  const withPlaybackLayout = (page: React.ReactNode) => (
+  const WithPlaybackLayout = ({ children }: { children: React.ReactNode }) => (
     <Flex height="93vh" direction="column">
-      <Box overflow="scroll">{page}</Box>
+      <Box overflow="scroll">{children}</Box>
       <Spacer />
       <Box>
         <PlaybackPanel />
@@ -23,9 +24,19 @@ function App(): JSX.Element {
     </Flex>
   );
 
-  const recordView = withPlaybackLayout(<RecordView />);
+  const recordView = (
+    <OnlyLoggedIn>
+      <WithPlaybackLayout>
+        <RecordView />
+      </WithPlaybackLayout>
+    </OnlyLoggedIn>
+  );
 
-  const calendarView = withPlaybackLayout(<CalendarView />);
+  const calendarView = (
+    <WithPlaybackLayout>
+      <CalendarView />
+    </WithPlaybackLayout>
+  );
 
   const loginView = (
     <Box height="93vh">
@@ -41,11 +52,8 @@ function App(): JSX.Element {
 
   return (
     <>
-      <Box bg="red.400" height="7vh">
-        <ColorModeButton />
-        <Link to="calendar">
-          <UILink>Calendar</UILink>
-        </Link>
+      <Box as="nav" height="7vh">
+        <AppHeader />
       </Box>
 
       <Routes>

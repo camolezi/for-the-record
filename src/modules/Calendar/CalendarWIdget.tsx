@@ -14,6 +14,7 @@ function CelendarWidget(): JSX.Element {
   const dispatch = useTypedDispatch();
   const [currentDate, setCurrentDate] = useState(new Date());
   const monthRecordingObject = useTypedSelector(selectMonthRecordingObject);
+
   const dayRecordingHeaders = useTypedSelector(selectDayRecordingHeaders);
 
   useEffect(() => {
@@ -39,9 +40,11 @@ function CelendarWidget(): JSX.Element {
         />
       </Box>
 
-      <Box width={['100%', '100%', '100%', '42%']}>
-        <DayRecordingsDisplay dayRecordingHeaders={dayRecordingHeaders} />
-      </Box>
+      {dayRecordingHeaders.length !== 0 && (
+        <Box width={['100%', '100%', '100%', '42%']}>
+          <DayRecordingsDisplay dayRecordingHeaders={dayRecordingHeaders} />
+        </Box>
+      )}
     </Stack>
   );
 }
