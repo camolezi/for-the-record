@@ -7,7 +7,7 @@ function ColorModeButton(): JSX.Element {
   return (
     <IconButton
       onClick={toggleColorMode}
-      colorScheme="teal"
+      colorScheme="gray"
       aria-label="ColorMode"
       icon={<Icon as={MdBrightness4} />}
     />
