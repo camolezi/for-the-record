@@ -6,6 +6,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  VStack,
 } from '@chakra-ui/react';
 
 import useForm, { FormState, Validation } from '../../modules/Forms/useForm';
@@ -61,8 +62,13 @@ function BasicForm({
         onSubmit(formState);
       }}
     >
-      {inputs}
-      <Button type="submit">{submitText}</Button>
+      <VStack spacing={7} align="stretch">
+        {inputs}
+      </VStack>
+
+      <Button width="100%" my={7} type="submit" colorScheme="gray">
+        {submitText}
+      </Button>
     </form>
   );
 }
