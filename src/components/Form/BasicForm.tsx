@@ -25,6 +25,11 @@ interface BasicFormProps {
   onSubmit?: (state: FormState) => void;
 }
 
+function isNotNullAndEmpty(input: string | null): boolean {
+  if (input !== null && input !== '') return true;
+  return false;
+}
+
 function BasicForm({
   definition,
   submitText = 'Submit',
@@ -43,7 +48,7 @@ function BasicForm({
     <FormControl
       key={inputElement.id}
       id={inputElement.id}
-      isInvalid={formState[inputElement.id].error !== null}
+      isInvalid={isNotNullAndEmpty(formState[inputElement.id].error)}
     >
       <FormLabel>{inputElement.label}</FormLabel>
       <Input type={inputElement.type ?? 'text'} />
@@ -54,11 +59,18 @@ function BasicForm({
     </FormControl>
   ));
 
+  const submitButtonDisabled = Object.values(formState).reduce(
+    (current, field) => {
+      if (field.error === null || field.error !== '') return true;
+      return current;
+    },
+    false
+  );
+
   return (
     <form
       onChange={onChange}
-      onSubmit={(e) => {
-        e.preventDefault();
+      onSubmit={() => {
         onSubmit(formState);
       }}
     >
@@ -66,7 +78,13 @@ function BasicForm({
         {inputs}
       </VStack>
 
-      <Button width="100%" my={7} type="submit" colorScheme="gray">
+      <Button
+        width="100%"
+        my={7}
+        type="submit"
+        colorScheme="gray"
+        disabled={submitButtonDisabled}
+      >
         {submitText}
       </Button>
     </form>

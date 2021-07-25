@@ -16,7 +16,7 @@ function UserLoginForms(): JSX.Element {
           helperText:
             'Your data is not stored in servers. If you lose your password your data is lost forever!',
           validation: (value) => {
-            if (value.length >= 5) return null;
+            if (value.length >= 5) return '';
             return 'Your password is too short';
           },
         },

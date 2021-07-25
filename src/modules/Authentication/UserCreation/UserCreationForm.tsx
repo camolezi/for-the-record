@@ -21,7 +21,7 @@ function UserCreationForm(): JSX.Element {
           label: 'Your Name',
           helperText: 'What should we call you?',
           validation: (value) => {
-            if (value.length >= 5) return null;
+            if (value.length >= 5) return '';
             return 'Your name is too short';
           },
         },
@@ -32,7 +32,7 @@ function UserCreationForm(): JSX.Element {
           helperText:
             'Your data is not stored in servers. If you lose your password your data is lost forever!',
           validation: (value) => {
-            if (value.length >= 5) return null;
+            if (value.length >= 5) return '';
             return 'Your password is too short';
           },
         },
@@ -41,7 +41,7 @@ function UserCreationForm(): JSX.Element {
           label: 'Confirm Password',
           type: 'password',
           validation: (value, otherValues) => {
-            if (value === otherValues.password.value) return null;
+            if (value === otherValues.password.value) return '';
             return 'Passwords are different';
           },
         },
