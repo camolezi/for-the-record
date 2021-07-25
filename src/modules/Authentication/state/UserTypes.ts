@@ -4,4 +4,5 @@ export interface UserState {
   isLoggedIn: AsyncActionStatus;
   name: string;
   isUserCreated: AsyncActionStatus;
+  isLoadingInitialState: boolean;
 }

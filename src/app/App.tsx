@@ -10,13 +10,14 @@ import CreateUserView from '../views/CreateUserView';
 import LoginView from '../views/LoginView';
 import RecordView from '../views/RecordView';
 import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
+import WithInitialPageSkeleton from './LoadInitialState/WithInitialPageSkeleton';
 
 function App(): JSX.Element {
   LoadInitialState();
 
   const WithPlaybackLayout = ({ children }: { children: React.ReactNode }) => (
     <Flex height="93vh" direction="column">
-      <Box overflow="scroll">{children}</Box>
+      <Box overflow="auto">{children}</Box>
       <Spacer />
       <Box>
         <PlaybackPanel />
@@ -25,11 +26,13 @@ function App(): JSX.Element {
   );
 
   const recordView = (
-    <OnlyLoggedIn>
-      <WithPlaybackLayout>
-        <RecordView />
-      </WithPlaybackLayout>
-    </OnlyLoggedIn>
+    <WithInitialPageSkeleton>
+      <OnlyLoggedIn>
+        <WithPlaybackLayout>
+          <RecordView />
+        </WithPlaybackLayout>
+      </OnlyLoggedIn>
+    </WithInitialPageSkeleton>
   );
 
   const calendarView = (
@@ -39,15 +42,19 @@ function App(): JSX.Element {
   );
 
   const loginView = (
-    <Box height="93vh">
-      <LoginView />
-    </Box>
+    <WithInitialPageSkeleton>
+      <Box height="93vh">
+        <LoginView />
+      </Box>
+    </WithInitialPageSkeleton>
   );
 
   const createUserView = (
-    <Box height="93vh">
-      <CreateUserView />
-    </Box>
+    <WithInitialPageSkeleton>
+      <Box height="93vh">
+        <CreateUserView />
+      </Box>
+    </WithInitialPageSkeleton>
   );
 
   return (

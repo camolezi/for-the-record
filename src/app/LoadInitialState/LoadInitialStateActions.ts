@@ -19,6 +19,7 @@ export const loadInitialUserState = createAsyncThunk<UserState | null>(
           : AsyncActionStatus.NotStarted,
         isUserCreated: AsyncActionStatus.Completed,
         name: user.name,
+        isLoadingInitialState: false,
       };
     }
 

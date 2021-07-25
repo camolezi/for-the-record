@@ -11,6 +11,7 @@ import { UserState } from './UserTypes';
 export const InitialUserState: UserState = {
   isLoggedIn: AsyncActionStatus.NotStarted,
   isUserCreated: AsyncActionStatus.NotStarted,
+  isLoadingInitialState: true,
   name: '',
 };
 
@@ -20,7 +21,8 @@ const UserSlice = createReducer(InitialUserState, (builder) => {
     (state, action): UserState => {
       const initialState = action.payload;
       if (initialState) return initialState;
-      return state;
+
+      return { ...state, isLoadingInitialState: false };
     }
   );
   addDefaultAsyncMatcher(builder, 'isLoggedIn', 'loginUser');
