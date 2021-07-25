@@ -12,6 +12,23 @@ export enum AsyncActionStatus {
   Rejected,
 }
 
+export function AsyncActionStatusToStr(
+  actionStatus: AsyncActionStatus
+): string {
+  switch (actionStatus) {
+    case AsyncActionStatus.Completed:
+      return 'Completed';
+    case AsyncActionStatus.Pending:
+      return 'Pending';
+    case AsyncActionStatus.NotStarted:
+      return 'NotStarted';
+    case AsyncActionStatus.Rejected:
+      return 'Rejected';
+    default:
+      return 'Error';
+  }
+}
+
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
 type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;

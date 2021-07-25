@@ -39,7 +39,6 @@ const Calendar: React.FC<CalendarProps> = ({
         <Center>
           <MotionBox
             key={`CalendarTitle_${monthTitle}`}
-            layout
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
           >

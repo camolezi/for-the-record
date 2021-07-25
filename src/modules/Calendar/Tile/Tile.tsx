@@ -49,14 +49,15 @@ const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
         animate={{ x: 0, scaleY: [0.7, 0.7, 1] }}
         boxSize="100%"
         bgColor="gray.700"
-        layout
         whileHover={{ scale: 1.2 }}
         onClick={() => {
           if (dayNumber) dispatch(selectedDay(dayNumber));
         }}
       >
-        {addTileRecordDecoration(recordsNumber, null)}
-        <Text textAlign="center">{dayNumber}</Text>
+        {addTileRecordDecoration(
+          recordsNumber,
+          <Text textAlign="center">{dayNumber}</Text>
+        )}
       </MotionBox>
     </AspectRatio>
   );
