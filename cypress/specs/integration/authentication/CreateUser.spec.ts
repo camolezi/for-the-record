@@ -46,6 +46,7 @@ describe('Create User Module', () => {
       cy.findByLabelText('Your Name', { exact: false })
         .should('be.enabled')
         .type(userName);
+
       cy.findAllByLabelText('Password', { exact: false })
         .first()
         .type('SomePassword');
@@ -54,22 +55,24 @@ describe('Create User Module', () => {
         .type('SomePassword')
         .type('{enter}');
 
-      cy.findByText('Pending', { exact: false }).should('be.visible');
+      cy.findByText('Loading', { exact: false }).should('be.visible');
 
-      cy.findByText('Successfully Created', { exact: false }).then(() => {
-        userdb
-          .getUser()
-          .run()
-          .then((user) => {
-            expect(user.extract()).to.have.property('name', userName);
-          });
-      });
+      cy.url()
+        .should('include', '/login')
+        .then(() =>
+          userdb
+            .getUser()
+            .run()
+            .then((user) => {
+              expect(user.extract()).to.have.property('name', userName);
+            })
+        );
     });
 
     it('should not be able to create a new user if a user is already created', () => {
       cy.createUser();
 
-      cy.findByText('Created', { exact: false });
+      cy.url().should('include', '/login');
     });
   });
 });

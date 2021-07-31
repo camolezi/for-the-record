@@ -23,11 +23,11 @@ describe('Recording Page', () => {
       );
 
       cy.findByRole('button', {
-        name: /Start Record/i,
+        name: /Start Recording/i,
       }).click();
 
       cy.findByRole('button', {
-        name: /End Record/i,
+        name: /End Recording/i,
       })
         .wait(recordingTime)
         .click();
@@ -53,16 +53,16 @@ describe('Recording Page', () => {
 
       cy.url().should('include', '/calendar');
     });
+
+    it('Should have link to options page', () => {
+      cy.findByRole('link', { name: /Options/i }).click();
+
+      cy.url().should('include', '/options');
+    });
   });
 
   describe('User not logged in', () => {
-    it('Should have a link to craete user page', () => {
-      cy.findByRole('button', {
-        name: /Start Record/i,
-      }).should('not.exist');
-
-      cy.findByRole('link', { name: /log in/i }).click();
-
+    it('Should redirect to login page', () => {
       cy.url().should('include', '/login');
     });
   });
