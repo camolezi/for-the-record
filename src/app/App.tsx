@@ -8,6 +8,7 @@ import PlaybackPanel from '../modules/Playback/PlaybackPanel';
 import CalendarView from '../views/CalendarView';
 import CreateUserView from '../views/CreateUserView';
 import LoginView from '../views/LoginView';
+import OptionsView from '../views/OptionsView';
 import RecordView from '../views/RecordView';
 import LoadInitialState from './LoadInitialState/LoadInitialStateHook';
 import WithInitialPageSkeleton from './LoadInitialState/WithInitialPageSkeleton';
@@ -30,6 +31,16 @@ function App(): JSX.Element {
       <OnlyLoggedIn>
         <WithPlaybackLayout>
           <RecordView />
+        </WithPlaybackLayout>
+      </OnlyLoggedIn>
+    </WithInitialPageSkeleton>
+  );
+
+  const otionsView = (
+    <WithInitialPageSkeleton>
+      <OnlyLoggedIn>
+        <WithPlaybackLayout>
+          <OptionsView />
         </WithPlaybackLayout>
       </OnlyLoggedIn>
     </WithInitialPageSkeleton>
@@ -68,6 +79,7 @@ function App(): JSX.Element {
         <Route path="calendar" element={calendarView} />
         <Route path="login" element={loginView} />
         <Route path="create" element={createUserView} />
+        <Route path="options" element={otionsView} />
       </Routes>
     </>
   );
