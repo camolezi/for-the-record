@@ -45,8 +45,6 @@ const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
   return (
     <AspectRatio ratio={1}>
       <MotionBox
-        initial={{ x: '-25vw', scaleY: 0.7 }}
-        animate={{ x: 0, scaleY: [0.7, 0.7, 1] }}
         boxSize="100%"
         bgColor="gray.700"
         whileHover={{ scale: 1.2 }}

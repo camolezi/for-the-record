@@ -6,6 +6,7 @@ import {
   getWeekDays,
   WeekDay,
 } from '../../../utils/DateTime/WeekDays';
+import MotionBox from '../../../components/Motion/MotionBox';
 
 export type RecordInDays = {
   [dayNumber: number]: number;
@@ -38,16 +39,25 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({
 
   return (
     <>
-      <SimpleGrid
-        width="100%"
-        columns={7}
-        spacingX={[2, 3, 5, 5]}
-        spacingY={[2, 2, 3, 3]}
+      <MotionBox
+        initial={{ x: '-25vw' }}
+        animate={{
+          x: 0,
+          transition: { type: 'spring', bounce: 0.5 },
+        }}
       >
-        {weekDaysTitles}
-        {tilesOffset}
-        {tiles}
-      </SimpleGrid>
+        <SimpleGrid
+          width="100%"
+          columns={7}
+          spacingX={[2, 3, 5, 5]}
+          spacingY={[2, 2, 3, 3]}
+        >
+          {weekDaysTitles}
+          {tilesOffset}
+
+          {tiles}
+        </SimpleGrid>
+      </MotionBox>
     </>
   );
 };
