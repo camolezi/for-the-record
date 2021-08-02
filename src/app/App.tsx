@@ -16,8 +16,14 @@ import WithInitialPageSkeleton from './LoadInitialState/WithInitialPageSkeleton'
 function App(): JSX.Element {
   LoadInitialState();
 
+  const navBarHeight = ['10vh', '10vh', '7vh'];
+
+  const contentHeight = navBarHeight
+    .map((value) => 100 - Number(value.replace('vh', '')))
+    .map((value) => `${String(value)}vh`);
+
   const WithPlaybackLayout = ({ children }: { children: React.ReactNode }) => (
-    <Flex height="93vh" direction="column">
+    <Flex height={contentHeight} direction="column">
       <Box overflow="auto">{children}</Box>
       <Spacer />
       <Box>
@@ -54,7 +60,7 @@ function App(): JSX.Element {
 
   const loginView = (
     <WithInitialPageSkeleton>
-      <Box height="93vh">
+      <Box height={contentHeight}>
         <LoginView />
       </Box>
     </WithInitialPageSkeleton>
@@ -62,7 +68,7 @@ function App(): JSX.Element {
 
   const createUserView = (
     <WithInitialPageSkeleton>
-      <Box height="93vh">
+      <Box height={contentHeight}>
         <CreateUserView />
       </Box>
     </WithInitialPageSkeleton>
@@ -70,7 +76,7 @@ function App(): JSX.Element {
 
   return (
     <>
-      <Box as="nav" height="7vh">
+      <Box as="nav" height={navBarHeight}>
         <AppHeader />
       </Box>
 
