@@ -1,12 +1,22 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Flex, Heading } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { AnimateSharedLayout } from 'framer-motion';
+import { BsCalendar, BsMic, BsGear } from 'react-icons/bs';
+import { IconType } from 'react-icons';
 import MotionCenter from '../Motion/MotionCenter';
 
 function AppHeader(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
+  const useDesktopHeading = useBreakpointValue([false, false, true]);
+
   const notSelectedBackgroundColor = 'whiteAlpha.100';
   const selectedBackgroudColor = 'blue.700';
 
@@ -31,7 +41,7 @@ function AppHeader(): JSX.Element {
     return <></>;
   };
 
-  const MenuItem = (path: string, text: string) => (
+  const MenuItem = (path: string, text: string, icon: IconType) => (
     <MotionCenter
       as="button"
       onTapStart={() => {
@@ -42,9 +52,14 @@ function AppHeader(): JSX.Element {
       flex="1"
       role="link"
     >
-      <Heading position="absolute" as="h4" size="md">
-        {text}
-      </Heading>
+      <HStack spacing={3} position="absolute">
+        {useDesktopHeading && (
+          <Heading as="h4" size="md">
+            {text}
+          </Heading>
+        )}
+        <Icon boxSize={6} as={icon} aria-label={text} />
+      </HStack>
 
       {wrapDecorationIfSelected(path === location.pathname)}
     </MotionCenter>
@@ -58,9 +73,9 @@ function AppHeader(): JSX.Element {
         justify="space-around"
         overflow="hidden"
       >
-        {MenuItem(calendarPath, 'Calendar')}
-        {MenuItem(recordingPath, 'Recording')}
-        {MenuItem(optionsPath, 'Options')}
+        {MenuItem(calendarPath, 'Calendar', BsCalendar)}
+        {MenuItem(recordingPath, 'Recording', BsMic)}
+        {MenuItem(optionsPath, 'Options', BsGear)}
       </Flex>
     </AnimateSharedLayout>
   );
