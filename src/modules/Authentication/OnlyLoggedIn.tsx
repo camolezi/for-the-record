@@ -6,18 +6,18 @@ import { selectIsUserLoggedIn } from './state/UserSelectors';
 
 export function OnlyLoggedIn({
   children,
+  redirect = true,
 }: {
+  redirect?: boolean;
   children: React.ReactNode;
 }): JSX.Element {
   const isUsedloggedIn = useTypedSelector(selectIsUserLoggedIn);
 
   return (
     <>
-      {isUsedloggedIn === AsyncActionStatus.Completed ? (
-        children
-      ) : (
-        <Navigate to="/login" replace />
-      )}
+      {isUsedloggedIn === AsyncActionStatus.Completed
+        ? children
+        : redirect && <Navigate to="/login" replace />}
     </>
   );
 }

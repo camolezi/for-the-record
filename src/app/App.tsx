@@ -77,7 +77,9 @@ function App(): JSX.Element {
   return (
     <>
       <Box as="nav" height={navBarHeight}>
-        <AppHeader />
+        <OnlyLoggedIn redirect={false}>
+          <AppHeader />
+        </OnlyLoggedIn>
       </Box>
 
       <Routes>
