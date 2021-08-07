@@ -13,7 +13,7 @@ function RecordingCounter(): JSX.Element {
   }, [counter, setCounter]);
 
   return (
-    <Heading as="h2" size="3xl" isTruncated>
+    <Heading p={1} as="h2" size="3xl" isTruncated>
       {formatSecondsToCounter(counter)}
     </Heading>
   );
