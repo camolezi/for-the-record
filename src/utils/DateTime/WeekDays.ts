@@ -59,3 +59,12 @@ export function isDateOnDay(date: Date, dayOfMonth: number): boolean {
   const day = date.getDate();
   return day === dayOfMonth;
 }
+
+export function formatSecondsToCounter(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  const withLeadingZero = (value: number) => (value < 10 ? `0${value}` : value);
+
+  return `${withLeadingZero(minutes)}:${withLeadingZero(seconds)}`;
+}
