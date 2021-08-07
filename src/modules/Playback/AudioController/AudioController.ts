@@ -1,14 +1,38 @@
-/* eslint-disable class-methods-use-this */
-
 export class AudioController {
+  private audio: HTMLAudioElement;
+
+  constructor() {
+    const audio = document.createElement('audio');
+    audio.preload = 'auto';
+    document.body.append(audio);
+    this.audio = audio;
+  }
+
+  setAudioSource(src: string): void {
+    this.audio.src = src;
+    this.audio.load();
+  }
+
   startPlaying(): void {
-    const player = document.querySelector('audio');
-    if (player) player.play();
+    this.audio.play();
   }
 
   pausePlaying(): void {
-    const player = document.querySelector('audio');
-    if (player) player.pause();
+    this.audio.pause();
+  }
+
+  getAudioDuration(): number {
+    const { duration } = this.audio;
+    console.log('duration', duration);
+
+    if (Number.isNaN(duration)) return 0;
+    return duration ?? 0;
+  }
+
+  onAudioDurantionChange(func: (newAudioDuration: number) => void): void {
+    this.audio.addEventListener('durationchange', () => {
+      func(this.getAudioDuration());
+    });
   }
 }
 
