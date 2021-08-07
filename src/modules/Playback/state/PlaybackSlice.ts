@@ -2,6 +2,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   createdAudioUrl,
+  loadAudioDuration,
   pausePlayingRecord,
   startPlayingRecord,
 } from '../actions/PlaybackActions';
@@ -10,6 +11,7 @@ import { PlaybackState } from './PlaybackTypes';
 export const InitialPlaybackState: PlaybackState = {
   audioUrl: '',
   isPlaying: false,
+  audioDuration: 0,
 };
 
 const PlaybackSlice = createReducer(InitialPlaybackState, (builder) =>
@@ -22,6 +24,9 @@ const PlaybackSlice = createReducer(InitialPlaybackState, (builder) =>
     })
     .addCase(pausePlayingRecord.fulfilled, (state) => {
       state.isPlaying = false;
+    })
+    .addCase(loadAudioDuration.fulfilled, (state, action) => {
+      state.audioDuration = action.payload;
     })
 );
 
