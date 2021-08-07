@@ -11,6 +11,7 @@ import { useTypedDispatch, useTypedSelector } from '../../../app/Store';
 
 import { selectIsPlaying } from '../state/PlaybackSelectors';
 import { pausePlayButtonClicked } from '../actions/PlaybackActions';
+import AudioSlider from './AudioSlider';
 
 function AudioPlayer(): JSX.Element {
   const dispatch = useTypedDispatch();
@@ -74,6 +75,10 @@ function AudioPlayer(): JSX.Element {
           size="sm"
           icon={<Icon boxSize={4} as={MdStop} />}
         />
+      </GridItem>
+
+      <GridItem width="100%" colSpan={5} px={5}>
+        <AudioSlider />
       </GridItem>
     </Grid>
   );
