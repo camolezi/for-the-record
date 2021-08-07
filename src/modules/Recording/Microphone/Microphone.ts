@@ -11,7 +11,7 @@ export class Microphone {
     });
 
     const media = new MediaRecorder(microphoneStream, {
-      mimeType: 'audio/webm; codecs=opus',
+      mimeType: 'audio/ogg; codecs=opus',
     });
     this.microphoneController = new MicrophoneController(media);
   }
