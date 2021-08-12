@@ -18,7 +18,7 @@ function CelendarWidget(): JSX.Element {
   const dayRecordingHeaders = useTypedSelector(selectDayRecordingHeaders);
 
   useEffect(() => {
-    // TODO - Dispatch is slowing down calendar animation
+    // TODO - Dispatch is slowing down calendar animation - maybe move to web worker, or load this before openning calendar
     dispatch(loadMonthRecordigns(currentDate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDate]);
@@ -31,7 +31,7 @@ function CelendarWidget(): JSX.Element {
       justify="center"
       align="stretch"
     >
-      <Box width={['100%', '100%', '100%', '58%']} bg="purple.300">
+      <Box width={['100%', '100%', '100%', '58%']}>
         <Calendar
           date={currentDate}
           onNextMonth={() => setCurrentDate(getNextMonth(currentDate))}

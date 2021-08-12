@@ -10,7 +10,10 @@ import {
 import { useTypedDispatch, useTypedSelector } from '../../../app/Store';
 
 import { selectIsPlaying } from '../state/PlaybackSelectors';
-import { pausePlayButtonClicked } from '../actions/PlaybackActions';
+import {
+  pausePlayButtonClicked,
+  stopPlayingRecord,
+} from '../actions/PlaybackActions';
 import AudioSlider from './AudioSlider';
 
 function AudioPlayer(): JSX.Element {
@@ -19,7 +22,6 @@ function AudioPlayer(): JSX.Element {
 
   return (
     <Grid
-      bg="gray.500"
       p={[3, 3, 4, 5]}
       templateColumns="1fr repeat(3, auto) 1fr"
       justifyItems="center"
@@ -74,6 +76,9 @@ function AudioPlayer(): JSX.Element {
           aria-label="Stop"
           size="sm"
           icon={<Icon boxSize={4} as={MdStop} />}
+          onClick={() => {
+            dispatch(stopPlayingRecord());
+          }}
         />
       </GridItem>
 

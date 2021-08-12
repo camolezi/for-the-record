@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import audio from '../AudioController/AudioController';
 
 import { PlaybackState } from '../state/PlaybackTypes';
@@ -8,6 +8,10 @@ export const loadAudioDuration = createAsyncThunk(
   () => {
     return audio.getAudioDuration();
   }
+);
+
+export const changedAudioTime = createAction<number>(
+  'playback/changedAudioTime'
 );
 
 export const createdAudioUrl = createAsyncThunk(
@@ -30,6 +34,13 @@ export const pausePlayingRecord = createAsyncThunk(
   'playback/pausePlayingRecord',
   () => {
     audio.pausePlaying();
+  }
+);
+
+export const stopPlayingRecord = createAsyncThunk(
+  'playback/stopPlayingRecord',
+  () => {
+    audio.stopPlaying();
   }
 );
 
