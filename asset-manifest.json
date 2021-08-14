@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/for-the-record/static/js/main.8f719594.chunk.js",
+    "main.js.map": "/for-the-record/static/js/main.8f719594.chunk.js.map",
+    "runtime-main.js": "/for-the-record/static/js/runtime-main.74c3dabb.js",
+    "runtime-main.js.map": "/for-the-record/static/js/runtime-main.74c3dabb.js.map",
+    "static/js/2.467fef43.chunk.js": "/for-the-record/static/js/2.467fef43.chunk.js",
+    "static/js/2.467fef43.chunk.js.map": "/for-the-record/static/js/2.467fef43.chunk.js.map",
+    "static/js/3.d90a2aa2.chunk.js": "/for-the-record/static/js/3.d90a2aa2.chunk.js",
+    "static/js/3.d90a2aa2.chunk.js.map": "/for-the-record/static/js/3.d90a2aa2.chunk.js.map",
+    "index.html": "/for-the-record/index.html",
+    "service-worker.js": "/for-the-record/service-worker.js",
+    "service-worker.js.map": "/for-the-record/service-worker.js.map",
+    "static/js/2.467fef43.chunk.js.LICENSE.txt": "/for-the-record/static/js/2.467fef43.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.74c3dabb.js",
+    "static/js/2.467fef43.chunk.js",
+    "static/js/main.8f719594.chunk.js"
+  ]
+}
