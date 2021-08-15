@@ -1,4 +1,4 @@
-name: For-the-Record Build
+name: Build
 
 on:
   push:
@@ -26,5 +26,9 @@ jobs:
       run: npm install
       
     - name: Build
-      run: npm build
+      run: npm run build
+
+    - name: gh-deploy
+      run: npm run gh-deploy
+      
         
