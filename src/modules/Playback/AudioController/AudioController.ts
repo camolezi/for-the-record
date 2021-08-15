@@ -1,3 +1,5 @@
+import { isConstructorDeclaration } from 'typescript';
+
 export class AudioController {
   private audio: HTMLAudioElement;
 
@@ -6,6 +8,20 @@ export class AudioController {
     audio.preload = 'auto';
     document.body.append(audio);
     this.audio = audio;
+
+    // Workaround for bug in chrome
+    audio.addEventListener('loadedmetadata', () => {
+      if (audio.duration === Infinity) {
+        audio.currentTime = Number.MAX_SAFE_INTEGER;
+
+        audio.ontimeupdate = () => {
+          audio.ontimeupdate = () => {};
+
+          audio.currentTime = 0.1;
+          audio.currentTime = 0;
+        };
+      }
+    });
   }
 
   setAudioSource(src: string): void {
@@ -37,7 +53,7 @@ export class AudioController {
   getAudioDuration(): number {
     const { duration } = this.audio;
 
-    if (Number.isNaN(duration)) return 0;
+    if (Number.isNaN(duration) || !Number.isFinite(duration)) return 0;
     return duration ?? 0;
   }
 

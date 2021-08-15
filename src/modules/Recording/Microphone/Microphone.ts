@@ -11,7 +11,7 @@ export class Microphone {
     });
 
     const media = new MediaRecorder(microphoneStream, {
-      mimeType: 'audio/ogg; codecs=opus',
+      audioBitsPerSecond: 256000,
     });
     this.microphoneController = new MicrophoneController(media);
   }
