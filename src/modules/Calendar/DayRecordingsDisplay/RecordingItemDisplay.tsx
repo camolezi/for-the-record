@@ -19,6 +19,13 @@ function RecordingItemDisplay({
         borderWidth="1px"
         borderRadius="lg"
         textAlign="center"
+        whileHover={{ backgroundColor: '#2a4365' }}
+        whileTap={{ scale: 0.85 }}
+        initial={{ scale: 0 }}
+        animate={{
+          scale: 1,
+          transition: { duration: 0.2, ease: 'circOut' },
+        }}
         p="2"
         onClick={() => dispatch(loadAudioPlayback(audioEntry.date))}
       >
@@ -29,7 +36,7 @@ function RecordingItemDisplay({
           lineHeight="tight"
           isTruncated
         >
-          {audioEntry.date.toString()}
+          {`${audioEntry.date.toLocaleTimeString()}`}
         </Box>
         <Box
           color="gray.500"
