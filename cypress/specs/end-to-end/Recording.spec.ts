@@ -18,9 +18,9 @@ describe('Recording Page', () => {
       const recordingTime = 2000;
       const recordingError = 110;
 
-      cy.findByTitle('Waiting microphone permission', { exact: false }).should(
-        'not.exist'
-      );
+      cy.findByTitle('microphone not authorized or available', {
+        exact: false,
+      }).should('not.exist');
 
       cy.findByRole('button', {
         name: /Start Recording/i,

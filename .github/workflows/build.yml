@@ -1,4 +1,4 @@
-name: Build
+name: for-the-record CI
 
 on:
   push:
@@ -28,6 +28,11 @@ jobs:
     - name: Build
       #CI = false, build with warnings - remove this soon
       run: CI=false npm run build
+
+    - name: Cypress tests
+      uses: cypress-io/github-action@v2
+      with:
+          start: npm start
 
     - name: Deploy github page
       uses: peaceiris/actions-gh-pages@v3
