@@ -9,8 +9,10 @@ export class AudioController {
   }
 
   setAudioSource(src: string): void {
+    this.stopPlaying();
     this.audio.src = src;
     this.audio.load();
+    this.audio.currentTime = 0;
   }
 
   startPlaying(): void {
@@ -77,7 +79,6 @@ export class AudioController {
     });
 
     this.audio.addEventListener('seeked', () => {
-      console.log('seedk');
       func(this.audio.currentTime);
     });
   }

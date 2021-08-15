@@ -47,6 +47,7 @@ const Tile: React.FC<TileProps> = ({ dayNumber, recordsNumber = 0 }) => {
       <MotionBox
         boxSize="100%"
         bgColor="gray.700"
+        whileTap={{ scale: 0.8 }}
         whileHover={{ scale: 1.2 }}
         onClick={() => {
           if (dayNumber) dispatch(selectedDay(dayNumber));

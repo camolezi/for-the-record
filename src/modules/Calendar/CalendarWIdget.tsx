@@ -26,7 +26,7 @@ function CelendarWidget(): JSX.Element {
   return (
     <Stack
       direction={['column', 'column', 'column', 'row']}
-      spacing={3}
+      spacing={5}
       m={[2, 2, 3, 5]}
       justify="center"
       align="stretch"
