@@ -33,6 +33,8 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
           start: npm start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
 
     - name: Deploy github page
       uses: peaceiris/actions-gh-pages@v3
