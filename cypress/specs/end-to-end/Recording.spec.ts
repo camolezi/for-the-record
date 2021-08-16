@@ -15,8 +15,8 @@ describe('Recording Page', () => {
     });
 
     it('Should be able to record and playback audio', () => {
-      const recordingTime = 2000;
-      const recordingError = 110;
+      const recordingTime = 2500;
+      const recordingError = 350;
 
       cy.findByTitle('microphone not authorized or available', {
         exact: false,

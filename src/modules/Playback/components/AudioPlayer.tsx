@@ -9,7 +9,10 @@ import {
 } from 'react-icons/md';
 import { useTypedDispatch, useTypedSelector } from '../../../app/Store';
 
-import { selectIsPlaying } from '../state/PlaybackSelectors';
+import {
+  selectAudioDuration,
+  selectIsPlaying,
+} from '../state/PlaybackSelectors';
 import {
   pausePlayButtonClicked,
   stopPlayingRecord,
@@ -19,6 +22,7 @@ import AudioSlider from './AudioSlider';
 function AudioPlayer(): JSX.Element {
   const dispatch = useTypedDispatch();
   const isPlaying = useTypedSelector(selectIsPlaying);
+  const audioDuration = useTypedSelector(selectAudioDuration);
 
   return (
     <Grid
@@ -46,6 +50,7 @@ function AudioPlayer(): JSX.Element {
           aria-label="PlayPause"
           size="lg"
           mx={['0.5', '1.5', '2.5', '3']}
+          disabled={audioDuration === 0}
           icon={
             isPlaying ? (
               <Icon boxSize={8} as={MdPause} />
