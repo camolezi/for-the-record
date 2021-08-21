@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^3.2.0",
+    "@capacitor/core": "^3.2.0",
     "@chakra-ui/react": "^1.6.4",
     "@chakra-ui/theme-tools": "^1.1.7",
     "@emotion/react": "^11.4.0",
@@ -90,6 +92,7 @@
     ]
   },
   "devDependencies": {
+    "@capacitor/cli": "^3.2.0",
     "@storybook/addon-actions": "^6.3.1",
     "@storybook/addon-console": "^1.2.3",
     "@storybook/addon-essentials": "^6.3.1",
