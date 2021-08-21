@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.fortherecord",
+	"appName": "fortherecord",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
