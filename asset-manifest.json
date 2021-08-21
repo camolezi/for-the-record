@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/for-the-record/static/js/main.fc9104bf.chunk.js",
-    "main.js.map": "/for-the-record/static/js/main.fc9104bf.chunk.js.map",
+    "main.js": "/for-the-record/static/js/main.c198ef06.chunk.js",
+    "main.js.map": "/for-the-record/static/js/main.c198ef06.chunk.js.map",
     "runtime-main.js": "/for-the-record/static/js/runtime-main.fb8ce917.js",
     "runtime-main.js.map": "/for-the-record/static/js/runtime-main.fb8ce917.js.map",
-    "static/js/2.e234a206.chunk.js": "/for-the-record/static/js/2.e234a206.chunk.js",
-    "static/js/2.e234a206.chunk.js.map": "/for-the-record/static/js/2.e234a206.chunk.js.map",
+    "static/js/2.95bce30d.chunk.js": "/for-the-record/static/js/2.95bce30d.chunk.js",
+    "static/js/2.95bce30d.chunk.js.map": "/for-the-record/static/js/2.95bce30d.chunk.js.map",
     "static/js/3.05a41a58.chunk.js": "/for-the-record/static/js/3.05a41a58.chunk.js",
     "static/js/3.05a41a58.chunk.js.map": "/for-the-record/static/js/3.05a41a58.chunk.js.map",
     "index.html": "/for-the-record/index.html",
     "service-worker.js": "/for-the-record/service-worker.js",
     "service-worker.js.map": "/for-the-record/service-worker.js.map",
-    "static/js/2.e234a206.chunk.js.LICENSE.txt": "/for-the-record/static/js/2.e234a206.chunk.js.LICENSE.txt"
+    "static/js/2.95bce30d.chunk.js.LICENSE.txt": "/for-the-record/static/js/2.95bce30d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fb8ce917.js",
-    "static/js/2.e234a206.chunk.js",
-    "static/js/main.fc9104bf.chunk.js"
+    "static/js/2.95bce30d.chunk.js",
+    "static/js/main.c198ef06.chunk.js"
   ]
 }
