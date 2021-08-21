@@ -75,7 +75,7 @@ function App(): JSX.Element {
   );
 
   return (
-    <>
+    <Box position="absolute" boxSize="100%">
       <Box as="nav" height={navBarHeight}>
         <OnlyLoggedIn redirect={false}>
           <AppHeader />
@@ -89,7 +89,7 @@ function App(): JSX.Element {
         <Route path="create" element={createUserView} />
         <Route path="options" element={otionsView} />
       </Routes>
-    </>
+    </Box>
   );
 }
 
