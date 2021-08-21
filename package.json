@@ -3,6 +3,8 @@
   "homepage": "https://camolezi.github.io/for-the-record/",
   "version": "0.1.0",
   "private": true,
+  "productName": "Electron Create React App Example",
+  "main": "electron/main.js",
   "dependencies": {
     "@capacitor/android": "^3.2.0",
     "@capacitor/core": "^3.2.0",
@@ -61,7 +63,8 @@
     "cypress:open": "cypress open",
     "cypress": "cypress run",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "electron": "electron ."
   },
   "eslintConfig": {
     "extends": [
@@ -106,6 +109,8 @@
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "cypress": "^7.6.0",
+    "electron": "^13.2.1",
+    "electron-builder": "^22.11.7",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
