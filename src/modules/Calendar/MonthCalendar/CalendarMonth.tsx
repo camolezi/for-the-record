@@ -38,27 +38,25 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({
   ));
 
   return (
-    <>
-      <MotionBox
-        initial={{ x: '-25vw' }}
-        animate={{
-          x: 0,
-          transition: { type: 'spring', bounce: 0.5 },
-        }}
+    <MotionBox
+      initial={{ x: '-25vw' }}
+      animate={{
+        x: 0,
+        transition: { type: 'spring', bounce: 0.5 },
+      }}
+    >
+      <SimpleGrid
+        width="100%"
+        columns={7}
+        spacingX={[2, 3, 5, 5]}
+        spacingY={[2, 2, 3, 3]}
       >
-        <SimpleGrid
-          width="100%"
-          columns={7}
-          spacingX={[2, 3, 5, 5]}
-          spacingY={[2, 2, 3, 3]}
-        >
-          {weekDaysTitles}
-          {tilesOffset}
+        {weekDaysTitles}
+        {tilesOffset}
 
-          {tiles}
-        </SimpleGrid>
-      </MotionBox>
-    </>
+        {tiles}
+      </SimpleGrid>
+    </MotionBox>
   );
 };
 

@@ -2,6 +2,7 @@ import { Box, Flex, Spacer } from '@chakra-ui/react';
 import React from 'react';
 
 import { Routes, Route } from 'react-router-dom';
+import Div100vh from 'react-div-100vh';
 import AppHeader from '../components/Header/AppHeader';
 import { OnlyLoggedIn } from '../modules/Authentication/OnlyLoggedIn';
 import PlaybackPanel from '../modules/Playback/PlaybackPanel';
@@ -16,11 +17,11 @@ import WithInitialPageSkeleton from './LoadInitialState/WithInitialPageSkeleton'
 function App(): JSX.Element {
   LoadInitialState();
 
-  const navBarHeight = ['10vh', '10vh', '7vh'];
+  const navBarHeight = ['10%', '10%', '7%'];
 
   const contentHeight = navBarHeight
-    .map((value) => 100 - Number(value.replace('vh', '')))
-    .map((value) => `${String(value)}vh`);
+    .map((value) => 100 - Number(value.replace('%', '')))
+    .map((value) => `${String(value)}%`);
 
   const WithPlaybackLayout = ({ children }: { children: React.ReactNode }) => (
     <Flex height={contentHeight} direction="column">
@@ -75,7 +76,7 @@ function App(): JSX.Element {
   );
 
   return (
-    <Box position="absolute" boxSize="100%">
+    <Div100vh>
       <Box as="nav" height={navBarHeight}>
         <OnlyLoggedIn redirect={false}>
           <AppHeader />
@@ -89,7 +90,7 @@ function App(): JSX.Element {
         <Route path="create" element={createUserView} />
         <Route path="options" element={otionsView} />
       </Routes>
-    </Box>
+    </Div100vh>
   );
 }
 
