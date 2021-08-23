@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, isPlain } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import CalendarSlice, {
   InitialCalendarState,
@@ -30,6 +30,8 @@ const AppInitialState: AppState = {
   user: InitialUserState,
 };
 
+const isSerializable = (value: any) => value instanceof Date || isPlain(value);
+
 export function CreateStore(partialState?: Partial<AppState>) {
   const appInitialState = {
     ...AppInitialState,
@@ -39,6 +41,12 @@ export function CreateStore(partialState?: Partial<AppState>) {
   return configureStore({
     reducer: rootReducer,
     preloadedState: appInitialState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          isSerializable,
+        },
+      }),
   });
 }
 
