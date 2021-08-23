@@ -1,5 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { SimpleGrid, Text } from '@chakra-ui/react';
+
 import Tile from '../Tile/Tile';
 import {
   getWeekDayIndex,
@@ -24,15 +26,23 @@ const CalendarMonth: React.FC<CalendarMonthProps> = ({
   recordsDays,
 }) => {
   const tiles = Array.from(Array(numberOfDays).keys(), (key) => key + 1).map(
-    (day) => <Tile dayNumber={day} recordsNumber={recordsDays[day]} />
+    (day) => (
+      <Tile
+        key={`calendarDay_${day}`}
+        dayNumber={day}
+        recordsNumber={recordsDays[day]}
+      />
+    )
   );
 
   const weekDayOffset = getWeekDayIndex(startAtDay);
-  const tilesOffset = new Array(weekDayOffset).fill(0).map(() => <Tile />);
+  const tilesOffset = new Array(weekDayOffset)
+    .fill(0)
+    .map((_, index) => <Tile key={`blankDay_${index}`} />);
 
   const weekDays = getWeekDays();
   const weekDaysTitles = weekDays.map((day) => (
-    <Text bgColor="blue.600" textAlign="center">
+    <Text key={day} bgColor="blue.600" textAlign="center">
       {day}
     </Text>
   ));

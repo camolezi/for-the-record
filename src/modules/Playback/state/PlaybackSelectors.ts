@@ -14,5 +14,6 @@ export const selectCurrentAudioTime = (state: AppState) =>
 export const selectCurrentAudioCompletedPercentage = createSelector(
   selectCurrentAudioTime,
   selectAudioDuration,
-  (currentTime, audioDuration) => (currentTime / audioDuration) * 100
+  (currentTime, audioDuration) =>
+    audioDuration !== 0 ? (currentTime / audioDuration) * 100 : 0
 );

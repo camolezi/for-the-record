@@ -6,7 +6,7 @@ const AppTheme = extendTheme({
   styles: {
     global: {
       '*': {
-        '-webkit-tap-highlight-color': 'transparent !important',
+        WebkitTapHighlightColor: 'transparent !important',
       },
     },
   },
