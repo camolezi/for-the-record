@@ -43,7 +43,7 @@ function App(): JSX.Element {
     </WithInitialPageSkeleton>
   );
 
-  const otionsView = (
+  const optionsView = (
     <WithInitialPageSkeleton>
       <OnlyLoggedIn>
         <WithPlaybackLayout>
@@ -54,9 +54,13 @@ function App(): JSX.Element {
   );
 
   const calendarView = (
-    <WithPlaybackLayout>
-      <CalendarView />
-    </WithPlaybackLayout>
+    <WithInitialPageSkeleton>
+      <OnlyLoggedIn>
+        <WithPlaybackLayout>
+          <CalendarView />
+        </WithPlaybackLayout>
+      </OnlyLoggedIn>
+    </WithInitialPageSkeleton>
   );
 
   const loginView = (
@@ -88,7 +92,7 @@ function App(): JSX.Element {
         <Route path="calendar" element={calendarView} />
         <Route path="login" element={loginView} />
         <Route path="create" element={createUserView} />
-        <Route path="options" element={otionsView} />
+        <Route path="options" element={optionsView} />
       </Routes>
     </Div100vh>
   );
