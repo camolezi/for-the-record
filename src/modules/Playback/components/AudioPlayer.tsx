@@ -15,6 +15,8 @@ import {
 } from '../state/PlaybackSelectors';
 import {
   pausePlayButtonClicked,
+  seekBackwards,
+  seekFowards,
   stopPlayingRecord,
 } from '../actions/PlaybackActions';
 import AudioSlider from './AudioSlider';
@@ -37,10 +39,13 @@ function AudioPlayer(): JSX.Element {
         <IconButton
           isRound
           colorScheme="green"
-          aria-label="Forward"
+          aria-label="Rewind"
           size="md"
           mx={2}
-          icon={<Icon boxSize={6} as={MdForward10} />}
+          icon={<Icon boxSize={6} as={MdReplay10} />}
+          onClick={() => {
+            dispatch(seekBackwards());
+          }}
         />
       </GridItem>
       <GridItem>
@@ -67,10 +72,13 @@ function AudioPlayer(): JSX.Element {
         <IconButton
           isRound
           colorScheme="green"
-          aria-label="Rewind"
+          aria-label="Forward"
           size="md"
           mx={2}
-          icon={<Icon boxSize={6} as={MdReplay10} />}
+          icon={<Icon boxSize={6} as={MdForward10} />}
+          onClick={() => {
+            dispatch(seekFowards());
+          }}
         />
       </GridItem>
       <GridItem>

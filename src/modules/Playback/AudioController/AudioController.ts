@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export class AudioController {
   private audio: HTMLAudioElement;
 
@@ -42,10 +44,18 @@ export class AudioController {
     this.audio.currentTime = 0;
   }
 
+  private clipToAudioDuration(position: number): number {
+    return _.clamp(position, 0, this.audio.duration);
+  }
+
   seekTo(position: number): void {
-    if (position > 0 && position < this.audio.duration) {
-      this.audio.currentTime = position;
-    }
+    const seekPosition = this.clipToAudioDuration(position);
+    this.audio.currentTime = seekPosition;
+  }
+
+  seekRelativeToCurrent(addToCurrentTime: number): void {
+    const seekPosition = this.audio.currentTime + addToCurrentTime;
+    this.seekTo(seekPosition);
   }
 
   getAudioDuration(): number {

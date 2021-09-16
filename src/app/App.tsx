@@ -76,7 +76,7 @@ function App(): JSX.Element {
   );
 
   return (
-    <Div100vh>
+    <Div100vh style={{ overflow: 'hidden' }}>
       <Box as="nav" height={navBarHeight}>
         <OnlyLoggedIn redirect={false}>
           <AppHeader />

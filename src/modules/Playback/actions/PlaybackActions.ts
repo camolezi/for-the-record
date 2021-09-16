@@ -57,3 +57,11 @@ export const pausePlayButtonClicked = createAsyncThunk(
       else dispatch(startPlayingRecord());
   }
 );
+
+export const seekBackwards = createAsyncThunk('playback/seekBackwards', () => {
+  audio.seekRelativeToCurrent(-10);
+});
+
+export const seekFowards = createAsyncThunk('playback/seekFowards', () => {
+  audio.seekRelativeToCurrent(10);
+});
