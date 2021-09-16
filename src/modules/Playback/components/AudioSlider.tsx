@@ -15,6 +15,7 @@ import {
 } from '../state/PlaybackSelectors';
 
 import audio from '../AudioController/AudioController';
+import AudioDuration from './AudioDuration';
 
 function seekAudioTo(sliderValue: number): void {
   const duration = audio.getAudioDuration();
@@ -49,8 +50,7 @@ function AudioSlider(): JSX.Element {
         </SliderTrack>
         <SliderThumb />
       </Slider>
-
-      <Text fontSize="2xl">{audioDuration.toFixed(2)}</Text>
+      <AudioDuration duration={audioDuration} />
     </HStack>
   );
 }
