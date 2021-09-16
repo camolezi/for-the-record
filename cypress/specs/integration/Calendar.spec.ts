@@ -6,9 +6,15 @@ import {
 } from '../../../src/utils/DateTime/WeekDays';
 import { addAudioRecording } from '../../support/fixtureFactories/buildAudioEntry';
 
+function visitCalendar() {
+  cy.visit('/');
+  cy.createUserAndLogin();
+  cy.visit('/calendar');
+}
+
 describe('Calendar Page', () => {
   beforeEach(() => {
-    cy.visit('/calendar');
+    visitCalendar();
   });
 
   it('should display correct month and year title', () => {
@@ -57,12 +63,18 @@ describe('Calendar Page', () => {
     );
 
     for (let day = 1; day <= numberOfDaysNextMonth; day += 1) {
-      cy.findByText(String(day), { exact: true }).should('be.visible');
+      cy.findByText(String(day), { exact: true })
+        .scrollIntoView()
+        .should('be.visible');
     }
   });
 });
 
 describe('Calendar should display audio recordings', () => {
+  beforeEach(() => {
+    visitCalendar();
+  });
+
   it('should diplay correct audio recordings', () => {
     const currentDate = new Date();
     const description = 'This is a good description';
