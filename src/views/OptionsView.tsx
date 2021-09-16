@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import ColorModeButton from '../components/Header/ColorModeButton';
 
 function OptionsView(): JSX.Element {
   return (
-    <Box centerContent boxSize="100%">
-      <ColorModeButton />
+    <Box centerContent boxSize="100%" textAlign="center">
+      <Heading py={5}>There is nothing here yet!</Heading>
+      {/* <ColorModeButton /> */}
     </Box>
   );
 }
