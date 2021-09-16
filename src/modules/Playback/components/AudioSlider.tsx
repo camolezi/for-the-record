@@ -16,6 +16,7 @@ import {
 
 import audio from '../AudioController/AudioController';
 import AudioDuration from './AudioDuration';
+import { formatSecondsToCounter } from '../../../utils/DateTime/WeekDays';
 
 function seekAudioTo(sliderValue: number): void {
   const duration = audio.getAudioDuration();
@@ -34,7 +35,7 @@ function AudioSlider(): JSX.Element {
 
   return (
     <HStack spacing={3}>
-      <Text fontSize="2xl">{currentPosition.toFixed(2)}</Text>
+      <Text fontSize="2xl">{formatSecondsToCounter(currentPosition)}</Text>
 
       <Slider
         aria-label="AudioPlaybackSlider"

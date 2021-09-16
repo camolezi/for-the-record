@@ -62,7 +62,7 @@ export function isDateOnDay(date: Date, dayOfMonth: number): boolean {
 
 export function formatSecondsToCounter(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
+  const seconds = Math.floor(totalSeconds % 60);
 
   const withLeadingZero = (value: number) => (value < 10 ? `0${value}` : value);
 
