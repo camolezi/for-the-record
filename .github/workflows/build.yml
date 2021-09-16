@@ -36,10 +36,11 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
 
-    - name: Deploy github page
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.REPO_ACTION_TOKEN }}
-        publish_dir: ./build
+    ## Using netlify for now 
+    # - name: Deploy github page
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.REPO_ACTION_TOKEN }}
+    #     publish_dir: ./build
       
         
