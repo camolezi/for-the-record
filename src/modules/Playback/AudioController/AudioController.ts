@@ -1,5 +1,3 @@
-import { isConstructorDeclaration } from 'typescript';
-
 export class AudioController {
   private audio: HTMLAudioElement;
 
@@ -95,6 +93,10 @@ export class AudioController {
     });
 
     this.audio.addEventListener('seeked', () => {
+      func(this.audio.currentTime);
+    });
+
+    this.audio.addEventListener('loadedmetadata', () => {
       func(this.audio.currentTime);
     });
   }
