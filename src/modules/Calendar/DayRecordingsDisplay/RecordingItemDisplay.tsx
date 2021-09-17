@@ -2,6 +2,7 @@ import { Box, Center } from '@chakra-ui/react';
 import React from 'react';
 import { useTypedDispatch } from '../../../app/Store';
 import MotionBox from '../../../components/Motion/MotionBox';
+import { formatSecondsToCounter } from '../../../utils/DateTime/WeekDays';
 import { AudioEntryHeader } from '../../Db/types';
 import { loadAudioPlayback } from '../actions/CalendarActions';
 
@@ -46,7 +47,8 @@ function RecordingItemDisplay({
           textTransform="uppercase"
           ml="2"
         >
-          {`${audioEntry.description} ${audioEntry.length}s`}
+          {/* ${audioEntry.description} */}
+          {`length: ${formatSecondsToCounter(audioEntry.length)}`}
         </Box>
       </MotionBox>
     </Center>

@@ -1,16 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import getBlobDuration from 'get-blob-duration';
 import { audiodb } from '../Databases';
 import { AudioEntry } from '../types';
 
-export const saveRecordInDb = createAsyncThunk<void, Blob>(
+export const saveRecordInDb = createAsyncThunk<Date, Blob>(
   'db/saveRecordInDb',
-  (audioData: Blob) => {
+  async (audioData: Blob) => {
     const entry: AudioEntry = {
       date: new Date(),
-      description: 'none yet',
-      length: 20,
+      description: '',
+      length: await getBlobDuration(audioData),
       audio: audioData,
     };
-    audiodb.addEntry(entry);
+    return audiodb.addEntry(entry);
   }
 );
