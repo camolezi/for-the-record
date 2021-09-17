@@ -29,7 +29,10 @@ jobs:
       #CI = false, build with warnings - remove this soon
       run: CI=false npm run build
 
-    - name: Cypress tests
+    - name: Jest Tests
+      run: npm test
+
+    - name: Cypress Tests
       uses: cypress-io/github-action@v2
       with:
           start: npm start
