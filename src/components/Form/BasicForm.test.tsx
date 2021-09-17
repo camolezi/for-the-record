@@ -10,7 +10,7 @@ describe('Basic form', () => {
       label: 'Your Name',
       validation: (value) => {
         if (value === 'notvalid') return 'Error message';
-        return null;
+        return '';
       },
     },
     {
@@ -78,23 +78,28 @@ describe('Basic form', () => {
     const spy = jest.fn();
     render(<BasicForm definition={basicFormFixture} onSubmit={spy} />);
 
-    userEvent.type(screen.getByLabelText('Your Name'), 'notvalid');
-    userEvent.type(screen.getByLabelText('Password'), 'somepassword');
+    userEvent.type(screen.getByLabelText('Your Name'), 'someUsername');
+    userEvent.type(screen.getByLabelText('Password'), 'somepssassword');
 
-    screen.getByRole('button', { name: 'Submit', exact: false }).click();
+    const subitButton = screen.getByRole('button', {
+      name: 'Submit',
+      exact: false,
+    });
+    expect(subitButton).toBeEnabled();
+    subitButton.click();
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({
       name: {
-        error: 'Error message',
-        value: 'notvalid',
+        error: '',
+        value: 'someUsername',
       },
       password: {
-        error: null,
-        value: 'somepassword',
+        error: '',
+        value: 'somepssassword',
       },
       passwordConfirmation: {
-        error: null,
+        error: '',
         value: '',
       },
     });

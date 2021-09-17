@@ -37,7 +37,7 @@ function BasicForm({
 }: BasicFormProps): JSX.Element {
   function getFormValidation(): Validation {
     return definition.reduce<Validation>((validationObj, input) => {
-      const validationFunc = input.validation ?? (() => null);
+      const validationFunc = input.validation ?? (() => '');
       return { ...validationObj, [input.id]: validationFunc };
     }, {});
   }
