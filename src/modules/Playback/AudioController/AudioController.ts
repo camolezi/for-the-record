@@ -87,11 +87,10 @@ export class AudioController {
     updatePeriod = 100
   ): void {
     let shouldUpdate = true;
-    const currentTime = this.getCurrentTime();
 
     const callUpdatePeriod = () => {
       if (shouldUpdate) {
-        func(currentTime);
+        func(this.getCurrentTime());
 
         setTimeout(() => {
           shouldUpdate = true;
@@ -105,15 +104,15 @@ export class AudioController {
     });
 
     this.audio.addEventListener('ended', () => {
-      func(currentTime);
+      func(this.getCurrentTime());
     });
 
     this.audio.addEventListener('seeked', () => {
-      func(currentTime);
+      func(this.getCurrentTime());
     });
 
     this.audio.addEventListener('loadedmetadata', () => {
-      func(currentTime);
+      func(this.getCurrentTime());
     });
   }
 }
