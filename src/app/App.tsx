@@ -33,34 +33,30 @@ function App(): JSX.Element {
     </Flex>
   );
 
-  const recordView = (
+  const LoggedInPage = ({ children }: { children: React.ReactNode }) => (
     <WithInitialPageSkeleton>
       <OnlyLoggedIn>
-        <WithPlaybackLayout>
-          <RecordView />
-        </WithPlaybackLayout>
+        <WithPlaybackLayout>{children}</WithPlaybackLayout>
       </OnlyLoggedIn>
     </WithInitialPageSkeleton>
+  );
+
+  const recordView = (
+    <LoggedInPage>
+      <RecordView />
+    </LoggedInPage>
   );
 
   const optionsView = (
-    <WithInitialPageSkeleton>
-      <OnlyLoggedIn>
-        <WithPlaybackLayout>
-          <OptionsView />
-        </WithPlaybackLayout>
-      </OnlyLoggedIn>
-    </WithInitialPageSkeleton>
+    <LoggedInPage>
+      <OptionsView />
+    </LoggedInPage>
   );
 
   const calendarView = (
-    <WithInitialPageSkeleton>
-      <OnlyLoggedIn>
-        <WithPlaybackLayout>
-          <CalendarView />
-        </WithPlaybackLayout>
-      </OnlyLoggedIn>
-    </WithInitialPageSkeleton>
+    <LoggedInPage>
+      <CalendarView />
+    </LoggedInPage>
   );
 
   const loginView = (
