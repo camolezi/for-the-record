@@ -33,7 +33,11 @@ function CreateUserView(): JSX.Element {
       <RenderAsyncActions
         actionStatus={isUserCreated}
         statusMap={{
-          [AsyncActionStatus.NotStarted]: <UserCreationForm />,
+          [AsyncActionStatus.NotStarted]: (
+            <SlideFade in offsetY="-10em">
+              <UserCreationForm />
+            </SlideFade>
+          ),
           [AsyncActionStatus.Completed]: <Navigate to="/" replace />,
           [AsyncActionStatus.Rejected]: failedErrorMessage,
           [AsyncActionStatus.Pending]: <LoadingSpinner />,
