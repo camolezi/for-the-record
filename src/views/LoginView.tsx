@@ -2,9 +2,11 @@ import React from 'react';
 import {
   Center,
   Container,
+  Divider,
   Heading,
   Link as ChakraLink,
   SlideFade,
+  Text,
 } from '@chakra-ui/react';
 import { Link, Navigate } from 'react-router-dom';
 import UserLoginForms from '../modules/Authentication/UserLogin/UserLoginForms';
@@ -16,6 +18,7 @@ import {
 } from '../modules/Authentication/state/UserSelectors';
 import { AsyncActionStatus } from '../utils/ReduxUtils/AsyncActionHelpers';
 import LoadingSpinner from '../components/Loading/LoadingSpinner';
+import MotionBox from '../components/Motion/MotionBox';
 
 function LoginView(): JSX.Element {
   const isUsedloggedIn = useTypedSelector(selectIsUserLoggedIn);
@@ -44,20 +47,41 @@ function LoginView(): JSX.Element {
     />
   );
 
-  return (
+  return isUserCreated === AsyncActionStatus.Completed ? (
     <Container maxW="container.sm" mt={5}>
-      {isUserCreated === AsyncActionStatus.Completed ? (
-        userLoginForm
-      ) : (
-        <Center textAlign="center">
+      {userLoginForm}
+    </Container>
+  ) : (
+    <Container maxW="container.lg" mt={5}>
+      <Center flexDirection="column" textAlign="center">
+        <SlideFade in offsetY="-10em">
           <Heading as="h2" size="lg">
-            Don&apos;t have a user?{'  '}
-            <ChakraLink as="h2">
-              <Link to="/create"> How about creating a new user?</Link>
-            </ChakraLink>
+            Oh no, it seems like you don&apos;t have a local account! 🙈{' '}
+            <MotionBox
+              whileHover={{
+                scale: 1.2,
+                transition: { duration: 1 },
+              }}
+              whileTap={{ scale: 0.8 }}
+            >
+              <ChakraLink mt={3} as="h2">
+                <Link to="/create"> How about creating a new user? ✈️</Link>
+              </ChakraLink>
+            </MotionBox>
           </Heading>
-        </Center>
-      )}
+          <Divider my={5} orientation="horizontal" />
+
+          <Text my={3}>
+            We don&apos;t use servers to store your credentials and data, all
+            your information is stored locally 💾.
+          </Text>
+
+          <Text>
+            Your password is used for authentication and to encrypt your data
+            🔒.
+          </Text>
+        </SlideFade>
+      </Center>
     </Container>
   );
 }
