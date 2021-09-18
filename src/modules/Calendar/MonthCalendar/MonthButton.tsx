@@ -12,7 +12,8 @@ export default function MonthButton({
   return (
     <MotionButton
       colorScheme="gray"
-      whileHover={{ scale: 1.1 }}
+      // TODO - Button not returning to normal size after framer motion
+      // whileHover={{ scale: 1.1 }}
       // whileTap={{ scale: 0.6, transition: { duration: 0.1 } }}
       {...props}
     >
