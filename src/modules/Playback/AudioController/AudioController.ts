@@ -45,6 +45,7 @@ export class AudioController {
   }
 
   private clipToAudioDuration(position: number): number {
+    if (Number.isNaN(position)) return 0;
     return _.clamp(position, 0, this.audio.duration);
   }
 
@@ -65,6 +66,10 @@ export class AudioController {
     return duration ?? 0;
   }
 
+  getCurrentTime(): number {
+    return this.clipToAudioDuration(this.audio.currentTime);
+  }
+
   onAudioDurantionChange(func: (newAudioDuration: number) => void): void {
     this.audio.addEventListener('durationchange', () => {
       func(this.getAudioDuration());
@@ -82,10 +87,11 @@ export class AudioController {
     updatePeriod = 100
   ): void {
     let shouldUpdate = true;
+    const currentTime = this.getCurrentTime();
 
     const callUpdatePeriod = () => {
       if (shouldUpdate) {
-        func(this.audio.currentTime);
+        func(currentTime);
 
         setTimeout(() => {
           shouldUpdate = true;
@@ -99,15 +105,15 @@ export class AudioController {
     });
 
     this.audio.addEventListener('ended', () => {
-      func(this.audio.currentTime);
+      func(currentTime);
     });
 
     this.audio.addEventListener('seeked', () => {
-      func(this.audio.currentTime);
+      func(currentTime);
     });
 
     this.audio.addEventListener('loadedmetadata', () => {
-      func(this.audio.currentTime);
+      func(currentTime);
     });
   }
 }

@@ -13,7 +13,7 @@ export default function MonthButton({
     <MotionButton
       colorScheme="gray"
       whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.6, transition: { duration: 0.1 } }}
+      // whileTap={{ scale: 0.6, transition: { duration: 0.1 } }}
       {...props}
     >
       {children}

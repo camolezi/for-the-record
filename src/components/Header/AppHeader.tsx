@@ -74,7 +74,7 @@ function AppHeader(): JSX.Element {
         overflow="hidden"
       >
         {MenuItem(calendarPath, 'Calendar', BsCalendar)}
-        {MenuItem(recordingPath, 'Recording', BsMic)}
+        {MenuItem(recordingPath, 'Recording Center', BsMic)}
         {MenuItem(optionsPath, 'Options', BsGear)}
       </Flex>
     </AnimateSharedLayout>
