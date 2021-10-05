@@ -1,5 +1,8 @@
 import { AddToCypressWindow } from '../../utils/testing/CypressUtils';
-import { CryptoKeyToStr } from '../Crypto/Authenticate';
+import {
+  DeserializeCryptoKey,
+  SerializeCryptoKey,
+} from '../Crypto/Authenticate';
 import { userdb } from '../Db/Databases';
 import { User } from '../Db/types';
 import UserDb from '../Db/UserDb';
@@ -29,16 +32,20 @@ export class AuthSession {
     return this.getAuthSession() !== null;
   }
 
-  // getUserKey(): MaybeAsync<CryptoKey> {
-  // //  return this.getAuthSession();
-  // // TODO create function to convert string to crypto key
-  // }
+  async getUserKey(): Promise<CryptoKey | null> {
+    const key = this.getAuthSession();
+    if (!key) return null;
+
+    return DeserializeCryptoKey(key)
+      .run()
+      .then((maybe) => maybe.extractNullable());
+  }
 
   authenticate(password: string): Promise<boolean> {
     return this.users
       .getUser()
       .chain((user) => AuthenticateUser(user, password))
-      .chain(CryptoKeyToStr)
+      .chain(SerializeCryptoKey)
       .ifJust((key) => this.setAuthSession(key))
       .run()
       .then((result) => result.isJust());
