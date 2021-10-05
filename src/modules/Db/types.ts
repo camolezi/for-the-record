@@ -6,7 +6,9 @@ export type AudioEntryHeader = {
 
 export type AudioData = {
   date: Date;
-  audio: Blob;
+  iv: Uint8Array;
+  encryptedAudio: ArrayBuffer;
+  mimeType: string;
 };
 
 export type AudioEntry = AudioEntryHeader & AudioData;

@@ -20,15 +20,20 @@ export default class AudioEntriesDb {
       .then(() => this.database.audioData.clear());
   }
 
-  addEntry(header: AudioEntry): Promise<Date> {
+  addEntry(entry: AudioEntry): Promise<Date> {
     return this.database.audioEntries
       .add({
-        date: header.date,
-        description: header.description,
-        length: header.length,
+        date: entry.date,
+        description: entry.description,
+        length: entry.length,
       })
       .then(() =>
-        this.database.audioData.add({ date: header.date, audio: header.audio })
+        this.database.audioData.add({
+          date: entry.date,
+          encryptedAudio: entry.encryptedAudio,
+          iv: entry.iv,
+          mimeType: entry.mimeType,
+        })
       );
   }
 
