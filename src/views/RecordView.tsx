@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Flex, Spacer } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 
 import RecordPanel from '../modules/Recording/RecordPanel';
 import { useTypedDispatch } from '../app/Store';
