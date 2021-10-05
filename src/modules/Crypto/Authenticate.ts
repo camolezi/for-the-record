@@ -1,9 +1,7 @@
 import { curry } from 'purify-ts/Function';
 import { MaybeAsync } from 'purify-ts/MaybeAsync';
-import { ArrayBufferToStr } from '../../utils/Buffer/BufferUtils';
 
 export interface EncryptResult {
-  algorithm: string;
   iv: Uint8Array;
   encryptedData: ArrayBuffer;
 }
@@ -27,12 +25,11 @@ export function Decrypt(
 
 export function Encrypt(
   data: ArrayBuffer,
-  keyParam: KeyParameters
+  keyParam: KeyParameters // TODO - Rethink Key parameters as input
 ): MaybeAsync<EncryptResult> {
   const iv = GenerateSalt(12);
 
   return encryptUsingKey(data, iv, keyParam.key).map((encryptedData) => ({
-    algorithm: 'AES-GCM',
     iv,
     encryptedData,
   }));
@@ -55,8 +52,19 @@ export function CryptoKeyToBuffer(key: CryptoKey): MaybeAsync<ArrayBuffer> {
   return MaybeAsync(() => window.crypto.subtle.exportKey('raw', key));
 }
 
-export function CryptoKeyToStr(key: CryptoKey): MaybeAsync<string> {
-  return CryptoKeyToBuffer(key).map(ArrayBufferToStr);
+export function SerializeCryptoKey(key: CryptoKey): MaybeAsync<string> {
+  return MaybeAsync(() => window.crypto.subtle.exportKey('jwk', key)).map(
+    JSON.stringify
+  );
+}
+
+export function DeserializeCryptoKey(key: string): MaybeAsync<CryptoKey> {
+  return MaybeAsync(() =>
+    window.crypto.subtle.importKey('jwk', JSON.parse(key), 'AES-GCM', true, [
+      'encrypt',
+      'decrypt',
+    ])
+  );
 }
 
 export function GenerateKeyFromSecret(
